@@ -1,0 +1,12 @@
+= simple_form_for(@review) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :type
+    = f.input :rider_id
+    = f.input :driver_id
+    = f.input :stars
+    = f.input :text
+
+  .form-actions
+    = f.button :submit

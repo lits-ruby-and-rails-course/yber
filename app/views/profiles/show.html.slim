@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong City:
+  = @profile.city
+p
+  strong Phone:
+  = @profile.phone
+p
+  strong Car:
+  = @profile.car_id
+p
+  strong User:
+  = @profile.user_id
+p
+  strong Car phone:
+  = @profile.car_phone
+
+= link_to 'Edit', edit_profile_path(@profile)
+'|
+= link_to 'Back', profiles_path

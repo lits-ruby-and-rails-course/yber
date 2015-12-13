@@ -1,0 +1,12 @@
+= simple_form_for(@profile) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :city
+    = f.input :phone
+    = f.input :car_id
+    = f.input :user_id
+    = f.input :car_phone
+
+  .form-actions
+    = f.button :submit

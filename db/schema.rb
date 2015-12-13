@@ -11,7 +11,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208175211) do
+ActiveRecord::Schema.define(version: 20151213163507) do
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "from_id"
+    t.integer  "to_id"
+    t.text     "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "rider_id"
+    t.integer  "order_id"
+    t.string   "location_to"
+    t.string   "location_from"
+    t.string   "status"
+    t.integer  "price"
+    t.text     "description"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string   "city"
+    t.integer  "phone"
+    t.integer  "car_id"
+    t.integer  "user_id"
+    t.integer  "car_phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "rider_id"
+    t.integer  "driver_id"
+    t.integer  "stars"
+    t.text     "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

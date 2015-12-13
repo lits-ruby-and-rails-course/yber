@@ -1,0 +1,27 @@
+p#notice = notice
+
+p
+  strong Rider:
+  = @order.rider_id
+p
+  strong Order:
+  = @order.order_id
+p
+  strong Location to:
+  = @order.location_to
+p
+  strong Location from:
+  = @order.location_from
+p
+  strong Status:
+  = @order.status
+p
+  strong Price:
+  = @order.price
+p
+  strong Description:
+  = @order.description
+
+= link_to 'Edit', edit_order_path(@order)
+'|
+= link_to 'Back', orders_path
