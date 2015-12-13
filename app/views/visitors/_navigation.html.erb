@@ -1,0 +1,57 @@
+<nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+        <li class="sidebar-brand">
+            <a href="#top" onclick = ("#menu-close").click(); >YBER</a>
+        </li>
+        <li>
+            <a href="#top" onclick = ("#menu-close").click(); >Home</a>
+        </li>
+        <li>
+            <a href="#about" onclick = ("#menu-close").click(); >About</a>
+        </li>
+        <li>
+            <a href="#services" onclick = ("#menu-close").click(); >Services</a>
+        </li>
+        <li>
+            <a href="#portfolio" onclick = ("#menu-close").click(); >Portfolio</a>
+        </li>
+        <li>
+            <a href="#contact" onclick = y("#menu-close").click(); >Contact</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+<!-- Custom Theme JavaScript -->
+<script>
+// Closes the sidebar menu
+$("#menu-close").click(function(e) {
+    e.preventDefault();
+    $("#sidebar-wrapper").toggleClass("active");
+});
+
+// Opens the sidebar menu
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#sidebar-wrapper").toggleClass("active");
+});
+
+// Scrolls to the selected menu item on the page
+$(function() {
+    $('a[href*=#]:not([href=#])').click(function() {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            if (target.length) {
+                $('html,body').animate({
+                    scrollTop: target.offset().top
+                }, 1000);
+                return false;
+            }
+        }
+    });
+});
+</script>
