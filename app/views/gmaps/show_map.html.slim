@@ -36,11 +36,17 @@ javascript:
   	provider: {}, 
   	internal: {id: 'map'}},
   	function(){
-    m_from = handler.addMarker(location_json, {draggable: true});
-    handler.bounds.extendWith(m_from);
-    handler.getMap().setZoom(map_options.zoom);
-    handler.getMap().setCenter(new google.maps.LatLng(map_options.c_lat, map_options.c_lng));
+      m_from = handler.addMarker(location_json, {draggable: true});
+      handler.bounds.extendWith(m_from);
+      handler.getMap().setZoom(map_options.zoom);
+      handler.getMap().setCenter(new google.maps.LatLng(map_options.c_lat, map_options.c_lng));
+      google.maps.event.addListener(m_from.serviceObject, 'dragend', function(event) {
+        directionsDisplay.setDirections({routes: []});
+        calcRoute(m_from, m_to);
+        directionsDisplay.setMap(handler.getMap());
+      });
   });
+
   google.maps.event.addListener(handler.getMap(), 'click', function(event) {
     var obj = { lat: event.latLng.G, lng: event.latLng.K };
     if (m_to) {
@@ -48,10 +54,19 @@ javascript:
       directionsDisplay.setDirections({routes: []});
     }
     m_to = handler.addMarker(obj, {draggable: true});
+
+    google.maps.event.addListener(m_to.serviceObject, 'dragend', function(event) {
+      directionsDisplay.setDirections({routes: []});
+      calcRoute(m_from, m_to);
+      directionsDisplay.setMap(handler.getMap());
+    });
+
     document.getElementById("plan_route").disabled = false; 
     handler.bounds.extendWith(m_to);
-    console.log(m_to.serviceObject.position.G);
   });
+
+  
+
   document.getElementById("plan_route").addEventListener("click", function(){
     calcRoute(m_from, m_to);
     directionsDisplay.setMap(handler.getMap());
