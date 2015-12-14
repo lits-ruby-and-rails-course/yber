@@ -1,0 +1,14 @@
+= simple_form_for(@order) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :rider_id
+    = f.input :order_id
+    = f.input :location_to
+    = f.input :location_from
+    = f.input :status
+    = f.input :price
+    = f.input :description
+
+  .form-actions
+    = f.button :submit

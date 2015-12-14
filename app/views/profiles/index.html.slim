@@ -1,0 +1,29 @@
+h1 Listing profiles
+
+table
+  thead
+    tr
+      th City
+      th Phone
+      th Car
+      th User
+      th Car phone
+      th
+      th
+      th
+
+  tbody
+    - @profiles.each do |profile|
+      tr
+        td = profile.city
+        td = profile.phone
+        td = profile.car_id
+        td = profile.user_id
+        td = profile.car_phone
+        td = link_to 'Show', profile
+        td = link_to 'Edit', edit_profile_path(profile)
+        td = link_to 'Destroy', profile, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Profile', new_profile_path
