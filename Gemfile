@@ -15,7 +15,7 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
-gem 'administrate'
+gem 'activeadmin', github: 'activeadmin'
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'devise_invitable'
