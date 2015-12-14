@@ -7,29 +7,67 @@ section#services.services.bg-primary
         .row
           .col-md-4.col-sm-6
             .service-item
-              span.fa-stack.fa-4x
-                i.fa.fa-circle.fa-stack-2x
-                i.fa.fa-car.fa-stack-1x.text-primary
+              .btn(data-toggle="modal" data-target="#SignUpRider")
+                span.fa-stack.fa-4x.fa-inverse
+                  i.fa.fa-circle.fa-stack-2x
+                  i.fa.fa-car.fa-stack-1x.text-primary
               h4
                 strong Become a rider
               p Grab a cab or share a ride with your phone in a second.
-              a.btn.btn-light href="#" Learn More
+              a.btn.btn-light href="#about" Learn More
+
+
           .col-md-4.col-sm-6
             .service-item
-              span.fa-stack.fa-4x
-                i.fa.fa-circle.fa-stack-2x
-                i.fa.fa-cab.fa-stack-1x.text-primary
+              .btn(data-toggle="modal" data-target="#SignUpDriver")
+                span.fa-stack.fa-4x.fa-inverse
+                  i.fa.fa-circle.fa-stack-2x
+                  i.fa.fa-cab.fa-stack-1x.text-primary
               h4
                 strong Become a driver
               p Look up for clients and keep in touch via your device.
-              a.btn.btn-light href="#" Learn More
+              a.btn.btn-light href="#about" Learn More
           .col-md-4.col-sm-6
             .service-item
-              span.fa-stack.fa-4x
-                i.fa.fa-circle.fa-stack-2x
-                i.fa.fa-car.fa-stack-1x.text-primary
+              .btn(data-toggle="modal" data-target="#SignIn")
+                span.fa-stack.fa-4x.fa-inverse
+                  i.fa.fa-circle.fa-stack-2x
+                  i.fa.fa-car.fa-stack-1x.text-primary
               h4
                 strong Sign In
               p Already have an account?
               br
-              a.btn.btn-light href="#" Learn More
+              a.btn.btn-light href="#contact" ???
+
+#SignUpRider.modal.fade(tabindex="-1" role="dialog" aria-labelledby="SignUpRider")
+  .modal-dialog role="document"
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true"
+            |&times;
+        h4 class="modal-title" id="SignUpRider" Sign Up as a Rider
+      .modal-body
+        =render 'devise/registrations/new'
+
+#SignUpDriver.modal.fade(tabindex="-1" role="dialog" aria-labelledby="SignUpDriver")
+  .modal-dialog role="document"
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true"
+            |&times;
+        h4 class="modal-title" id="SignUpDriver" Sign Up as a Driver
+      .modal-body
+        =render 'devise/registrations/new'
+
+#SignIn.modal.fade(tabindex="-1" role="dialog" aria-labelledby="SignIn")
+  .modal-dialog role="document"
+    .modal-content
+      .modal-header
+        button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          span aria-hidden="true"
+            |&times;
+        h4 class="modal-title" id="SignIn" Sign In
+      .modal-body
+        =render 'devise/sessions/new'
