@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 ruby '2.2.1'
+
+# Google Map Api
+gem 'geocoder', '~> 1.2', '>= 1.2.12'
+gem 'gmaps4rails', '~> 2.1', '>= 2.1.2'
+
 gem 'rails', '4.2.4'
 gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'

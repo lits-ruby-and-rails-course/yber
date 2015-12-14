@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   end
   root to: 'visitors#index'
   devise_for :users
+
+  get '/map', to: 'gmaps#show_map'
 end
