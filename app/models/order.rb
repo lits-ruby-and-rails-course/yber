@@ -15,4 +15,5 @@
 #
 
 class Order < ActiveRecord::Base
+  include DriverRiderble
 end

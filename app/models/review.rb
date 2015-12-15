@@ -13,4 +13,5 @@
 #
 
 class Review < ActiveRecord::Base
+  include DriverRiderble
 end
