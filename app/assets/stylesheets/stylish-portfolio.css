@@ -155,13 +155,17 @@ hr.small {
     position: relative;
     width: 100%;
     height: 100%;
-    background: url(http://ironsummitmedia.github.io/startbootstrap-stylish-portfolio/img/bg.jpg) no-repeat center center scroll;
+    background: url(kyiv.jpg) no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
 }
 
+.transparent {
+    background-color: rgba(0,0,0,0.4);
+
+}
 /* About */
 
 .about {

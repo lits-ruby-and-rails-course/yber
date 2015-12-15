@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
     root controller: DashboardManifest::ROOT_DASHBOARD, action: :index
   end
+
   root to: 'visitors#index'
   devise_for :users
 end
