@@ -14,5 +14,7 @@
 
 class Profile < ActiveRecord::Base
   belongs_to :user
-  belongs_to :car
+  # belongs_to :car
+
+  validates :user_id, :phone, presence: true
 end
