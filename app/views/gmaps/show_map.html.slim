@@ -37,6 +37,10 @@ javascript:
   	internal: {id: 'map'}},
   	function(){
       m_from = handler.addMarker(location_json, {draggable: true});
+
+      //my way!!!!!!! + set defsult in controller
+      m_from.serviceObject.setIcon({url:'http://googlemaps.googlermania.com/img/markerA.png'});
+
       handler.bounds.extendWith(m_from);
       handler.getMap().setZoom(map_options.zoom);
       handler.getMap().setCenter(new google.maps.LatLng(map_options.c_lat, map_options.c_lng));
@@ -46,7 +50,6 @@ javascript:
         directionsDisplay.setMap(handler.getMap());
       });
   });
-
   google.maps.event.addListener(handler.getMap(), 'click', function(event) {
     var obj = { lat: event.latLng.G, lng: event.latLng.K };
     if (m_to) {
@@ -54,7 +57,7 @@ javascript:
       directionsDisplay.setDirections({routes: []});
     }
     m_to = handler.addMarker(obj, {draggable: true});
-
+    m_to.serviceObject.setIcon({url:'http://googlemaps.googlermania.com/img/markerB.png'});
     google.maps.event.addListener(m_to.serviceObject, 'dragend', function(event) {
       directionsDisplay.setDirections({routes: []});
       calcRoute(m_from, m_to);
@@ -65,8 +68,6 @@ javascript:
     handler.bounds.extendWith(m_to);
   });
 
-  
-
   document.getElementById("plan_route").addEventListener("click", function(){
     calcRoute(m_from, m_to);
     directionsDisplay.setMap(handler.getMap());
@@ -76,4 +77,3 @@ javascript:
             strokeColor:  'green' 
         }, suppressMarkers:true });
   });
-
