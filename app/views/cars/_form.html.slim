@@ -1,0 +1,10 @@
+= simple_form_for(@car) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :year
+    = f.input :brand
+    = f.input :model
+
+  .form-actions
+    = f.button :submit
