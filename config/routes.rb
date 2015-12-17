@@ -8,5 +8,8 @@ Rails.application.routes.draw do
   root to: 'visitors#index'
   devise_for :users
 
-  get '/map', to: 'gmaps#show_map'
+  get '/dashboard', to: 'gmaps#dashboard'
+
+  get '/take_position', to: 'gmaps#take_position' 
+  get '/find_place', to: 'gmaps#find_place' 
 end
