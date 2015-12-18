@@ -1,8 +1,6 @@
 class ImportCarsDatabase < ActiveRecord::Migration
   def up
-    execute(<<-SQL)
-      INSERT INTO cars (year, brand, model)
-      VALUES
+    str = <<-SQL
       (1909, 'Ford', 'Model T'),
       (1926, 'Chrysler', 'Imperial'),
       (1948, 'Citroën', '2CV'),
@@ -7272,6 +7270,15 @@ class ImportCarsDatabase < ActiveRecord::Migration
       (2013, 'Volvo', 'S60'),
       (2013, 'Volvo', 'XC90');
     SQL
+
+    str.lines.each_slice(500) do |e|
+      e.last.gsub!(/\,+$/, '')
+      execute(<<-SQL)
+      INSERT INTO cars (year, brand, model)
+      VALUES
+        #{e.join(" ").strip}
+      SQL
+    end
   end
 
   def down
