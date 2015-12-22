@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :messages
   root to: 'visitors#index'
 
-  get '/dashboard', to: 'gmaps#dashboard'
+  get '/dashboard', to: 'gmaps#rider_dashboard' # !!!change link
+
   get '/take_position', to: 'gmaps#take_position'
+  get '/find_coords', to: 'gmaps#find_coords'
   get '/find_place', to: 'gmaps#find_place'
 end
