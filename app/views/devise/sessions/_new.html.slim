@@ -1,8 +1,7 @@
 .container
   .row
       .control-group
-          = form_for(resource, :as => resource_name, :url => user_session_path(), :html => { :role => 'form'}) do |f|
-            = devise_error_messages!
+          = form_for(resource ||= User.new, :as => resource_name, :url => user_session_path(), :html => { :role => 'form'}) do |f|
             .row
               .form-group.col-xs-6.floating-label-form-group.controls
                 -if devise_mapping.registerable?

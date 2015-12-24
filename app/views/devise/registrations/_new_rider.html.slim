@@ -1,37 +1,45 @@
 .container.row.control-group
-  = form_for(:user, :url => registration_path(resource_name), :html => { :role => 'form'}, id: 'new_rider') do |f|
-    = devise_error_messages!
+  = form_for(@guest, :as => resource_name, :url => registration_path(resource_name), html: { id: 'new_rider' }) do |f|
     .row
       .form-group.col-xs-6.floating-label-form-group.controls
         = f.label :name, 'Full Name'
         = f.text_field :name, :autofocus => true, class: 'form-control', placeholder: 'Rider Rider'
+        p.help-block
     .row
       .form-group.col-xs-6.floating-label-form-group.controls
         = f.label :email
         = f.email_field :email, class: 'form-control', placeholder: 'driver@somemail.com'
+        p.help-block
 
+    / Nested Attributes for user Porfile
     = f.fields_for :profile do |pro|
       .row
         .form-group.col-xs-6.floating-label-form-group.controls
-          = f.label :phone
-          = f.telephone_field :phone, class: 'form-control', placeholder: '+38 (012) 345 67 89'
+          = pro.label :phone
+          = pro.telephone_field :phone, class: 'form-control', placeholder: '+38 (012) 345 67 89'
+          p.help-block
       .row
         .form-group.col-xs-6.floating-label-form-group.controls
           = pro.label :city, 'Your Location'
           = pro.text_field :city, class: 'form-control', placeholder: 'State City'
-        .form-group.col-xs-6.floating-label-form-group.controls
-          = pro.number_field :role, class: 'form-control', style: "display: none", value: '1'
+          p.help-block
+      = pro.text_field :role, class: 'form-control', style: "display: none", value: 'rider'
+    / [END] Nested Attributes for user Porfile
+
     .row
       .form-group.col-xs-6.floating-label-form-group.controls
         = f.label :password
         = f.password_field :password, class: 'form-control', placeholder: 'Password'
+        p.help-block
     .row
       .form-group.col-xs-6.floating-label-form-group.controls
         = f.label :password_confirmation, 'Confirmation'
         = f.password_field :password_confirmation, class: 'form-control', placeholder: 'Password confirmation'
+        p.help-block
     .row
       .form-group.col-xs-6.floating-label-form-group.controls
         = f.check_box :terms
         = f.label :terms, 'I have read and agree to be bound by the Terms and Conditions and Privacy Policy'
+        p.help-block
     .row.form-group.col-xs-6
       = f.submit 'Sign up', :class => 'btn btn-default'

@@ -15,10 +15,10 @@
 
 class Profile < ActiveRecord::Base
 
-  enum role: [:driver, :rider]
+  enum role: [:rider, :driver]
 
   belongs_to :user
   has_one :car
 
-  validates :user_id, :phone, presence: true
+  validates :user_id, :phone, :city, presence: true
 end
