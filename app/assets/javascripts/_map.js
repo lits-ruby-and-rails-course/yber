@@ -3,38 +3,38 @@ $(document).on('ready page:load', function (){
   var directionsService = new google.maps.DirectionsService();
   var directionOn = false;
   var marker_type = false;
-  var location_json = $('#data').data('marker'); 
-  var map_options = $('#data').data('map'); 
+  var location_json = $('#data').data('marker');
+  var map_options = $('#data').data('map');
   var m_to;
   var m_from;
 
   // Hmmm.. Turbolink??
-  document.getElementById("plan_route").disabled = true; //hmm Ask about disable	
+  document.getElementById("plan_route").disabled = true; //hmm Ask about disable
   $("#field_to").val(" ");
 
   //init map
   handler = Gmaps.build('Google');
-  handler.buildMap({ 
-  	provider: {}, 
+  handler.buildMap({
+  	provider: {},
   	internal: {id: 'map'}},
   	function(){
       m_from = create_marker(location_json, "from");
-      //set some map params 
+      //set some map params
       handler.getMap().setZoom(map_options.zoom);
       handler.getMap().setCenter(new google.maps.LatLng(map_options.c_lat, map_options.c_lng));
   });
-	
-	var take_position = function(){
-	 	$.ajax({
-	    url: "/take_position",
-	    type: "GET",
-	    success: function(data){
-	    	handler.removeMarker(m_from)
-	    	m_from = create_marker(data.marker_options, "from");
-	    	handler.getMap().setCenter(new google.maps.LatLng(data.map_options.c_lat, data.map_options.c_lng));
-	    }        
-	  });
-	}
+
+  function take_position(){
+    $.ajax({
+      url: "/take_position",
+      type: "GET",
+      success: function(data){
+        handler.removeMarker(m_from)
+        m_from = create_marker(data.marker_options, "from");
+        handler.getMap().setCenter(new google.maps.LatLng(data.map_options.c_lat, data.map_options.c_lng));
+      }
+    });
+  }
 	setInterval(take_position, 600000);
 
 	function set_new_place(lat, lng, type){
@@ -54,7 +54,7 @@ $(document).on('ready page:load', function (){
       	$(input_id).val(data.place);
         var obj = { lat: lat, lng: lng, infowindow: data.place};
         reset_marker(obj, type);
-      }  
+      }
   	});
   }
 
@@ -68,7 +68,7 @@ $(document).on('ready page:load', function (){
       type: "GET",
       success: function(data){
         reset_marker(data.marker_options, type)
-      }  
+      }
     });
   }
 
@@ -81,9 +81,9 @@ $(document).on('ready page:load', function (){
 	 		marker.serviceObject.setIcon({url:'http://googlemaps.googlermania.com/img/markerB.png'});
 	 	}
 	 	handler.bounds.extendWith(marker);
-	 	google.maps.event.addListener(marker.serviceObject, 'dragend', function(event) {     
-	 		set_new_place(marker.serviceObject.position.G, marker.serviceObject.position.K, type);	
-      // if (directionOn) { 
+	 	google.maps.event.addListener(marker.serviceObject, 'dragend', function(event) {
+	 		set_new_place(marker.serviceObject.position.G, marker.serviceObject.position.K, type);
+      // if (directionOn) {
 	     //  directionsDisplay.setDirections({routes: []});
 	     //  calcRoute(m_from, m_to);
 	     //  directionsDisplay.setMap(handler.getMap());
@@ -106,7 +106,7 @@ $(document).on('ready page:load', function (){
     }
     handler.getMap().setCenter(new google.maps.LatLng(location_json.lat, location_json.lng));
   }
-  
+
   function calcRoute(m_from, m_to) {
     var origin      = new google.maps.LatLng(m_from.serviceObject.position.G, m_from.serviceObject.position.K);
     var destination = new google.maps.LatLng(m_to.serviceObject.position.G, m_to.serviceObject.position.K);
@@ -125,7 +125,7 @@ $(document).on('ready page:load', function (){
   google.maps.event.addListener(handler.getMap(), 'click', function(event) {
     set_new_place(event.latLng.G, event.latLng.K, marker_type)
     if (!marker_type){
-      document.getElementById("plan_route").disabled = false; 
+      document.getElementById("plan_route").disabled = false;
     }
   });
 
@@ -136,7 +136,7 @@ $(document).on('ready page:load', function (){
     directionsDisplay.setOptions({ polylineOptions: {
       strokeWeight: 6,
       strokeOpacity: 0.6,
-      strokeColor:  'green' 
+      strokeColor:  'green'
     }, suppressMarkers:true });
   });
 
@@ -150,14 +150,14 @@ $(document).on('ready page:load', function (){
     find_coords(st);
   });
 
-  //////// marker_type.. not my best solution 
-  function click_shift(evt) {   
-    evt = (evt) ? evt : event;   
-    if(evt.shiftKey) { 
+  //////// marker_type.. not my best solution
+  function click_shift(evt) {
+    evt = (evt) ? evt : event;
+    if(evt.shiftKey) {
       marker_type = true;
-    } else {       
+    } else {
       marker_type = false;
-    }  
-  } 
+    }
+  }
   document.onmousedown = click_shift;
 });
