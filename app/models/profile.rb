@@ -13,8 +13,11 @@
 #
 
 class Profile < ActiveRecord::Base
+
+  enum role: [:driver, :rider]
+
   belongs_to :user
-  # belongs_to :car
+  has_one :car
 
   validates :user_id, :phone, presence: true
 end
