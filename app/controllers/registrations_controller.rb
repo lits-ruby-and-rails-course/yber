@@ -2,20 +2,17 @@ class RegistrationsController < Devise::RegistrationsController
 
   prepend_before_action :require_no_authentication, only: [:new, :create, :cancel]
   prepend_before_action :authenticate_scope!, only: [:edit, :update, :destroy]
-
+before_action :configure_permitted_parameters
   # GET /resource/sign_up
   def new
-    build_resource({})
-    set_minimum_password_length
-    yield resource if block_given?
-    respond_with self.resource
-    
+    @user = User.new
+    @profile = @user.profiles.build
+    respond_with @user
   end
 
   # POST /resource
   def create
     build_resource(sign_up_params)
-
     resource.save
     yield resource if block_given?
     if resource.persisted?

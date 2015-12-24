@@ -1,0 +1,38 @@
+.container.row.control-group
+  = form_for(:user, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f|
+    = devise_error_messages!
+    .row
+      .form-group.col-xs-6.floating-label-form-group.controls
+        = f.label :name, 'Full Name'
+        = f.text_field :name, :autofocus => true, class: 'form-control', placeholder: 'Rider Rider'
+    .row
+      .form-group.col-xs-6.floating-label-form-group.controls
+        = f.label :email
+        = f.email_field :email, class: 'form-control', placeholder: 'vasya.pupkin@somemail.com'
+
+    = f.fields_for :profile do |pro|
+      .row
+        .form-group.col-xs-6.floating-label-form-group.controls
+          = f.label :phone
+          = f.telephone_field :phone, class: 'form-control', placeholder: '+38 (012) 345 67 89'
+      .row
+        .form-group.col-xs-6.floating-label-form-group.controls
+          = pro.label :city, 'Your Location'
+          = pro.text_field :city, class: 'form-control', placeholder: 'State City'
+      .row
+        .form-group.col-xs-6.floating-label-form-group.controls
+          = pro.number_field :role, class: 'form-control', value: '1'
+    .row
+      .form-group.col-xs-6.floating-label-form-group.controls
+        = f.label :password
+        = f.password_field :password, class: 'form-control', placeholder: 'Password'
+    .row
+      .form-group.col-xs-6.floating-label-form-group.controls
+        = f.label :password_confirmation, 'Confirmation'
+        = f.password_field :password_confirmation, class: 'form-control', placeholder: 'Password confirmation'
+    .row
+      .form-group.col-xs-6.floating-label-form-group.controls
+        = f.check_box :terms
+        = f.label :terms, 'I have read and agree to be bound by the Terms and Conditions and Privacy Policy'
+    .row.form-group.col-xs-6
+      = f.submit 'Sign up', :class => 'btn btn-default'
