@@ -2,10 +2,23 @@ script src="//maps.google.com/maps/api/js?v=3.18&sensor=false&client=&key=&libra
 script src="//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js" 
 script src="//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox_packed.js" type="text/javascript" 
 /! only if you need custom infoboxes
-br/
 = content_tag 'div', '', id: 'data', data: {marker: @marker_options, map: @map_options}
-div style=("width: 800px;") 
-  #map style=("width: 800px; height: 400px;")
-input#field_from name="from" type="text" value="#{@marker_options[:infowindow]}"
-input#field_to name="to" type="text" value=""
-button#plan_route disabled="disabled" type="button"  Plan Route
+#map_head
+	.input-group
+	  input#field_from.form-control placeholder=("from...") type="text" value="#{@marker_options[:infowindow]}"
+	  span.input-group-btn
+	    button#input-from-button.btn.btn-default type="button"  
+	    	span class="glyphicon glyphicon-map-marker" aria-hidden="true"
+	.input-group
+	  input#field_to.form-control placeholder=("to...") type="text"
+	  span.input-group-btn
+	    button#input-to-button.btn.btn-default type="button"
+	    	span class="glyphicon glyphicon-map-marker" aria-hidden="true"
+	button#plan_route.btn.btn-primary disabled="disabled" type="button"  Plan Route
+div style=("width: 100%;") 
+  #map style=("width: 100%; height: 300px;")
+span &nbsp;*markers are dragable
+br/
+span &nbsp;**you can set the destination just clicked mouse in the map
+br/
+span &nbsp;***you can change the current location clicked the left mouse button while keeping the shift
