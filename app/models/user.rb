@@ -29,6 +29,7 @@
 #  invited_by_id          :integer
 #  invited_by_type        :string
 #  invitations_count      :integer          default(0)
+#  terms                  :boolean
 #
 
 class User < ActiveRecord::Base
@@ -43,4 +44,12 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_one :profile, dependent: :destroy
+
+  validates :name, :email, presence: true
+  validates :terms, acceptance: { accept: true }
+  validates_associated :profile
+  accepts_nested_attributes_for :profile, allow_destroy: true
+
 end

@@ -10,11 +10,15 @@
 #  car_phone  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  role       :integer
 #
 
 class Profile < ActiveRecord::Base
+
+  enum role: [:driver, :rider]
+
   belongs_to :user
-  # belongs_to :car
+  has_one :car
 
   validates :user_id, :phone, presence: true
 end

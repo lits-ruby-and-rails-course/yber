@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :cars
   ActiveAdmin.routes(self)
   devise_for :users
+  resources :cars
   resources :messages
   resources :profiles
   resources :orders

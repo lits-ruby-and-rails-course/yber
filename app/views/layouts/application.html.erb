@@ -12,8 +12,9 @@
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
   </head>
   <body>
-      <%= render 'layouts/navigation' unless current_page?(root_path) %>
+      <%= render 'layouts/navigation' %>
       <%= render 'layouts/messages' %>
       <%= yield %>
+      <%= render 'layouts/footer' %>
   </body>
 </html>
