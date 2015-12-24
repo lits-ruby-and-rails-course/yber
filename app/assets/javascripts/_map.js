@@ -1,4 +1,4 @@
-$(document).on('ready page:load', function () {
+$(document).on('ready page:load', function (){
 	var directionsDisplay = new google.maps.DirectionsRenderer();
   var directionsService = new google.maps.DirectionsService();
   var directionOn = false;
@@ -35,24 +35,30 @@ $(document).on('ready page:load', function () {
 	    }        
 	  });
 	}
-	// setInterval(take_position, 600000);
+	setInterval(take_position, 600000);
 
-	function set_new_place(marker, input_id){
+	function set_new_place(lat, lng, type){
     $.ajax({
       url: "/find_place",
       data : {
-        "lat": marker.serviceObject.position.G,
-        "lng": marker.serviceObject.position.K
+        "lat": lat,
+        "lng": lng
       },
       dataType: "json",
       type: "GET",
       success: function(data){
+        var input_id = "#field_to";
+        if (type){
+          input_id = "#field_from";
+        }
       	$(input_id).val(data.place);
+        var obj = { lat: lat, lng: lng, infowindow: data.place};
+        reset_marker(obj, type);
       }  
   	});
   }
 
-  function find_coords(place, type=false){
+  function find_coords(place, type){
     $.ajax({
       url: "/find_coords",
       data : {
@@ -66,31 +72,27 @@ $(document).on('ready page:load', function () {
     });
   }
 
-	function create_marker(location_json, type=false){
+	function create_marker(location_json, type){
 	 	var marker = handler.addMarker(location_json, {draggable: true});
-	 	var input_id;
 	 	if (type){
 	 		marker.serviceObject.setIcon({ url:'http://googlemaps.googlermania.com/img/markerA.png' });
-	 		input_id = "#field_from"
 	 	}
 	 	else {
 	 		marker.serviceObject.setIcon({url:'http://googlemaps.googlermania.com/img/markerB.png'});
-	 		input_id = "#field_to"
 	 	}
-    set_new_place(marker, input_id);
 	 	handler.bounds.extendWith(marker);
-	 	google.maps.event.addListener(marker.serviceObject, 'dragend', function(event) {
-	 		set_new_place(marker, input_id);	
-	 		if (directionOn) { 
-	      directionsDisplay.setDirections({routes: []});
-	      calcRoute(m_from, m_to);
-	      directionsDisplay.setMap(handler.getMap());
-    	}
+	 	google.maps.event.addListener(marker.serviceObject, 'dragend', function(event) {     
+	 		set_new_place(marker.serviceObject.position.G, marker.serviceObject.position.K, type);	
+      // if (directionOn) { 
+	     //  directionsDisplay.setDirections({routes: []});
+	     //  calcRoute(m_from, m_to);
+	     //  directionsDisplay.setMap(handler.getMap());
+     	// }
     });
 	 	return marker
 	}
 
-  function reset_marker(location_json, type=false){
+  function reset_marker(location_json, type){
     if (type){
       handler.removeMarker(m_from);
       directionsDisplay.setDirections({routes: []});
@@ -121,8 +123,7 @@ $(document).on('ready page:load', function () {
   }
 
   google.maps.event.addListener(handler.getMap(), 'click', function(event) {
-    var obj = { lat: event.latLng.G, lng: event.latLng.K };
-    reset_marker(obj, marker_type);
+    set_new_place(event.latLng.G, event.latLng.K, marker_type)
     if (!marker_type){
       document.getElementById("plan_route").disabled = false; 
     }
@@ -159,5 +160,4 @@ $(document).on('ready page:load', function () {
     }  
   } 
   document.onmousedown = click_shift;
-
 });

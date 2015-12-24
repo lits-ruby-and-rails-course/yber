@@ -32,7 +32,7 @@ class GmapsController < ApplicationController
 	end
 
 	def rider_dashboard
-		# Change IP
+		# IP location
 		# location_info = request.location 
 	  # l = Location.new(location_info.latitude, location_info.longitude)
 		l1 = Location.new(49.82, 24)
@@ -42,7 +42,7 @@ class GmapsController < ApplicationController
 	end
 
 	def take_position
-		# Change IP
+		# IP location
 		# location_info = request.location 
 	  # l = Location.new(location_info.latitude, location_info.longitude)
 	  l1 = Location.new(49.82, 24)
