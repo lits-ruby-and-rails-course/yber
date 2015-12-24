@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
-  devise_for :users, :controllers => {:registrations => "registrations"}
+  devise_for :users
   resources :cars
   resources :messages
   resources :profiles

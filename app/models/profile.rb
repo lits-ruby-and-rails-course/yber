@@ -10,6 +10,7 @@
 #  car_phone  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  role       :integer
 #
 
 class Profile < ActiveRecord::Base
