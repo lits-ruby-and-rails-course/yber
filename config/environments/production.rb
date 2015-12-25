@@ -58,7 +58,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   #ActionMailer config
-  ActionMailer::Base.smtp_settings = {
+  config.action_mailer.smtp_settings = {
       :address   => "smtp.mandrillapp.com",
       :port      => 587,
       :user_name => ENV['mandrill_username'],
