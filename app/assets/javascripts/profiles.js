@@ -28,8 +28,7 @@
   };
 })(jQuery);
 
-$(document).ready( function () {
-  $('form#new_rider').on('submit', function (e) {
+var show_form_errors = function (e) {
     e.preventDefault();
 
     var form = $(e.target),
@@ -42,9 +41,15 @@ $(document).ready( function () {
       url: action + '.json',
       data: params
     }).done( function() {
-      window.location('/dashboard');
+      window.location.href = ('/dashboard');
+      console.log('?dashboard')
     }).fail( function(errors) {
       form.render_form_errors('user', $.parseJSON(errors.responseText).errors);
     })
-  });
+  };
+
+
+$(document).ready( function () {
+  $('form#new_driver').on('submit', show_form_errors);
+  $('form#new_rider').on('submit', show_form_errors);
 });

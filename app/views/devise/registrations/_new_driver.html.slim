@@ -1,5 +1,5 @@
 .container.row.control-group
-  = form_for(@guest, :as => resource_name, :url => registration_path(resource_name), id: 'new_driver') do |f|
+  = form_for(@guest, :as => resource_name, :url => registration_path(resource_name), html: { id: 'new_driver' }) do |f|
     .row
       .form-group.col-xs-6.floating-label-form-group.controls
         = f.label :name, 'Full Name'
@@ -24,7 +24,7 @@
           = pro.label :car_phone, 'Car Plate'
           = pro.text_field :car_phone, class: 'form-control', placeholder: 'AB 1234 CD'
         .form-group.col-xs-6.floating-label-form-group.controls
-          = pro.number_field :role, class: 'form-control', style: "display: none", value: '0'
+          = pro.number_field :role, class: 'form-control', style: "display: none", value: 'driver'
     / [END] Nested Attributes for user Porfile
 
     .row

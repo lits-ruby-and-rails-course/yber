@@ -1,4 +1,6 @@
-# Reusable code for gest users
+# Reusable code for guest users
+#
+
 module VisitorsHelper
   def resource_name
     :user
