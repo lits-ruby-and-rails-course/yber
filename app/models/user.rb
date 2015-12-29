@@ -40,12 +40,19 @@ class User < ActiveRecord::Base
     self.role ||= :user
   end
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :invitable,
+         :database_authenticatable,
+         :registerable,
+         :confirmable,
+         :recoverable,
+         :rememberable,
+         :trackable,
+         :validatable
 
-  has_one :profile, dependent: :destroy
+  has_one :profile, inverse_of: :user, dependent: :destroy
+  has_one :car, through: :profile
+  has_many :orders
+  has_many :reviews
 
   validates :name, presence: true
   validates :terms, acceptance: {accept: true}

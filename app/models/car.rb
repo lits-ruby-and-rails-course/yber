@@ -9,5 +9,6 @@
 #
 
 class Car < ActiveRecord::Base
+  belongs_to :profile
   validates :year, :brand, :model, presence: true
 end
