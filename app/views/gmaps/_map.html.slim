@@ -7,14 +7,14 @@ script src="//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1
 	.input-group
 	  input#field_from.form-control placeholder=("from...") type="text" value="#{@marker_options[:infowindow]}"
 	  span.input-group-btn
-	    button#input-from-button.btn.btn-default type="button"  
+	    button#input-from-button.btn.btn-style type="button"  
 	    	span class="glyphicon glyphicon-map-marker" aria-hidden="true"
 	.input-group
 	  input#field_to.form-control placeholder=("to...") type="text"
 	  span.input-group-btn
-	    button#input-to-button.btn.btn-default type="button"
+	    button#input-to-button.btn.btn-style type="button"
 	    	span class="glyphicon glyphicon-map-marker" aria-hidden="true"
-	button#plan_route.btn.btn-primary disabled="disabled" type="button"  Plan Route
+	button#plan_route.btn.btn-style disabled="disabled" type="button"  Plan Route
 div style=("width: 100%;") 
   #map style=("width: 100%; height: 300px;")
 span &nbsp;*markers are dragable
