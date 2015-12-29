@@ -35,10 +35,7 @@
 class User < ActiveRecord::Base
   enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, :if => :new_record?
-
-  def set_default_role
-    self.role ||= :user
-  end
+  attr_accessor :login
 
   devise :invitable,
          :database_authenticatable,
@@ -54,9 +51,22 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :reviews
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :terms, acceptance: {accept: true}
   validates_associated :profile
   accepts_nested_attributes_for :profile, allow_destroy: true
 
+  def set_default_role
+    self.role ||= :user
+  end
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions.to_hash).where(["lower(name) = :value OR lower(email) = :value",
+                                      { :value => login.downcase }]).first
+    else
+      where(conditions.to_hash).first
+    end
+  end
 end

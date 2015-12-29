@@ -24,5 +24,8 @@ class ApplicationController < ActionController::Base
         profile_attributes: [:phone, :city, :role]
       ])
     end
+    devise_parameter_sanitizer.for(:sign_in) do |u|
+      u.permit(:login, :name, :email, :password, :remember_me)
+    end
   end
 end

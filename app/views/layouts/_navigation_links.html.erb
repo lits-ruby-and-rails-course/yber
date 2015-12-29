@@ -12,10 +12,10 @@
     </li>
     <% if user_signed_in? %>
       <li>
-        <a href="edit_user_registration_path" onclick = $("#menu-close").click(); >Edit account</a>
+        <a href="/users/edit" onclick = $("#menu-close").click(); >Edit account</a>
       </li>
       <li>
-        <a href="destroy_user_session_path" onclick = $("#menu-close").click(); >Sign Out</a>
+        <a href="/users/sign_out" data-method="delete" onclick = $("#menu-close").click(); >Sign Out</a>
       </li>
     <% else %>
       <li>
