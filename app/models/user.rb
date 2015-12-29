@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   has_one :profile, dependent: :destroy
 
   validates :name, presence: true
-  validates_acceptance_of :terms
+  validates :terms, acceptance: {accept: true}
   validates_associated :profile
   accepts_nested_attributes_for :profile, allow_destroy: true
 

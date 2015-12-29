@@ -41,10 +41,10 @@ var show_form_errors = function (e) {
       url: action + '.json',
       data: params
     }).done( function() {
-      window.location.href = ('/dashboard');
-      console.log('?dashboard')
+      // window.location.href = ('/' + e.target.id.slice(4) + '_dashboard');
     }).fail( function(errors) {
       form.render_form_errors('user', $.parseJSON(errors.responseText).errors);
+      console.log('/' + e.target.id.slice(4) + '_dashboard');
     })
   };
 

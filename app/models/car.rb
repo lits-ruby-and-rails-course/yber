@@ -9,4 +9,5 @@
 #
 
 class Car < ActiveRecord::Base
+  validates :year, :brand, :model, presence: true
 end
