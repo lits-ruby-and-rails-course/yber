@@ -16,9 +16,9 @@
 class Profile < ActiveRecord::Base
   enum role: [:rider, :driver]
 
-  belongs_to :user, inverse_of: :profile
+  belongs_to :user, inverse_of: :profile, required: true
   has_one :car
 
-  validates :user_id, :phone, :city, :role, presence: true
+  validates :phone, :city, :role, presence: true
   validates :user_id, :car_phone, uniqueness: true
 end
