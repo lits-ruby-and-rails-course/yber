@@ -30,7 +30,6 @@ html
               a.list-group-item Orders(Trips)
               a.list-group-item Messages
               a.list-group-item My Profile
-              hr/
           .d-sidebar-textbox
             h3 Current Trip Information
             p 
@@ -44,17 +43,4 @@ html
             .col-md-12.col-sm-12.col-xs-12
               = yield
         .col-md-3.col-sm-3.col-xs-12
-          button.toggle-messages.btn#pollSlider-button
-            i.fa.fa-envelope
-            Hide
-          .d-messages.pollSlider
-            h2 Chat
-            .messages-box
-              .messages-avatar-male
-              h4 Andrew
-              p Hi There...
-            .messages-box
-              .messages-avatar-female
-              h4 Sheyla
-              p Hi There...
-            button.messages-invite-friend.btn.btn-style Invite Friend
+          = render 'layouts/chat_panel'
