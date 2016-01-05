@@ -7,7 +7,7 @@
 #  phone      :integer
 #  car_id     :integer
 #  user_id    :integer
-#  car_phone  :integer
+#  car_phone  :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  role       :integer
@@ -16,7 +16,7 @@
 class Profile < ActiveRecord::Base
   enum role: [:rider, :driver]
 
-  belongs_to :user, inverse_of: :profile, required: true
+  belongs_to :user, required: true
   has_one :car
 
   validates :phone, :city, :role, presence: true

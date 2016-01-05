@@ -44,7 +44,8 @@ class User < ActiveRecord::Base
          :recoverable,
          :rememberable,
          :trackable,
-         :validatable
+         :validatable,
+         :authentication_keys => [:login]
 
   has_one :profile, inverse_of: :user, dependent: :destroy
   has_one :car, through: :profile

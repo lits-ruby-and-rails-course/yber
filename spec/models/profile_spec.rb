@@ -7,7 +7,7 @@
 #  phone      :integer
 #  car_id     :integer
 #  user_id    :integer
-#  car_phone  :integer
+#  car_phone  :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  role       :integer

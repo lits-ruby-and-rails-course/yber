@@ -21,11 +21,19 @@ class ApplicationController < ActionController::Base
         :terms,
         :password,
         :password_confirmation,
-        profile_attributes: [:phone, :city, :role]
+        profile_attributes: [:phone, :city, :car_phone, :role]
       ])
     end
     devise_parameter_sanitizer.for(:sign_in) do |u|
       u.permit(:login, :name, :email, :password, :remember_me)
     end
+  end
+
+  def login=(login)
+    @login = login
+  end
+
+  def login
+    @login || self.name || self.email
   end
 end

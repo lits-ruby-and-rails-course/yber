@@ -5,7 +5,7 @@
         -if devise_mapping.registerable?
           = link_to 'Sign up', new_registration_path(resource_name), class: 'btn pull-right'
         = f.label :login
-        = f.email_field :login, class: 'form-control', placeholder: 'Email or Name'
+        = f.text_field :login, class: 'form-control', placeholder: 'Email or Name'
     .row
       .form-group.col-xs-6.floating-label-form-group.controls
         -if devise_mapping.recoverable?
