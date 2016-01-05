@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  city       :string
-#  phone      :integer
+#  phone      :string
 #  car_id     :integer
 #  user_id    :integer
 #  car_phone  :text
