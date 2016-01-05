@@ -38,7 +38,7 @@ $orange:#f3795b;
 }	
 #map_head{
 	margin-top: 10px;
-	margin-bottom: 30px;
+	margin-bottom: 38px;
 	.input-group{
 		float:left;
 		width:38%;
@@ -62,8 +62,8 @@ $orange:#f3795b;
 	}
 }
 .d-statistic {
-	margin-top: 30px;
-	margin-bottom: 40px;
+	margin-top: 37px;
+	margin-bottom: 58px;
 	span {
 		font-size: 2rem;
 		color: #555;
@@ -92,7 +92,7 @@ $orange:#f3795b;
 	right: 5px;
 	height: 68.6%;
 	z-index: 2;
-	top: 31.4%;
+	top: 34%;
 	-webkit-box-shadow: inset 1px -1px 29px 0px rgba(199,199,199,0.48);
 	-moz-box-shadow: inset 1px -1px 29px 0px rgba(199,199,199,0.48);
 	box-shadow: inset 1px -1px 29px 0px rgba(199,199,199,0.48);
@@ -126,7 +126,7 @@ $orange:#f3795b;
 }
 .messages-invite-friend {
 	position: absolute;
-	bottom: 15px;
+	bottom: 30px;
 	left: 15px;
 	width: 180px;
 }
@@ -140,7 +140,7 @@ $orange:#f3795b;
 #pollSlider-button{
 	position:fixed;
 	right:-30px;
-	top:300px;
+	top:45%;
 	background:$orange;
 	border:$orange;
 	i.fa.fa-envelope{

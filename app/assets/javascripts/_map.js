@@ -160,17 +160,4 @@ $(document).on('ready page:load', function (){
       document.getElementById("plan_route").disabled = false;
     }
   });
-
-  //replace
-  var slider_width = $('.pollSlider').width(); //get width automaticly
-  $('#pollSlider-button').click(function() {
-    if($(this).css("margin-right") == slider_width+"px" && !$(this).is(':animated')){
-      $('.pollSlider,#pollSlider-button').animate({"margin-right": '-='+slider_width});
-    } else {
-      console.log("opened");
-      if(!$(this).is(':animated')){
-        $('.pollSlider,#pollSlider-button').animate({"margin-right": '+='+slider_width});
-      }
-    }
-  });
 });
