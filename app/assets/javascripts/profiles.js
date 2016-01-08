@@ -36,19 +36,39 @@ var show_form_errors = function (e) {
         method = form.attr('method'),
         params = form.serializeArray();
 
-    $.ajax({
-      method: method,
-      url: action + '.json',
-      data: params
-    }).done( function() {
-      window.location.href = ('/' + e.target.id.slice(4) + '_dashboard');
-    }).fail( function(errors) {
-      form.render_form_errors('user', $.parseJSON(errors.responseText).errors);
-    })
+    if (e.target.id == new_session) {
+      $.ajax({
+        method: method,
+        url: action + '.json',
+        data: params
+      }).done( function() {
+          // if DRIVER or RIDER???
+          // window.location.href = ('/' + e.target.id.slice(4) + '_dashboard');
+        }
+      }).fail( function(errors) {
+        form.render_form_errors('user', $.parseJSON(errors.responseText).errors);
+      })
+    }
+
+    else {
+      $.ajax({
+        method: method,
+        url: action + '.json',
+        data: params
+      }).done( function() {
+          window.location.href = ('/');
+          // window.location.href = ('/' + e.target.id.slice(4) + '_dashboard');
+        }
+      }).fail( function(errors) {
+        form.render_form_errors('user', $.parseJSON(errors.responseText).errors);
+      })
+    }
   };
+
 
 
 $(document).ready( function () {
   $('form#new_driver').on('submit', show_form_errors);
   $('form#new_rider').on('submit', show_form_errors);
+  $('form#new_session').on('submit', show_form_errors);
 });

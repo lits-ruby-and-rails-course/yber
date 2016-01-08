@@ -20,5 +20,6 @@ class Profile < ActiveRecord::Base
   has_one :car
 
   validates :phone, :city, :role, presence: true
-  validates :user_id, :car_phone, uniqueness: true
+  validates :user_id, uniqueness: true
+  validates :car_phone, uniqueness: true, allow_blank: true
 end
