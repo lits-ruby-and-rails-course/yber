@@ -1,0 +1,26 @@
+button.toggle-messages.btn#pollSlider-button
+  i.fa.fa-envelope
+  Hide
+.d-messages.pollSlider
+  h2 Chat
+  .messages-box
+    .messages-avatar-male
+    h4 Andrew
+    p Hi There...
+  .messages-box
+    .messages-avatar-female
+    h4 Sheyla
+    p Hi There...
+  button.messages-invite-friend.btn.btn-style Invite Friend
+javascript:
+  var slider_width = $('.pollSlider').width(); //get width automaticly
+  $('#pollSlider-button').click(function() {
+    if($(this).css("margin-right") == slider_width+"px" && !$(this).is(':animated')){
+      $('.pollSlider,#pollSlider-button').animate({"margin-right": '-='+slider_width});
+    } else {
+      console.log("opened");
+      if(!$(this).is(':animated')){
+        $('.pollSlider,#pollSlider-button').animate({"margin-right": '+='+slider_width});
+      }
+    }
+  });
