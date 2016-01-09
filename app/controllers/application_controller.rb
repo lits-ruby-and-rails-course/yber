@@ -37,4 +37,20 @@ class ApplicationController < ActionController::Base
   def login
     @login || self.name || self.email
   end
+
+  def help_request
+    @help = Help.new(help_params)
+    if @help.save
+      HelpRequestMailer.send_email(@help).deliver
+      render json: {notice: 'Your message successfully.'}
+    else
+      render json: {notice: 'fail'}
+    end
+  end
+
+  private
+
+  def help_params
+    params.require(:help).permit(:name, :email, :messages)
+  end
 end
