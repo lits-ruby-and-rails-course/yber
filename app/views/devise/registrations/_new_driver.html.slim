@@ -1,5 +1,5 @@
 .container.row.control-group
-  = form_for(@guest, :as => resource_name, :url => registration_path(resource_name), html: { id: 'new_driver' }) do |f|
+  = form_for(@guest, :as => resource_name, :url => registration_path(resource_name), html: { id: 'new_driver', class: 'registration_forms' }) do |f|
     .row
       .form-group.col-xs-6.floating-label-form-group.controls
         = f.label :name, 'Full Name'

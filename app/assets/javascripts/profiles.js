@@ -40,23 +40,42 @@ var show_form_errors = function (e) {
       method: method,
       url: action + '.json',
       data: params
-    }).done( function(data) {
-      var data = data;
-      if (data.role == "admin")
-        {
-          window.location.href = ('/admin');
-        }
+    }).done( function() {
+      if (e.target.id == 'sign_in') {
+        sign_in_errors(role, profile.role);
+      }
       else {
         window.location.href = ('/dashboard');
       }
     }).fail( function(errors) {
       form.render_form_errors('user', $.parseJSON(errors.responseText).errors);
     })
+  };
+
+var sign_in_errors = function(role, profile.role) {
+  if (role == 'admin') {
+    window.location.href = ('/admin');
+  }
+  else {
+    if (profile.role == "rider") {
+      window.location.href = ('/dashboard');
+    }
+    else {
+      window.location.href = ('/dashboard');
+    }
+  }
+};
+
+var clear_form_errors = function (e) {
+  var forms = document.getElementsByClassName("registration_forms");
+  console.log(forms);
+  forms.each(clear_previous_errors);
 };
 
 $(document).ready( function () {
-  // $('#SignUpRider').on('hidden.bs.modal', clear_previous_errors);
+  // $('#sign_up_driver').on('hide.bs.modal', clear_form_errors);
+  // $('#sign_up_rider').on('hide.bs.modal', clear_form_errors);
   $('form#new_driver').on('submit', show_form_errors);
   $('form#new_rider').on('submit', show_form_errors);
-  $('form#new_session').on('submit', show_form_errors);
+  $('form#sign_in').on('submit', sign_in_errors);
 });

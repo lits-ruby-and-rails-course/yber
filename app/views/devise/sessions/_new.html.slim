@@ -1,5 +1,5 @@
 .container.row.control-group
-  = form_for(@guest, :as => resource_name, :url => user_session_path(), html: { id: 'new_session' }) do |f|
+  = form_for(@guest, :as => resource_name, :url => user_session_path(), html: { id: 'new_session', class: 'registration_forms' }) do |f|
     .row
       .form-group.col-xs-6.floating-label-form-group.controls
         -if devise_mapping.registerable?
