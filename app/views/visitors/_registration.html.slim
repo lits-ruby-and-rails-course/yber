@@ -29,7 +29,7 @@ section#registration.services.bg-primary
               a.btn.btn-light href="#about" Learn More
           .col-md-4.col-sm-6
             .service-item
-              .btn(data-toggle="modal" data-target="#sign_in")
+              .btn(data-toggle="modal"  href="#sign_in")
                 span.fa-stack.fa-4x.fa-inverse
                   i.fa.fa-circle.fa-stack-2x
                   i.fa.fa-car.fa-stack-1x.text-primary
@@ -71,4 +71,3 @@ section#registration.services.bg-primary
         h4 class="modal-title" id="sign_in_label" Sign In
       .modal-body
         =render 'devise/sessions/new'
- 

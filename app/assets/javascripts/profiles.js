@@ -29,53 +29,66 @@
 })(jQuery);
 
 var show_form_errors = function (e) {
-    e.preventDefault();
+  e.preventDefault();
+  var form = $(e.target),
+      action = form.attr('action'),
+      method = form.attr('method'),
+      params = form.serializeArray();
 
-    var form = $(e.target),
-        action = form.attr('action'),
-        method = form.attr('method'),
-        params = form.serializeArray();
+  $.ajax({
+    method: method,
+    url: action + '.json',
+    data: params
+  }).done( function() {
+    window.location.href = ('/dashboard');
+  }).fail( function(errorThrown) {
+    console.log(errorThrown);
+    form.render_form_errors('user', $.parseJSON(errorThrown.responseText).errors);
+  })
+};
 
-    $.ajax({
-      method: method,
-      url: action + '.json',
-      data: params
-    }).done( function() {
-      if (e.target.id == 'sign_in') {
-        sign_in_errors(role, profile.role);
-      }
-      else {
-        window.location.href = ('/dashboard');
-      }
-    }).fail( function(errors) {
-      form.render_form_errors('user', $.parseJSON(errors.responseText).errors);
-    })
-  };
+var sign_in_errors = function (e) {
+  e.preventDefault();
+  var form = $(e.target),
+      action = form.attr('action'),
+      method = form.attr('method'),
+      params = form.serializeArray();
 
-var sign_in_errors = function(role, profile.role) {
-  if (role == 'admin') {
-    window.location.href = ('/admin');
-  }
-  else {
-    if (profile.role == "rider") {
-      window.location.href = ('/dashboard');
+  $.ajax({
+    method: method,
+    url: action + '.json',
+    data: params
+  }).done( function(user) {
+    switch (user.role||user.profile.role) {
+      case "admin":
+        window.location.href = ('/admin');
+        break;
+      case "rider":
+        window.location.href = ('/rider_dashboard');
+        break;
+      case "driver":
+        window.location.href = ('/driver_dashboard');
+        break;
+      default:
+        window.location.href = ('/');
     }
-    else {
-      window.location.href = ('/dashboard');
-    }
-  }
+  }).fail( function(errorThrown) {
+    console.log(errorThrown);
+    form.render_form_errors('user', $.parseJSON(errorThrown.responseText).errors);
+  })
 };
 
 var clear_form_errors = function (e) {
   var forms = document.getElementsByClassName("registration_forms");
   console.log(forms);
-  forms.each(clear_previous_errors);
+  // $.each(forms, clear_form_errors);
 };
 
 $(document).ready( function () {
-  // $('#sign_up_driver').on('hide.bs.modal', clear_form_errors);
-  // $('#sign_up_rider').on('hide.bs.modal', clear_form_errors);
   $('form#new_driver').on('submit', show_form_errors);
   $('form#new_rider').on('submit', show_form_errors);
-  $('form#sign_in').on('submit', sign_in_errors);
+  $('form#new_session').on('submit', sign_in_errors);
+  $('#sign_up_driver').on('hidden.bs.modal', clear_form_errors);
+  $('#sign_up_driver').on('hidden.bs.modal', clear_form_errors);
+  $('#sign_in').on('hidden.bs.modal', clear_form_errors);
 });
