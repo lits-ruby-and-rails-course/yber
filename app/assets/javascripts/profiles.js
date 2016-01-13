@@ -40,9 +40,8 @@ var show_form_errors = function (e) {
     url: action + '.json',
     data: params
   }).done( function() {
-    window.location.href = ('/dashboard');
+    window.location.href = ('/');
   }).fail( function(errorThrown) {
-    console.log(errorThrown);
     form.render_form_errors('user', $.parseJSON(errorThrown.responseText).errors);
   })
 };
@@ -59,7 +58,7 @@ var sign_in_errors = function (e) {
     url: action + '.json',
     data: params
   }).done( function(user) {
-    switch (user.role||user.profile.role) {
+    switch (user.role) {
       case "admin":
         window.location.href = ('/admin');
         break;
@@ -70,7 +69,9 @@ var sign_in_errors = function (e) {
         window.location.href = ('/driver_dashboard');
         break;
       default:
-        window.location.href = ('/');
+        // window.location.href = ('/');
+        console.log(user);
+        console.log(form);
     }
   }).fail( function(errorThrown) {
     console.log(errorThrown);
@@ -79,16 +80,17 @@ var sign_in_errors = function (e) {
 };
 
 var clear_form_errors = function (e) {
-  var forms = document.getElementsByClassName("registration_forms");
-  console.log(forms);
-  // $.each(forms, clear_form_errors);
+  $( ".registration_forms" ).each(function() {
+    $(this).clear_previous_errors();
+    console.log($(this));
+  });
 };
 
 $(document).ready( function () {
   $('form#new_driver').on('submit', show_form_errors);
   $('form#new_rider').on('submit', show_form_errors);
   $('form#new_session').on('submit', sign_in_errors);
-  $('#sign_up_driver').on('hidden.bs.modal', clear_form_errors);
-  $('#sign_up_driver').on('hidden.bs.modal', clear_form_errors);
-  $('#sign_in').on('hidden.bs.modal', clear_form_errors);
+  // $('#sign_up_rider').on('hidden.bs.modal', clear_form_errors);
+  // $('#sign_up_driver').on('hidden.bs.modal', clear_form_errors);
+  // $('#sign_in').on('hidden.bs.modal', clear_form_errors);
 });

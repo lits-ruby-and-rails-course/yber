@@ -33,8 +33,8 @@
 #
 
 class User < ActiveRecord::Base
-  enum role: [:user, :vip, :admin]
-  after_initialize :set_default_role, :if => :new_record?
+  enum role: [:admin, :driver, :rider]
+  # after_initialize :set_default_role, :if => :new_record?
   attr_accessor :login
 
   devise :invitable,
@@ -54,12 +54,13 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
   validates :terms, acceptance: {accept: true}
+  validates :role, presence: true
   validates_associated :profile
   accepts_nested_attributes_for :profile, allow_destroy: true
 
-  def set_default_role
-    self.role ||= :user
-  end
+  # def set_default_role
+  #   self.role ||= :user
+  # end
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

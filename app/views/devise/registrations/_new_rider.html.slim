@@ -23,9 +23,9 @@
           = pro.label :city, 'Your Location'
           = pro.text_field :city, class: 'form-control', placeholder: 'State City'
           p.help-block
-      = pro.text_field :role, class: 'form-control', style: "display: none", value: 'rider'
     / [END] Nested Attributes for user Porfile
 
+    = f.text_field :role, class: 'form-control', value: 'rider', style: 'display: none'
     .row
       .form-group.col-xs-6.floating-label-form-group.controls
         = f.label :password

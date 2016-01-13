@@ -28,9 +28,12 @@
           = pro.label :car_phone, 'Car Number'
           = pro.text_field :car_phone, class: 'form-control', placeholder: 'AA 1111 BB'
           p.help-block
-      = pro.text_field :role, class: 'form-control', style: "display: none", value: 'driver'
+
     / [END] Nested Attributes for user Porfile
 
+    .row
+      .form-group.col-xs-6.floating-label-form-group.controls
+        = f.text_field :role, class: 'form-control', value: 'driver', style: 'display: none'
     .row
       .form-group.col-xs-6.floating-label-form-group.controls
         = f.label :password
