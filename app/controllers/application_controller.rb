@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
       u.permit([
         :name,
         :email,
+        :role,
         :terms,
         :password,
         :password_confirmation,
