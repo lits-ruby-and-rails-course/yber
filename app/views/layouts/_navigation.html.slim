@@ -1,14 +1,4 @@
 header
-  nav.navbar.navbar-default.navbar-inverse.navbar-fixed-top.transparent
-    .container-fluid
-      .navbar-header.page-scroll
-        button.navbar-toggle[type="button" data-toggle="collapse" data-target=".navbar-collapse"]
-          span.sr-only Toggle navigation
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-        = link_to 'YBER', root_path, class: 'navbar-brand'
-      .collapse.navbar-collapse#bs-example-navbar-collapse-1
-        ul.nav.navbar-nav.navbar-right
-          == render 'layouts/navigation_links'
-          == render 'layouts/nav_links_for_auth'
+  a#menu-toggle.btn.btn-dark.btn-lg.toggle
+    i.fa.fa-bars
+  = render 'layouts/navigation_links'

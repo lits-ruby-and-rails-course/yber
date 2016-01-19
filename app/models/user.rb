@@ -29,18 +29,46 @@
 #  invited_by_id          :integer
 #  invited_by_type        :string
 #  invitations_count      :integer          default(0)
+#  terms                  :boolean
 #
 
 class User < ActiveRecord::Base
-  enum role: [:user, :vip, :admin]
-  after_initialize :set_default_role, :if => :new_record?
+  enum role: [:admin, :driver, :rider]
+  # after_initialize :set_default_role, :if => :new_record?
+  attr_accessor :login
 
-  def set_default_role
-    self.role ||= :user
+  devise :invitable,
+         :database_authenticatable,
+         :registerable,
+         :confirmable,
+         :recoverable,
+         :rememberable,
+         :trackable,
+         :validatable,
+         :authentication_keys => [:login]
+
+  has_one :profile, inverse_of: :user, dependent: :destroy
+  has_one :car, through: :profile
+  has_many :orders
+  has_many :reviews
+
+  validates :name, presence: true, uniqueness: true
+  validates :terms, acceptance: {accept: true}
+  validates :role, presence: true
+  validates_associated :profile
+  accepts_nested_attributes_for :profile, allow_destroy: true
+
+  # def set_default_role
+  #   self.role ||= :user
+  # end
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions.to_hash).where(["lower(name) = :value OR lower(email) = :value",
+                                      { :value => login.downcase }]).first
+    else
+      where(conditions.to_hash).first
+    end
   end
-
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
 end
