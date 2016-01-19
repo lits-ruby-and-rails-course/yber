@@ -13,7 +13,6 @@
           = link_to "Forgot password?", new_password_path(resource_name), class: 'btn pull-right'
         = f.label :password
         = f.password_field :password, class: 'form-control', placeholder: 'Password'
-        p.help-block
     .row.form-group.col-xs-6
       = f.submit 'Sign in', :class => 'btn btn-default'
       -if devise_mapping.rememberable?

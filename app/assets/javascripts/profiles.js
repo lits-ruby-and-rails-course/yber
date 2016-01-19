@@ -70,7 +70,9 @@ var sign_in_errors = function (e) {
     }
   }).fail( function(errorThrown) {
     console.log(errorThrown);
-    form.render_form_errors('user', $.parseJSON(errorThrown.responseText).errors);
+    $('.form-group').each(function() {
+      $(this).addClass('has-error').find('.help-block').html($.parseJSON(errorThrown.responseText).error);
+    });
   })
 };
 
