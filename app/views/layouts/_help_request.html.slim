@@ -1,2 +1,29 @@
-div id="d"
-  h1 dsdsdada
+div id="help_request"
+  button#help_button Help
+  h1 Hello
+  hr
+  = form_for Help.new, as: :help, url: help_request_path do |f|
+  
+    = f.label :name
+    br
+    br
+    = f.text_field :name, class: 'form-control',
+                          placeholder: 'your name'
+    
+    = f.label :email
+    br
+    br 
+    = f.text_field :email, class: 'form-control',
+                           placeholder: 'your email'
+    
+    = f.label :messages
+    br
+    br 
+    = f.text_area :messages, class: 'form-control',
+                             placeholder: 'your message'
+    br
+    br
+    = f.submit 'Send', class: 'btn btn-primary'
+
+  
+  

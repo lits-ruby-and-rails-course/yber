@@ -15,3 +15,35 @@
  *= require dashboard
  *= require_self
  */
+
+
+ #help_request {
+   position: fixed;
+   width: 300px;
+   float: right;
+   right: -1px;
+   height: 68.6%;
+   z-index: 2;
+   top: 10%;
+   background-color: #F0F8FF;
+   text-align: center;
+ }
+
+ /** help_request **/
+ .form-control {
+   width: 200px;
+   margin-left: 5px;
+   margin: 0 auto;
+ }
+
+ #help_button {
+ position: absolute;
+ transform: rotate(90deg);
+ top: 45%;
+ left: -60px;
+ z-index: 998;
+ width: 100px;
+ height: 35px;
+ font-size: 20px;
+ background: #eaeaea
+ }

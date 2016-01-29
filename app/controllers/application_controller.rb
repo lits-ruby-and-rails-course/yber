@@ -9,5 +9,18 @@ class ApplicationController < ActionController::Base
   end
 
   def help_request
+    @help = Help.new(help_params)
+    if @help.save
+      SendEmail.send_help_email(@help).deliver
+      redirect_to root_path
+    else
+      redirect_to root_path
+    end
+  end
+
+  private
+
+  def help_params
+    params.require(:help).permit(:name, :email, :messages)
   end
 end

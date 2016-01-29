@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :messages
   root to: 'visitors#index'
 
+  post 'help_request', to: 'application#help_request'
+
   get '/dashboard', to: 'gmaps#rider_dashboard' # !!!change link
 
   get '/take_position', to: 'gmaps#take_position'

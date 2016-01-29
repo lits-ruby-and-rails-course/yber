@@ -14,7 +14,6 @@ html
     header
       = render 'layouts/navigation' unless current_page?(root_path)
     main[role="main"]
-      = render 'layouts/help_request'
       = render 'layouts/messages'
       = yield
       = debug(params) if Rails.env.development?
