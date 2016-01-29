@@ -15,6 +15,8 @@
 #
 
 class Order < ActiveRecord::Base
+  enum status: [:pending, :accepted, :completed]
+
   include DriverRiderble
-  validates :rider_id, :driver_id, :location_to, :location_from, presence: true
+  validates :rider_id, :location_to, :location_from, presence: true
 end

@@ -1,0 +1,49 @@
+.order-box
+  .row.order-box-header
+    - if order.pending?
+      .col-md-4.status.yellow-line
+        = order.status
+    - elsif order.accepted?
+      .col-md-4.status.green-line
+        = order.status
+    - else
+      .col-md-4.status.grey-line
+        = order.status
+    .col-md-4
+    .col-md-4.links-box
+      - if ((current_user.role == 'rider') && (order.rider_id == current_user.id)  && (order.status == 'pending'))
+        = link_to 'Delete', {controller: "orders", action: "destroy", id: order}, data: {:confirm => 'Are you sure?'}, :method => :delete, :remote => true, :class => 'delete-order'
+  .order-box-content
+    .row
+      .col-md-5
+        span.order-field-title FROM:
+      .col-md-5
+        span.order-field-title TO:
+      .col-md-2
+        span.order-field-title PASSENGERS:
+    .row
+      .col-md-5
+        span
+          = order.location_from
+      .col-md-5
+        span
+          = order.location_to
+      .col-md-2
+        .fpssngr
+          = order.pessengers
+    .row
+      .col-md-12
+        span.order-field-title ADDITIONAL INFORMATION:
+        p
+          - if order.description.empty?
+            | none
+          - else
+            = order.description
+    .row
+      .col-md-offset-8.col-md-4.tright
+        span
+          = order.created_at.strftime('%c')
+    hr
+    .row
+      .col-md-offset-8.col-md-4
+        = link_to "Show >>", {controller: "orders", action: "show", id: order}, class: "btn btn-orange"

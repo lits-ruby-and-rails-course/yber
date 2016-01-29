@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113092208) do
+ActiveRecord::Schema.define(version: 20160129220244) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -51,11 +51,16 @@ ActiveRecord::Schema.define(version: 20160113092208) do
     t.integer  "driver_id"
     t.string   "location_to"
     t.string   "location_from"
-    t.string   "status"
-    t.integer  "price"
+    t.integer  "status",        default: 0
+    t.float    "price"
     t.text     "description"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "pessengers"
+    t.decimal  "mfrom_lat"
+    t.decimal  "mfrom_lng"
+    t.decimal  "mto_lat"
+    t.decimal  "mto_lng"
   end
 
   add_index "orders", ["driver_id"], name: "index_orders_on_driver_id"

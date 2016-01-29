@@ -1,5 +1,6 @@
 $(document).on('ready page:load', function (){
-	var directionsDisplay = new google.maps.DirectionsRenderer();
+if($('#map').length){
+  var directionsDisplay = new google.maps.DirectionsRenderer();
   var directionsService = new google.maps.DirectionsService();
   var directionOn = false;
   var marker_type = false;
@@ -9,7 +10,28 @@ $(document).on('ready page:load', function (){
   var m_from;
   var handler = Gmaps.build('Google');
 
-  // Hmmm.. Turbolink??
+  // PRICE ------------------------------
+  var distance;
+
+  // in $ => http://lviv.best-taxi.in.ua
+  var first_km_price = 0.56,
+      count_of_fkm = 2,
+      additional_price = 0,
+      km_price = 0.13;
+
+  function calc_price(dist, addp, cfkm, fkmp, kmp){
+    var price = addp;
+    dist = Math.ceil(dist / 100);
+    if (dist <= cfkm){
+      price += dist * fkmp;
+    } else {
+      price += (cfkm * fkmp) + ((dist - cfkm) * kmp)
+    }
+    
+    return Math.round(price * 100) / 100;
+  }
+  //------------------------------
+
   $("#plan_route").disabled = true; //hmm Ask about disable
   $("#field_to").val(" ");
 
@@ -24,6 +46,28 @@ $(document).on('ready page:load', function (){
     }, suppressMarkers:true });
   });
 
+  $("#crtord_btn").click(function() {
+    if(directionsDisplay.map){
+      if (directionsDisplay.getDirections().routes.length > 0) {
+        $("#myModal").modal('show');
+        $("#mw_mfrom").val($("#field_from").val());
+        $("#mw_mto").val($("#field_to").val());
+        $("#mw_mfrom_lat").val(m_from.serviceObject.position.G);
+        $("#mw_mfrom_lng").val(m_from.serviceObject.position.K);
+        $("#mw_mto_lat").val(m_to.serviceObject.position.G);
+        $("#mw_mto_lng").val(m_to.serviceObject.position.K);
+
+        // PRICE
+        var price = calc_price(distance, additional_price, count_of_fkm, first_km_price, km_price);
+        $("#mw_price").val(price);
+      } else {
+        alert("You just change location, please push plan route again");
+      }
+    } else {
+      alert("You must set location");
+    }
+  });
+
   $("#input-from-button").click( function(){
     var st = $(this).parent().prev().val();
     find_coords(st, true);
@@ -34,7 +78,6 @@ $(document).on('ready page:load', function (){
     find_coords(st);
   });
 
-  //////// marker_type.. not my best solution
   function click_shift(evt) {
     evt = (evt) ? evt : event;
     if(evt.shiftKey) {
@@ -91,6 +134,7 @@ $(document).on('ready page:load', function (){
     directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
+        distance = response.routes[0].legs[0].distance.value;
       }
     });
   }
@@ -145,9 +189,10 @@ $(document).on('ready page:load', function (){
 
   //init map  
   handler.buildMap({
-  	provider: {},
-  	internal: {id: 'map'}},
-  	function(){
+    provider: {},
+    internal: {id: 'map'}
+  },
+    function(){
       m_from = create_marker(location_json, "from");
       //set some map params
       handler.getMap().setZoom(map_options.zoom);
@@ -160,4 +205,32 @@ $(document).on('ready page:load', function (){
       document.getElementById("plan_route").disabled = false;
     }
   });
+
+  //Modal popup
+  var t = false;
+  $('.passengers').focus(function (){
+    var $this = $(this)
+    t = setInterval(
+    function () {
+      if (($this.val() < 1 || $this.val() > 5) && $this.val().length != 0) {
+        if ($this.val() < 1) {
+          $this.val(1)
+        }
+        if ($this.val() > 5) {
+          $this.val(5)
+        }
+        $('p').fadeIn(1000, function () {
+          $(this).fadeOut(500)
+        })
+      };   
+    }, 50)
+  })
+
+  $('input').blur(function (){
+    if (t != false) {
+      window.clearInterval(t)
+        t = false;
+    }
+  });
+}
 });
