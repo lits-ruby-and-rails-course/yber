@@ -1,5 +1,35 @@
-h1 New order
-
-== render 'form'
-
-= link_to 'Back', orders_path
+/! h1 New order
+/! = link_to 'Back', orders_path
+= render partial: "new_map", locals: { marker: @marker_options, map: @map_options }
+a#crtord_btn.btn href="#" role="button" Next >>
+#myModal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close aria-hidden="true" data-dismiss="modal" type="button"  ×
+        h4.modal-title Your Order
+      /! main
+      .modal-body
+        = form_for @order do |f|
+          = f.hidden_field :rider_id, value: current_user.id
+          /! = f.hidden_field :status, value: "pending"
+          .form-group
+            label  Location from:
+            = f.text_field :location_from, id: "mw_mfrom", class: "form-control", readonly: true
+            = f.hidden_field :mfrom_lat, value: 0, id: 'mw_mfrom_lat'
+            = f.hidden_field :mfrom_lng, value: 0, id: 'mw_mfrom_lng'
+          .form-group
+            label  Location to:
+            = f.text_field :location_to, id: "mw_mto", class: "form-control", readonly: true
+            = f.hidden_field :mto_lat, value: 0, id: 'mw_mto_lat'
+            = f.hidden_field :mto_lng, value: 0, id: 'mw_mto_lng'
+          .form-group
+            label  Passengers:
+            = f.number_field :pessengers, class: "form-control passengers", value: 1, in: 1...6, pattern: '/^[0-9]+#$/'
+          .form-group
+            label  Additional Information:
+            = f.text_area :description, class: "form-control", rows: 3
+          .form-group
+            label Price($):
+            = f.number_field :price, class: "form-control", id: 'mw_price', readonly: true
+            = f.submit "Create Order", class: "button info btn submit-btn"

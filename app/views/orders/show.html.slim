@@ -1,27 +1,57 @@
-p#notice = notice
+.order-box
+  .row.order-box-header
+    - if @order.pending?
+      .col-md-4.status.yellow-line
+        = @order.status
+    - elsif @order.accepted?
+      .col-md-4.status.green-line
+        = @order.status
+    - else
+      .col-md-4.status.grey-line
+        = @order.status
+    .col-md-4
+    .col-md-4.links-box
+      - if (current_user.role == 'admin') || ((order.role == 'rider') && (order.rider_id == current_user.id))
+        = link_to 'Delete', {controller: "orders", action: "destroy", id: @order}, data: {:confirm => 'Are you sure?'}, :method => :delete, :class => 'delete-order'
+  .order-box-content
+    .row
+      .col-md-5.col-sm-12.col-xs-12
+        span.order-field-title FROM:
+        br
+        span
+          = @order.location_from
+        br
+        span.order-field-title TO:
+        br
+        span
+          = @order.location_from
+        br
+        span.order-field-title PASSENGERS:
+        br
+        span
+          = @order.pessengers
+        br
+        span.order-field-title PRICE($):
+        br
+        span
+          = @order.price
+        br
+        span.order-field-title ADDITIONAL INFORMATION:
+        br
+        - if @order.description.empty?
+          | none
+        - else
+          = @order.description
 
-p
-  strong Rider:
-  = @order.rider_id
-p
-  strong Order:
-  = @order.order_id
-p
-  strong Location to:
-  = @order.location_to
-p
-  strong Location from:
-  = @order.location_from
-p
-  strong Status:
-  = @order.status
-p
-  strong Price:
-  = @order.price
-p
-  strong Description:
-  = @order.description
-
-= link_to 'Edit', edit_order_path(@order)
-'|
-= link_to 'Back', orders_path
+      .col-md-7.col-sm-12.col-xs-12
+        = render partial: "show_map", locals: { marker_from: { lat: @order.mfrom_lat, lng: @order.mfrom_lng, infowindow: @order.location_from }, marker_to: { lat: @order.mto_lat, lng: @order.mto_lng, infowindow: @order.location_to } }
+    .row
+      .col-md-offset-8.col-md-4.tright
+        span
+          = @order.created_at.strftime('%c')
+          /!= current_user.login
+    hr
+    .row
+      .col-md-4.col-sm-6.col-xs-12
+        = link_to 'Some buttons >>', root_path, class: "btn btn-orange"
+/! = link_to 'Back', orders_path
