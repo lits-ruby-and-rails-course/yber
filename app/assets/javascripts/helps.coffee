@@ -3,4 +3,14 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
   $('#help_button').click ->
-    $('#help_request').animate({width: 'toggle'})
+    $('#help_request').animate({width: 'toggle'});
+
+  $('form#new_help').on 'submit', (e) ->
+    e.preventDefault();
+    valueToSubmit = $(this).serialize();
+    $.ajax {
+      type: "POST"
+      url: $(this).attr('action')
+      data: valueToSubmit
+      dataType: "JSON"
+    }

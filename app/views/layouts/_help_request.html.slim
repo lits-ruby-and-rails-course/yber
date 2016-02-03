@@ -2,7 +2,7 @@ div id="help_request"
   button#help_button Help
   h1 Hello
   hr
-  = form_for Help.new, as: :help, url: help_request_path do |f|
+  = form_for Help.new,  as: :help, url: help_request_path do |f|
   
     = f.label :name
     br
@@ -14,7 +14,7 @@ div id="help_request"
     br
     br 
     = f.text_field :email, class: 'form-control',
-                           placeholder: 'your email'
+                           placeholder: 'hello'
     
     = f.label :messages
     br
