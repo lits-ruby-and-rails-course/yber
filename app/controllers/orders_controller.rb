@@ -4,21 +4,22 @@ class OrdersController < ApplicationController
   layout "dashboard.html", only: [:show, :new, :index]
 
   def index
-    if current_user.role == 'admin'
-      @orders = Order.all
-    # need rider and driver!!!!!
-    # elsif rider
-    #   only own
-    # elsif driver
-    #   not done
-    #   +
-    #   where driver_id == current_user.id
+    @orders = case current_user.role
+    when "rider"
+      Order.where(rider_id: current_user.id);
+    when "driver"
+      Order.where("status = ? or driver_id = ?", status[0], current_user.id)
+    else #admin -> all, for debugging
+      Order.all
     end
   end
 
   def show
-    if (current_user.role == 'admin') || ((order.role == 'rider') && (order.rider_id == current_user.id)) || ((order.role == 'driver') && ((order.driver_id == current_user.id) || (order.status == 'pending')))
-      @order = Order.find(params[:id])
+    order = Order.find(params[:id])
+    if (current_user.role == 'admin') || ((current_user == 'rider') && (order.rider_id == current_user.id)) || ((current_user.role == 'driver') && ((order.driver_id == current_user.id) || (order.status == 'pending')))
+      @order = order
+    else
+      redirect_to :trips, alert: 'Sorry but you have not access!'
     end
   end
 
@@ -42,10 +43,14 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    @order.destroy
-    respond_to do |format|
-      format.html { redirect_to :trips, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content }
+    if (current_user.role == 'admin') || ((current_user.role == 'rider') && (@order.rider_id == current_user.id) && (@order.status == "pending"))
+      @order.destroy
+      respond_to do |format|
+        format.html { redirect_to :trips, notice: 'Order was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to :trips, alert: 'Sorry but you have not access!'
     end
   end
 
