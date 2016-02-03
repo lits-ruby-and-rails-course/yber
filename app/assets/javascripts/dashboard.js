@@ -6,6 +6,7 @@ $(document).on('ready page:load', function (){
     show_message('Order was successfully destroyed.');
   });
 
+  //???
   $('form#new_order').on('submit', function (e) {
     e.preventDefault();
     var form   = $(e.target),

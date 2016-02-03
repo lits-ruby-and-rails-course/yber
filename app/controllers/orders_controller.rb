@@ -1,13 +1,34 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:destroy]
   before_filter :authenticate_user!
-  layout "dashboard.html", only: [:show, :new, :index]
+  layout "dashboard.html", only: [:home, :show, :new, :index]
+
+  def home 
+    case current_user.role
+    when 'rider'
+      order = Order.where(rider_id: current_user.id).take
+      if (order == nil) || (order.status == 'completed')
+        redirect_to :new_trip, notice: "New order"
+      else
+        redirect_to trip_path(order), notice: "Current order"
+      end
+    when "driver"
+      order = Order.where(driver_id: current_user.id).take
+      if (order != nil) && (order.status == 'accepted')
+        redirect_to  trip_path(order), notice: "Current order"
+      else
+        redirect_to :trips, notice: "You haven't any orders. You can choose one here."
+      end
+    else
+      redirect_to :trips
+    end
+  end
 
   def index
     @orders = case current_user.role
-    when "rider"
+    when 'rider'
       Order.where(rider_id: current_user.id);
-    when "driver"
+    when 'driver'
       Order.where("status = ? or driver_id = ?", status[0], current_user.id)
     else #admin -> all, for debugging
       Order.all
@@ -16,15 +37,19 @@ class OrdersController < ApplicationController
 
   def show
     order = Order.find(params[:id])
-    if (current_user.role == 'admin') || ((current_user == 'rider') && (order.rider_id == current_user.id)) || ((current_user.role == 'driver') && ((order.driver_id == current_user.id) || (order.status == 'pending')))
+    if (current_user.role == 'admin') || ((current_user.role == 'rider') && (order.rider_id == current_user.id)) || ((current_user.role == 'driver') && ((order.driver_id == current_user.id) || (order.status == 'pending')))
       @order = order
     else
-      redirect_to :trips, alert: 'Sorry but you have not access!'
+      redirect_to :dashboard, alert: 'Sorry but you have not access!'
     end
   end
 
   def new
-    # if current_user.role == 'admin' || current_user.role == 'rider'
+    if current_user.role != 'rider'
+      redirect_to :root #maybe should redirect to another place??
+    end
+    order = Order.where(rider_id: current_user.id).take
+    if (order == nil) || (order.status == 'completed')
       @order = Order.new
       # IP ::Location
       # ::Location_info = request.::Location 
@@ -33,7 +58,9 @@ class OrdersController < ApplicationController
 
       @marker_options = l1.marker_params
       @map_options = l1.map_params
-    # end
+    else
+      redirect_to  trip_path(order), notice: "Your current order are not complited!"
+    end
   end
 
   def create
@@ -50,7 +77,7 @@ class OrdersController < ApplicationController
         format.json { head :no_content }
       end
     else
-      redirect_to :trips, alert: 'Sorry but you have not access!'
+      redirect_to :dashboard, alert: 'Sorry but you have not access!'
     end
   end
 
