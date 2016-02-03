@@ -11,7 +11,7 @@
         = @order.status
     .col-md-4
     .col-md-4.links-box
-      - if (current_user.role == 'admin') || ((order.role == 'rider') && (order.rider_id == current_user.id))
+      - if (current_user.role == 'admin') || ((current_user.role == 'rider') && (order.rider_id == current_user.id) && (order.status == "pending"))
         = link_to 'Delete', {controller: "orders", action: "destroy", id: @order}, data: {:confirm => 'Are you sure?'}, :method => :delete, :class => 'delete-order'
   .order-box-content
     .row

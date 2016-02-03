@@ -1,4 +1,13 @@
-- @orders.each do |ord|
-  = render partial: "order_box", locals: { order: ord }
-br
-/! = link_to 'New Order', new_order_path
+- if @orders.empty?
+  - if current_user.role == 'rider'
+      h3 Sorry but you have noone order
+      h4 
+        You can create new order for this link 
+        = link_to " Create new order  >>", dashboard_path
+  - elsif current_user.role == 'driver'
+      h3 Sorry but all orders already occupied
+      h4 And you doesn't have any completed orders
+- else
+  - @orders.reverse_each do |ord|
+    = render partial: "order_box", locals: { order: ord }
+  br
