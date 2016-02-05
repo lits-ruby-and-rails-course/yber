@@ -52,6 +52,8 @@
           /!= current_user.login
     hr
     .row
-      .col-md-4.col-sm-6.col-xs-12
-        = link_to 'Some buttons >>', root_path, class: "btn btn-orange"
+      .col-md-12.col-sm-12.col-xs-12
+        span#hidden_order_id
+          = @order.id
+        button#take_order.btn.btn-grey type="button" Take order
 /! = link_to 'Back', orders_path

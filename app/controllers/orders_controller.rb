@@ -1,23 +1,23 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:destroy]
+  before_action :set_order, only: [:destroy, :driver_take_order]
   before_filter :authenticate_user!
   layout "dashboard.html", only: [:home, :show, :new, :index]
 
   def home 
     case current_user.role
     when 'rider'
-      order = Order.where(rider_id: current_user.id).take
+      order = Order.where(rider_id: current_user.id).last
       if (order == nil) || (order.status == 'completed')
-        redirect_to :new_trip, notice: "New order"
+        redirect_to :new_trip
       else
         redirect_to trip_path(order), notice: "Current order"
       end
     when "driver"
-      order = Order.where(driver_id: current_user.id).take
+      order = Order.where(driver_id: current_user.id).last
       if (order != nil) && (order.status == 'accepted')
         redirect_to  trip_path(order), notice: "Current order"
       else
-        redirect_to :trips, notice: "You haven't any orders. You can choose one here."
+        redirect_to :trips, alert: "You haven't any orders. You can choose one here."
       end
     else
       redirect_to :trips
@@ -48,7 +48,7 @@ class OrdersController < ApplicationController
     if current_user.role != 'rider'
       redirect_to :root #maybe should redirect to another place??
     end
-    order = Order.where(rider_id: current_user.id).take
+    order = Order.where(rider_id: current_user.id).last
     if (order == nil) || (order.status == 'completed')
       @order = Order.new
       # IP ::Location
@@ -79,6 +79,13 @@ class OrdersController < ApplicationController
     else
       redirect_to :dashboard, alert: 'Sorry but you have not access!'
     end
+  end
+
+  def driver_take_order
+    @order.accepted!
+    render json: { name: current_user.name, email: current_user.email,
+                   phone: current_user.profile.phone, license_plate: current_user.profile.car_phone,
+                   time: @order.updated_at.strftime('%c') }
   end
 
   # GOOGLE MAP AJAX
