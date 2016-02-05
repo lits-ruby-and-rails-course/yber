@@ -275,20 +275,32 @@ button.list-group-item:focus {
 			color: $dark_grey;
 			font-size: 1.6rem;
 		}
-		.btn-orange {
-			width: 100%;
-			color: $dark_grey;
-			background: $orange;
-		}
-		.btn-orange:hover {
-			color: #fff;
-		}
 		.tright {
 			text-align: right;
 		}
 	}
 }
 
+#hidden_order_id {
+	display: none;
+}
+
+/*------------------------- buttons ---------------------*/
+.btn-orange {
+	width: 100%;
+	color: $dark_grey;
+	background: $orange;
+}
+.btn-orange:hover {
+	color: #fff;
+}
+.btn-grey{
+	color: white;
+	background: $dark_grey;
+}
+.btn-grey:hover {
+	color: $orange;
+}
 /*-------------------------- warn.messages ---------------*/
 .warnmessage {
 	margin-left: 30%;
