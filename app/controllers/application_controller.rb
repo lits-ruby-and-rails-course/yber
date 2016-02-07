@@ -12,9 +12,9 @@ class ApplicationController < ActionController::Base
     @help = Help.new(help_params)
     if @help.save
       HelpRequestMailer.send_email(@help).deliver
-      redirect_to root_path
+      render json: {notice: 'Your message successfully.'}
     else
-      redirect_to root_path
+      render json: {notice: 'fail'}
     end
   end
 

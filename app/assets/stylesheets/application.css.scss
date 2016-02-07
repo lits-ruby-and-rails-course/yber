@@ -21,12 +21,13 @@
    position: fixed;
    width: 300px;
    float: right;
-   right: -1px;
+   right: 0px;
    height: 68.6%;
    z-index: 2;
    top: 10%;
    background-color: #F0F8FF;
    text-align: center;
+   margin-right: -300px;
  }
 
  /** help_request **/
@@ -45,5 +46,7 @@
  width: 100px;
  height: 35px;
  font-size: 20px;
- background: #eaeaea
+ background: #f3795b;
+ color: #3f4a58;
+ border: none;
  }
