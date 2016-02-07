@@ -241,3 +241,12 @@ hr.small {
 footer {
     padding: 100px 0;
 }
+
+/*Alerts*/
+
+.alert {
+  height: 50 px;
+  margin: 0;
+  padding: 15 px;
+  
+}

@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103194229) do
+ActiveRecord::Schema.define(version: 20160129220244) do
+
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -77,11 +78,16 @@ ActiveRecord::Schema.define(version: 20160103194229) do
     t.integer  "driver_id"
     t.string   "location_to"
     t.string   "location_from"
-    t.string   "status"
-    t.integer  "price"
+    t.integer  "status",        default: 0
+    t.float    "price"
     t.text     "description"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "pessengers"
+    t.decimal  "mfrom_lat"
+    t.decimal  "mfrom_lng"
+    t.decimal  "mto_lat"
+    t.decimal  "mto_lng"
   end
 
   add_index "orders", ["driver_id"], name: "index_orders_on_driver_id"
@@ -89,10 +95,10 @@ ActiveRecord::Schema.define(version: 20160103194229) do
 
   create_table "profiles", force: :cascade do |t|
     t.string   "city"
-    t.integer  "phone"
+    t.string   "phone"
     t.integer  "car_id"
     t.integer  "user_id"
-    t.integer  "car_phone"
+    t.text     "car_phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -140,6 +146,7 @@ ActiveRecord::Schema.define(version: 20160103194229) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.integer  "invitations_count",      default: 0
+    t.boolean  "terms"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

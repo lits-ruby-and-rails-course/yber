@@ -10,20 +10,23 @@ html
     == csrf_meta_tags
     link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
     link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css"
-  body
-    .row.d-header
+  body.container-fluid.nopadding
+    .row.d-header.nopadding
       .col-md-3.col-sm-6.col-xs-12.d-logo
-        = link_to root_path, class: "title-link" do
-          = image_tag("logo_1.png", size: "100x100", title: "Home", alt: "Logo") 
-          span YBER
+        .logo
+          = link_to root_path, class: "title-link" do
+            = image_tag("logo_1.png", size: "100x100", title: "Home", alt: "Logo") 
+            span YBER
       .col-md-6
       .col-md-3.col-sm-6.col-xs-12
         .d-topright
-          |Messages(10)|Login Out
+          |
+            Messages(10) | 
+            <a href="/users/sign_out" data-method="delete">Sign Out</a>
     .row
-    .col-md-3.col-sm-3.col-xs-12
-      .row
-        .col-md-10.col-sm-10.col-xs-10.d-sidebar
+    .col-md-4.col-sm-4.col-xs-12
+      .row.nopadding
+        .col-md-10.col-sm-12.col-xs-12.d-sidebar
           .d-sidebar-nav
             .list-group
               a.list-group-item Orders(Trips)
@@ -35,22 +38,11 @@ html
                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer placerat urna sapien, faucibus cursus elit dignissim quis. Suspendisse auctor ultrices lacinia. Vivamus ac turpis eu odio viverra convallis in vel diam. Fusce vestibulum leo a tortor tincidunt, ac volutpat sem posuere. Cras velit est, hendrerit id cursus a, convallis at enim. Donec efficitur non ex vitae iaculis. Aenean cursus pellentesque vestibulum. Cras aliquet, tortor eget egestas varius, neque eros vulputate magna, quis tristique mauris justo sit amet purus. Duis at vulputate purus. Sed ullamcorper elit eget leo varius varius.
                Porttitor facilisis est diam, luctus et mattis proin ultrices sapien at, sit condimentum pede orci eu sit. Adipisicing in, condimentum elementum integer, mi non. Consectetuer felis quam ullamcorper facilisis id dolor, scelerisque tellus volutpat velit, et velit nec in. Dignissim ipsum excepturi sed eu senectus. Facilisis quis nec rutrum. Eu integer itaque natoque vestibulum, hendrerit imperdiet tortor conubia sit ac ut, elementum adipiscing aliquam nec risus habitasse, sed dictumst. 
         .col-md-2.col-sm-2.col-xs-2
-    .col-md-9.col-sm-9.col-xs-12
+    .col-md-7.col-sm-7.col-xs-12
       .row
-        .col-md-9.col-sm-9.col-xs-12
+        .col-md-12.col-sm-12.col-xs-12
           .row
-            .col-md-11.col-sm-11.col-xs-11
+            .col-md-12.col-sm-12.col-xs-12
               = yield
-            .col-md-1.col-sm-1.col-xs-1
         .col-md-3.col-sm-3.col-xs-12
-          button.toggle-messages.btn.btn-primary Hide
-          .d-messages
-            .messages-box
-              .messages-avatar-male
-              h4 Andrew
-              p Hi There...
-            .messages-box
-              .messages-avatar-female
-              h4 Sheyla
-              p Hi There...
-            button.messages-invite-friend.btn.btn-primary Invite Friend
+          = render 'layouts/chat_panel'
