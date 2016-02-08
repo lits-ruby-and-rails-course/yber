@@ -20,14 +20,14 @@ class ApplicationController < ActionController::Base
       HelpRequestMailer.send_email(@help).deliver
       render json: {notice: 'Your message successfully.'}
     else
-      render json: {notice: 'fail'}
+      render json: {notice: 'Writte your message.'}
     end
   end
 
   private
 
   def help_params
-    params.require(:help).permit(:name, :email, :messages)
+    params.require(:help).permit(:name, :email, :message)
   end
 
   def configure_permitted_parameters

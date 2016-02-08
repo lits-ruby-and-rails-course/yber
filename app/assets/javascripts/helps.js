@@ -1,17 +1,17 @@
 $(document).ready(function(){
-  var contentToggle = 0;
-  $('#help_request').on('click', function(){
-    if(contentToggle == 0){
+  var toggle = 0;
+  $('#help_button').click(function() {
+    if (toggle == 0) {
       $('#help_request').animate({
-        width: "300px"
+        "margin-right": "0%"
       })
-      contentToggle = 1;
+      toggle = 1;
     }
-    else if (contentToggle == 1){
+    else if(toggle == 1) {
       $('#help_request').animate({
-        width: "0px"
+        "margin-right": "-23.4%"
       })
-      contentToggle = 0;
+      toggle = 0;
     }
   });
 
