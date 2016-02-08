@@ -1,13 +1,20 @@
 - if @orders.empty?
   - if current_user.role == 'rider'
+    .warn-tittle-box
       h3 Sorry but you have noone order
       h4 
         You can create new order for this link 
         = link_to " Create new order  >>", dashboard_path
   - elsif current_user.role == 'driver'
-      h3 Sorry but all orders already occupied
+    .warn-tittle-box
+      h3 Sorry but all orders already are occupied
       h4 And you doesn't have any completed orders
-- else
-  - @orders.reverse_each do |ord|
-    = render partial: "order_box", locals: { order: ord }
-  br
+- elsif (current_user.role == 'driver') && ((@orders.find {|o| o.status == 'pending' }) == nil)
+  .warn-tittle-box
+    h3 Sorry but all orders already are occupied
+    h4 
+      But You can review your last taked orders under
+      sub.little_padding
+        i.fa.fa-level-down
+- @orders.reverse_each do |ord|
+  = render partial: "order_box", locals: { order: ord }

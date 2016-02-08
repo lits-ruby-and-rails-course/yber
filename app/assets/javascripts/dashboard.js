@@ -1,33 +1,52 @@
-$(document).on('ready page:load', function (){
+$(document).on('ready page:load', function(){
   //$('.delete-order').bind('ajax:success', function() { //WHY YOU DOESN'T WORK?????
 
-  $('.delete-order').bind('click', function() {
+  $('.delete-order').bind('click', function(){
     $(this).closest('.order-box').fadeOut();
     show_message('Order was successfully destroyed.');
   });
 
-  $('#take_order').on('click', function (e) {
+  $('#take_order').on('click', function (e){
     e.preventDefault();
+    if (!confirm("Are you sure?")) return 0;
     var id = $('#hidden_order_id').text(),
         that = this;
-    //console.log(id);
     $.ajax({
       url: "/take_order/"+id,
       type: "GET",
       success: function(data){
-        console.log(data);
-        $(that).replaceWith('<div class="driver-box"><span>Driver: <a href="#" > '+data.name+'</a></span><br>' +
-          '<span> email: '+data.email+' </span><span> phone number: '+data.phone+' </span>' +
-          '<span>license_plate: '+data.license_plate+' </span><br><span> '+data.time+' </span></div><hr />');
-
+        //console.log(data);
+        $(that).replaceWith('<div class="order-box-driver-info padd-top">'+
+          '<span class="order-field-title">Driver:<a class="little_padding" href="#" > '+data.name+'</a></span>'+
+          '<ul><li>email:<span class="little_padding">'+data.email+'</span></li>'+
+          '<li>phone number:<span class="little_padding">'+data.phone+'</span></li>'+
+          '<li>license_plate:<span class="little_padding">'+data.license_plate+'</span></li></ul>'+
+          '<div class="col-md-12 tright">accepted at:<span class="little_padding">'+data.date+' </span></div></div>');
         change_status($('div.yellow-line'), 1);
         show_message('You take this order.');
       }
     });
   });
 
-  //???’  
-  $('form#new_order').on('submit', function (e) {
+  $('#complete_order').on('click', function (e){
+    e.preventDefault();
+    if (!confirm("Are you sure?")) return 0;
+    var id = $('#hidden_order_id').text(),
+        that = this;
+    $.ajax({
+      url: "/complete_order/"+id,
+      type: "GET",
+      success: function(data){
+        $(that).remove();
+        change_status($('div.green-line'), 2);
+        $('#updated_date span:first-child').text('complited');
+        $('#updated_date span:last-child').text(data.date);
+        show_message(data.notice);
+      }
+    });
+  });
+
+  $('form#new_order').on('submit', function (e){
     e.preventDefault();
     var form   = $(e.target),
       action = form.attr('action'),
@@ -60,15 +79,15 @@ $(document).on('ready page:load', function (){
     el.removeAttr("class");
     switch (new_status) {
       case 0:  //pending
-        el.addClass('col-md-4 status yellow-line');
+        el.addClass('col-md-4 col-sm-6 col-xs-6 status yellow-line');
         el.text('pending');
         break;
       case 1:  //accepted
-        el.addClass('col-md-4 status green-line');
+        el.addClass('col-md-4 col-sm-6 col-xs-6 status green-line');
         el.text('accepted');
         break;
       case 2:  //complited
-        el.addClass('col-md-4 status grey-line');
+        el.addClass('col-md-4 col-sm-6 col-xs-6 status grey-line');
         el.text('complited');
         break;
       default:
@@ -76,13 +95,13 @@ $(document).on('ready page:load', function (){
     }
   }
 
-  function warn_message(el){
+  window.warn_message = function(el){
     if (el.text().replace(/\s{2,}/g, '').length != 0){
       el.fadeIn(3000).delay(3000).fadeOut(3000);
     }
   }
 
-  function show_message(mbody, type){
+  window.show_message = function(mbody, type){
     if (type){
       var el = $('.alert');
     } else {

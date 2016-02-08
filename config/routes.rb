@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   post 'help_request', to: 'application#help_request'
   get 'take_order/:id', to: 'orders#driver_take_order'
+  get 'complete_order/:id', to: 'orders#complete_order'
+
   get 'take_position', to: 'orders#take_position'
   get 'find_coords', to: 'orders#find_coords'
   get 'find_place', to: 'orders#find_place'

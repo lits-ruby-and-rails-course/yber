@@ -1,3 +1,9 @@
+- if (@order.status == "accepted") && (@order.driver_id == current_user.id)
+  .show-order-title
+    h3 Order in progress
+- if (@order.rider_id == current_user.id) && (@order.status != "completed")
+  .show-order-title
+    h3 Your current order
 .order-box
   .row.order-box-header
     - if @order.pending?
@@ -12,6 +18,7 @@
     .col-md-4
     .col-md-4.links-box
       - if (current_user.role == 'admin') || ((current_user.role == 'rider') && (@order.rider_id == current_user.id) && (@order.status == "pending"))
+        i.fa.fa-trash
         = link_to 'Delete', {controller: "orders", action: "destroy", id: @order}, data: {:confirm => 'Are you sure?'}, :method => :delete, :class => 'delete-order'
   .order-box-content
     .row
@@ -42,18 +49,56 @@
           | none
         - else
           = @order.description
-
       .col-md-7.col-sm-12.col-xs-12
         = render partial: "show_map", locals: { marker_from: { lat: @order.mfrom_lat, lng: @order.mfrom_lng, infowindow: @order.location_from }, marker_to: { lat: @order.mto_lat, lng: @order.mto_lng, infowindow: @order.location_to } }
-    .row
-      .col-md-offset-8.col-md-4.tright
-        span
-          = @order.created_at.strftime('%c')
-          /!= current_user.login
-    hr
-    .row
-      .col-md-12.col-sm-12.col-xs-12
-        span#hidden_order_id
-          = @order.id
-        button#take_order.btn.btn-grey type="button" Take order
+        .row
+          .col-md-6
+            span
+              |by:
+            a.little_padding
+              = @order.rider.name
+          .col-md-6.tright
+            span
+              |in:
+            span.little_padding
+              = @order.created_at.strftime('%c')
+    - if @order.driver_id != nil
+      .order-box-driver-info.padd-top
+          span.order-field-title Driver:
+          /! make real link!!!
+          a.little_padding
+            = @order.driver.name
+          ul
+            li
+              |email:
+              span.little_padding
+                = @order.driver.email
+            li
+              |phone_number: 
+              span.little_padding
+                = @order.driver.profile.phone
+            li
+              |license_plate: 
+              span.little_padding
+                = @order.driver.profile.car_phone
+          -if @order.status != "pending"
+            #updated_date.col-md-12.tright
+              span
+                = @order.status
+              span.little_padding
+                |at:
+              span.little_padding
+                = @order.updated_at.strftime('%c')
+    -if (current_user.role == "driver") && (@order.status == "pending")
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          span#hidden_order_id
+            = @order.id
+          button#take_order.btn.btn-grey type="button" Take order
+    - elsif (@order.rider_id == current_user.id) && (@order.status == "accepted")
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          span#hidden_order_id
+            = @order.id
+          button#complete_order.btn.btn-grey type="button" Close order
 /! = link_to 'Back', orders_path

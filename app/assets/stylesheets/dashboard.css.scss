@@ -28,6 +28,12 @@ $grey:#969696;
 	margin-top: 40px;
 	color:#fff;
 	text-transform: uppercase;
+	a{
+		color:#fff;
+	}
+	a:hover{
+		color:$orange;
+	}
 }
 .d-logo{
 	padding: 5px;
@@ -218,27 +224,25 @@ button.list-group-item:focus {
 }
 
 /*-------------------- order box ----------------------*/
-
 .order-box {
-	margin-top: 8px;
 	display: block;
 	width: 100%;
-	padding: 10px;
-	border-top: 1px solid #ddd;
+	padding: 1px;
 	.order-box-header {
+		border-bottom: 1px solid #ddd;
 		.status {
-			border: 0;
 			color: #fff;
-			padding: 4px;
-			padding-left: 14px;
+			padding: 3px 3px 4px 15px;
 			font-size: 2rem;
-			-webkit-border-radius: 14px;
+			font-weight: bold;
+			-webkit-border-radius: 10px;
 			-webkit-border-top-left-radius: 0;
-			-moz-border-radius: 14px;
+			-moz-border-radius: 10px;
 			-moz-border-radius-topleft: 0;
-			border-radius: 14px;
+			border-radius: 10px;
 			border-top-left-radius: 0;
 			opacity: 0.8;
+			margin-bottom: 10px;
 		}
 		.yellow-line {
 			background-color: $yellow;
@@ -265,44 +269,104 @@ button.list-group-item:focus {
 	}
 	.order-box-content {
 		font-size: 1.4rem;
-		.fpssngr {
-			text-align: center;
-		}
-		.row {
-			margin-top: 6px;
+		.order-box-order-info{
+			margin-left: -15px;
+			margin-bottom: 20px;
+			div{
+				margin-bottom: 10px;
+			}
 		}
 		.order-field-title {
 			color: $dark_grey;
 			font-size: 1.6rem;
+			font-weight: bolder;
 		}
-		.tright {
-			text-align: right;
+		.order-box-driver-info{
+			ul{
+				margin-top: 10px;
+			}
+			li{
+				text-decoration: none;
+				list-style: none;
+				line-height: 20px;
+			}
+		}
+		.order-box-buttons{
+			a{
+				margin-bottom: 38px;
+				margin-top: 20px;
+				width: 100%;
+			}
 		}
 	}
 }
 
-#hidden_order_id {
+#hidden_order_id{
 	display: none;
 }
+#take_order, #complete_order {
+	margin-top:30px;
+	margin-left:35%;
+	width:30%;
+}
+#updated_date{
+	span{
+		padding-right: -15px;
+	}
+	margin-right: -15px;
+	
+}
 
+/*---------------------- special -----------------------*/
+.tright{
+	text-align: right;
+}
+.padd-top{
+	margin-top: 10px;
+}
+.little_padding{
+	margin-left: 6px;
+}
+
+.show-order-title{
+	margin-bottom: 2.8rem;
+	margin-top: -2.4rem;
+	h3{
+		margin: 1rem auto;
+		color: $dark_grey;
+	}
+}
+.warn-tittle-box{
+	margin-bottom: 5rem;
+	color: $orange;
+	padding-bottom: 1rem;
+	i{
+		color: #666;
+	}
+}
+.warn-tittle-box, .show-order-title{
+	text-align: center;
+	border-bottom: 1px solid $grey;
+	border-top: 1px solid $grey;
+}
 /*------------------------- buttons ---------------------*/
-.btn-orange {
+.btn-orange{
 	width: 100%;
 	color: $dark_grey;
 	background: $orange;
 }
-.btn-orange:hover {
+.btn-orange:hover{
 	color: #fff;
 }
 .btn-grey{
 	color: white;
 	background: $dark_grey;
 }
-.btn-grey:hover {
+.btn-grey:hover{
 	color: $orange;
 }
 /*-------------------------- warn.messages ---------------*/
-.warnmessage {
+.warnmessage{
 	margin-left: 30%;
 	margin-top: -1%;
 	position: absolute;
@@ -322,12 +386,12 @@ button.list-group-item:focus {
 		border-bottom-left-radius: 15px;
 		display: none;
 	}
-	p.notice {
+	p.notice{
 		background: $light_green;
 		color: $green;
 		border: 1px dotted $green;
 	}
-	p.alert {
+	p.alert{
 		background: $light_red;
 		color: $red;
 		border: 1px dotted $red;
