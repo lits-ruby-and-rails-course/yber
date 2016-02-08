@@ -18,7 +18,6 @@ javascript:
     if($(this).css("margin-right") == slider_width+"px" && !$(this).is(':animated')){
       $('.pollSlider,#pollSlider-button').animate({"margin-right": '-='+slider_width});
     } else {
-      console.log("opened");
       if(!$(this).is(':animated')){
         $('.pollSlider,#pollSlider-button').animate({"margin-right": '+='+slider_width});
       }

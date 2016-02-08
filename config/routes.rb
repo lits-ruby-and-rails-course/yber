@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get 'dashboard/trips/:id', to: 'orders#show', as: :trip
 
   get 'take_order/:id', to: 'orders#driver_take_order'
+  get 'complete_order/:id', to: 'orders#complete_order'
+
   get 'take_position', to: 'orders#take_position'
   get 'find_coords', to: 'orders#find_coords'
   get 'find_place', to: 'orders#find_place'

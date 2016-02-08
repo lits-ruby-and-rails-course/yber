@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:destroy, :driver_take_order]
+  before_action :set_order, only: [:destroy, :driver_take_order, :complete_order]
   before_filter :authenticate_user!
   layout "dashboard.html", only: [:home, :show, :new, :index]
 
@@ -10,14 +10,14 @@ class OrdersController < ApplicationController
       if (order == nil) || (order.status == 'completed')
         redirect_to :new_trip
       else
-        redirect_to trip_path(order), notice: "Current order"
+        redirect_to trip_path(order)
       end
     when "driver"
-      order = Order.where(driver_id: current_user.id).last
+      order = Order.where(driver_id: current_user.id).sort_by(&:updated_at).last
       if (order != nil) && (order.status == 'accepted')
-        redirect_to  trip_path(order), notice: "Current order"
+        redirect_to  trip_path(order)
       else
-        redirect_to :trips, alert: "You haven't any orders. You can choose one here."
+        redirect_to :trips, alert: "You haven't any orders in progress."
       end
     else
       redirect_to :trips
@@ -37,7 +37,9 @@ class OrdersController < ApplicationController
 
   def show
     order = Order.find(params[:id])
-    if (current_user.role == 'admin') || ((current_user.role == 'rider') && (order.rider_id == current_user.id)) || ((current_user.role == 'driver') && ((order.driver_id == current_user.id) || (order.status == 'pending')))
+    if (current_user.role == 'admin') || ((current_user.role == 'rider') && 
+       (order.rider_id == current_user.id)) || ((current_user.role == 'driver') && 
+       ((order.driver_id == current_user.id) || (order.status == 'pending')))
       @order = order
     else
       redirect_to :dashboard, alert: 'Sorry but you have not access!'
@@ -83,9 +85,18 @@ class OrdersController < ApplicationController
 
   def driver_take_order
     @order.accepted!
-    render json: { name: current_user.name, email: current_user.email,
-                   phone: current_user.profile.phone, license_plate: current_user.profile.car_phone,
-                   time: @order.updated_at.strftime('%c') }
+    if @order.update_attribute(:driver_id, current_user.id)
+      render json: { name: current_user.name, email: current_user.email,
+                     phone: current_user.profile.phone, license_plate: current_user.profile.car_phone,
+                     date: @order.updated_at.strftime('%c') }
+    else
+      redirect_to :back, alert: "ERROR: Order wasn't taked"
+    end
+  end
+
+  def complete_order
+    @order.completed!
+    render json: { notice: "Order was completed successfully", date: @order.updated_at.strftime('%c') }
   end
 
   # GOOGLE MAP AJAX
@@ -123,6 +134,9 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:rider_id, :location_to, :location_from, :status, :description, :pessengers, :mfrom_lat, :mfrom_lng, :mto_lat, :mto_lng, :price) 
+      params.require(:order).permit(:rider_id, :location_to, :location_from,
+                                     :status, :description, :pessengers, 
+                                     :mfrom_lat, :mfrom_lng, :mto_lat, 
+                                     :mto_lng, :price) 
     end
 end
