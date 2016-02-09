@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   resources :messages
   resources :messages
 
-  post 'help_request', to: 'application#help_request'
-
   get 'dashboard', to: 'orders#new', as: :dashboard
   #post 'dashboard', to: 'orders#create'
   get 'dashboard/trips', to: 'orders#index', as: :trips

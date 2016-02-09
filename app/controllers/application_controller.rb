@@ -24,12 +24,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private
-
-  def help_params
-    params.require(:help).permit(:name, :email, :message)
-  end
-
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|
       u.permit([
@@ -55,19 +49,9 @@ class ApplicationController < ActionController::Base
     @login || self.name || self.email
   end
 
-  def help_request
-    @help = Help.new(help_params)
-    if @help.save
-      HelpRequestMailer.send_email(@help).deliver
-      render json: {notice: 'Your message successfully.'}
-    else
-      render json: {notice: 'fail'}
-    end
-  end
-
   private
 
   def help_params
-    params.require(:help).permit(:name, :email, :messages)
+    params.require(:help).permit(:name, :email, :message)
   end
 end
