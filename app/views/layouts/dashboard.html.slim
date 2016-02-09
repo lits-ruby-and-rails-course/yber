@@ -37,17 +37,7 @@ html
     .col-md-4.col-sm-4.col-xs-12
       .row.nopadding
         .col-md-10.col-sm-12.col-xs-12.d-sidebar
-          .d-sidebar-nav
-            .list-group
-              = link_to "Home", dashboard_path, class: "list-group-item"
-              = link_to "Orders(Trips)", trips_path, class: "list-group-item"
-              a.list-group-item Messages
-              a.list-group-item My Profile
-          / .d-sidebar-textbox
-          /   h3 Current Trip Information
-          /   p 
-          /     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer placerat urna sapien, faucibus cursus elit dignissim quis. Suspendisse auctor ultrices lacinia. Vivamus ac turpis eu odio viverra convallis in vel diam. Fusce vestibulum leo a tortor tincidunt, ac volutpat sem posuere. Cras velit est, hendrerit id cursus a, convallis at enim. Donec efficitur non ex vitae iaculis. Aenean cursus pellentesque vestibulum. Cras aliquet, tortor eget egestas varius, neque eros vulputate magna, quis tristique mauris justo sit amet purus. Duis at vulputate purus. Sed ullamcorper elit eget leo varius varius.
-          /     Porttitor facilisis est diam, luctus et mattis proin ultrices sapien at, sit condimentum pede orci eu sit. Adipisicing in, condimentum elementum integer, mi non. Consectetuer felis quam ullamcorper facilisis id dolor, scelerisque tellus volutpat velit, et velit nec in. Dignissim ipsum excepturi sed eu senectus. Facilisis quis nec rutrum. Eu integer itaque natoque vestibulum, hendrerit imperdiet tortor conubia sit ac ut, elementum adipiscing aliquam nec risus habitasse, sed dictumst. 
+          = render 'layouts/dashboard_sidebar'
         .col-md-2.col-sm-2.col-xs-2
     .col-md-7.col-sm-7.col-xs-12
       .row

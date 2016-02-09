@@ -61,14 +61,19 @@ class OrdersController < ApplicationController
       @marker_options = l1.marker_params
       @map_options = l1.map_params
     else
-      redirect_to  trip_path(order), notice: "Your current order are not complited!"
+      redirect_to  trip_path(order)
     end
   end
 
   def create
     @order = Order.new(order_params)
-    status = @order.save ? 200 : 422
-    render template: 'orders/show.json', status: status
+    if @order.save
+      redirect_to :back, notice: "Order was created successfully"
+    else
+      redirect_to :back, alert: "ERROR: For some reason order wasn't created"
+    end
+    # status = @order.save ? 200 : 422
+    # render template: 'orders/show.json', status: status
   end
 
   def destroy
