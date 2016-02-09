@@ -80,8 +80,8 @@ class OrdersController < ApplicationController
     if (current_user.role == 'admin') || ((current_user.role == 'rider') && (@order.rider_id == current_user.id) && (@order.status == "pending"))
       @order.destroy
       respond_to do |format|
-        format.html { redirect_to :trips, notice: 'Order was successfully destroyed.' }
         format.json { head :no_content }
+        format.html { redirect_to :trips, notice: 'Order was successfully destroyed.' }
       end
     else
       redirect_to :dashboard, alert: 'Sorry but you have not access!'
