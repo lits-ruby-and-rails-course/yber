@@ -19,7 +19,7 @@
     .col-md-4.links-box
       - if (current_user.role == 'admin') || ((current_user.role == 'rider') && (@order.rider_id == current_user.id) && (@order.status == "pending"))
         i.fa.fa-trash
-        = link_to 'Delete', {controller: "orders", action: "destroy", id: @order}, data: {:confirm => 'Are you sure?'}, :method => :delete, :class => 'delete-order'
+        = link_to 'Delete', {controller: "orders", action: "destroy", id: @order}, data: {:confirm => 'Are you sure?'}, :method => :delete, :class => 'd-order'
   .order-box-content
     .row
       .col-md-5.col-sm-12.col-xs-12

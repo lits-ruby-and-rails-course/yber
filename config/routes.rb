@@ -11,9 +11,7 @@ Rails.application.routes.draw do
 
   get 'dashboard', to: 'orders#home', as: :dashboard
   get 'dashboard/trips/new', to: 'orders#new', as: :new_trip
-  #post 'dashboard', to: 'orders#create'
   get 'dashboard/trips', to: 'orders#index', as: :trips
-  #delete 'dashboard/trips/destroy', to: 'orders#destroy'
   get 'dashboard/trips/:id', to: 'orders#show', as: :trip
 
   post 'help_request', to: 'application#help_request'

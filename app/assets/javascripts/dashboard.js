@@ -1,17 +1,4 @@
 $(document).on('ready page:load', function(){
-
-  //$('.delete-order').bind('ajax:success', function() { //WHY YOU DOESN'T WORK?????
-  $('.delete-order').bind('click', function(){
-    $('#sidebar-current-order').replaceWith('<div id="sidebar-empty-current-order"><h4>No one order in progress</h4></div>');
-    if (($('.order-box').length == 1) && (!($("#small_map").length))){
-      $('.order-box').parent().html('<div class="warn-tittle-box"><h3>Sorry but you have noone order</h3>'+
-        '<h4>You can create new order for this link <a href="/dashboard"> create order >></a></h4></div>');
-      return;
-    }
-    $(this).closest('.order-box').fadeOut();
-    show_message('Order was successfully destroyed.');
-  });
-
   $('#take_order').on('click', function (e){
     e.preventDefault();
     if (!confirm("Are you sure?")) return 0;
@@ -57,6 +44,17 @@ $(document).on('ready page:load', function(){
         show_message(data.notice);
       }
     });
+  });
+
+  $('a.delete-order[data-remote]').on("ajax:success", function(e, data, status, xhr){
+    $('#sidebar-current-order').replaceWith('<div id="sidebar-empty-current-order"><h4>No one order in progress</h4></div>');
+    show_message('Order was successfully destroyed.');
+    if ($('.order-box').length == 1){
+      $('.order-box').parent().html('<div class="warn-tittle-box"><h3>Sorry but you have noone order</h3>'+
+        '<h4>You can create new order for this link <a href="/dashboard"> create order >></a></h4></div>');
+    } else {
+      $(this).closest('.order-box').fadeOut();
+    }
   });
 
   // $('form#new_order').on('submit', function (e){
