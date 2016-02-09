@@ -25,12 +25,12 @@
       .col-md-5.col-sm-12.col-xs-12
         span.order-field-title FROM:
         br
-        span
+        span#order-field-mfrom
           = @order.location_from
         br
         span.order-field-title TO:
         br
-        span
+        span#order-field-mto
           = @order.location_from
         br
         span.order-field-title PASSENGERS:
@@ -45,10 +45,11 @@
         br
         span.order-field-title ADDITIONAL INFORMATION:
         br
-        - if @order.description.empty?
-          | none
-        - else
-          = @order.description
+        span#order-field-description
+          - if @order.description.empty?
+            | none
+          - else
+            = @order.description
       .col-md-7.col-sm-12.col-xs-12
         = render partial: "show_map", locals: { marker_from: { lat: @order.mfrom_lat, lng: @order.mfrom_lng, infowindow: @order.location_from }, marker_to: { lat: @order.mto_lat, lng: @order.mto_lng, infowindow: @order.location_to } }
         .row

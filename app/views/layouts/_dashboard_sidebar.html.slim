@@ -1,0 +1,40 @@
+.d-sidebar-nav
+  .list-group
+    = link_to "Home", dashboard_path, class: "list-group-item"
+    = link_to "Orders(Trips)", trips_path, class: "list-group-item"
+    a.list-group-item Messages
+    a.list-group-item My Profile
+.d-sidebar-current-trip
+  h3 Current Trip Information:
+  - if find_current_order != nil
+    #sidebar-current-order
+      .row
+        .col-md-3.col-sm-4.col-xs-12.head
+          |STATUS:
+        .col-md-9.col-sm-8.col-xs-12
+          = find_current_order.status
+      .row
+        .col-md-3.col-sm-4.col-xs-12.head
+          |FROM:
+        .col-md-9.col-sm-8.col-xs-12
+          = find_current_order.location_from
+      .row
+        .col-md-3.col-sm-4.col-xs-12.head
+          |TO:
+        .col-md-9.col-sm-8.col-xs-12
+          = find_current_order.location_to
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          span.head
+            |ADDITIONAL INFORMATION:
+          span.little_padding
+            - if find_current_order.description != nil
+              = find_current_order.description
+            - else
+              |none
+      .row
+        .col-md-12.tright
+          = link_to "more..", find_current_order
+  - else
+    #sidebar-empty-current-order
+      h4 No one order in progress

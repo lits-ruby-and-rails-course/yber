@@ -61,12 +61,10 @@ if($('#map').length){
         var price = calc_price(distance, additional_price, count_of_fkm, first_km_price, km_price);
         $("#mw_price").val(price);
       } else {
-        //alert("You just change location, please push plan route again");
         show_message("You just change location, please push plan route again", "alert");
       }
     } else {
       show_message("You must set location and push plan route button", "alert");
-      //alert("You must set location and push plan route button");
     }
   });
 

@@ -74,7 +74,7 @@ $grey:#969696;
 .d-sidebar {
 	margin-left: -10px;
 	margin-top:30px;
-	.d-sidebar-textbox, .d-sidebar-nav {
+	.d-sidebar-current-trip, .d-sidebar-nav {
 		text-align:justify;
 		.list-group{
 			font-size: 1.8rem;
@@ -82,6 +82,24 @@ $grey:#969696;
 		h3{
 			text-align:center;
 		}
+	}
+	.d-sidebar-current-trip{
+		color: $dark-grey;
+	  padding: 5px;
+	  div{
+	  	padding-top: 4px;
+	  }
+		.head{
+	  	font-weight: bold;
+	  }
+	  h3{
+	  	font-weight: bold;
+	  }
+	  #sidebar-empty-current-order{
+	  	color: $orange;
+	  	text-align: center;
+	  	padding-top: 1.2rem;
+	  }
 	}
 }
 .d-statistic {
@@ -320,6 +338,9 @@ button.list-group-item:focus {
 /*---------------------- special -----------------------*/
 .tright{
 	text-align: right;
+}
+.tcenter{
+	text-align: center;
 }
 .padd-top{
 	margin-top: 10px;

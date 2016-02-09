@@ -3,8 +3,8 @@
     .warn-tittle-box
       h3 Sorry but you have noone order
       h4 
-        You can create new order for this link 
-        = link_to " Create new order  >>", dashboard_path
+        |You can create new order for this link 
+        = link_to " create order >>", dashboard_path
   - elsif current_user.role == 'driver'
     .warn-tittle-box
       h3 Sorry but all orders already are occupied
