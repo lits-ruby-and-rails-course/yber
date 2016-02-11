@@ -101,6 +101,7 @@ class OrdersController < ApplicationController
 
   def complete_order
     @order.completed!
+    StatusMailer.completed_status_email(current_user).deliver_later
     render json: { notice: "Order was completed successfully", date: @order.updated_at.strftime('%c') }
   end
 

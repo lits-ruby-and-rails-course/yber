@@ -28,10 +28,10 @@
           span.head
             |ADDITIONAL INFORMATION:
           span.little_padding
-            - if find_current_order.description != nil
-              = find_current_order.description
-            - else
+            - if find_current_order.description.empty?
               |none
+            - else
+              = find_current_order.description
       .row
         .col-md-12.tright
           = link_to "more..", find_current_order
