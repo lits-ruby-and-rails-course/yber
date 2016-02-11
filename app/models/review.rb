@@ -19,11 +19,4 @@ class Review < ActiveRecord::Base
   validates :rider_id, :driver_id, presence: true
   validates :text, length: {in: 15..250}
   validates :stars, inclusion: {in: 0..5}
-  
-  # validates :order_id, presence: true, if: :owned_by_rider?
-  #
-  # def owned_by_rider?
-  #   owner == "rider"
-  # end
-
 end

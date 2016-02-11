@@ -8,6 +8,7 @@ $(document).on('ready page:load', function(){
       url: "/take_order/"+id,
       type: "GET",
       success: function(data){
+        $('.show-order-title').html('<div><h3>Order in progress</h3></div>');
         $(that).replaceWith('<div class="order-box-driver-info padd-top">'+
           '<span class="order-field-title">Driver:<a class="little_padding" href="#" > '+data.name+'</a></span>'+
           '<ul><li>email:<span class="little_padding">'+data.email+'</span></li>'+
@@ -134,36 +135,6 @@ $(document).on('ready page:load', function(){
       $(this).closest('.order-box').fadeOut();
     }
   });
-
-  // $('form#new_order').on('submit', function (e){
-  //   e.preventDefault();
-  //   var form   = $(e.target),
-  //     action = form.attr('action'),
-  //     method = form.attr('method'),
-  //     params = form.serializeArray();
-  //   $.ajax({
-  //     method: method,
-  //     url: action + '.json',
-  //     data: params
-  //   }).success( function(data) {
-  //     $("#myModal").modal('hide');
-  //     var message = "Order was created successfully.<br/> <a href='/dashboard/trips/"+data.id+"' title='link to created order' alt='link to created order'> Show created order >> </a>"
-  //     show_message(message);
-  //     // location.reload();
-  //   }).fail( function(data) {
-  //     var errors = jQuery.parseJSON(data.responseText).errors
-  //     var error_message = "ERROR: Order wasn't created successfully."
-  //     for (var property in errors) {
-  //       error_message += '<br/>' + property;
-  //       var key_errors_array = errors[property]
-  //       for (var i in key_errors_array) {
-  //         error_message += ': ' + key_errors_array[i];
-  //       }
-  //     }
-  //     $("#myModal").modal('hide');
-  //     show_message(error_message, 'alert');
-  //   });
-  // });
 
   function create_review(el){
     var form   = el,

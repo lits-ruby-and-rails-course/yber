@@ -19,4 +19,5 @@ class Profile < ActiveRecord::Base
   validates :phone, :city, presence: true
   validates :user_id, uniqueness: true
   validates :car_phone, uniqueness: true, allow_blank: true
+  ratyrate_rateable 'Ride'
 end
