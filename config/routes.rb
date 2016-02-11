@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post '/rate' => 'rater#create', :as => 'rate'
   ActiveAdmin.routes(self)
   devise_for :users
   resources :cars
