@@ -101,5 +101,14 @@
         .col-md-12.col-sm-12.col-xs-12
           span#hidden_order_id
             = @order.id
-          button#complete_order.btn.btn-grey type="button" Close order
-/! = link_to 'Back', orders_path
+
+          a#cmplord_btn.btn.btn-orange href="#" role="button" Close order >>
+          #reviewModal.modal.fade
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  button.close aria-hidden="true" data-dismiss="modal" type="button"  ×
+                  h3.modal-title Thank You for riding with Us. 
+                /! main
+                .modal-body
+                  = render 'reviews/form'

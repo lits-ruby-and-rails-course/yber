@@ -269,6 +269,7 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.2)
+    ratyrate (1.2.2.alpha)
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.9.6)
@@ -409,6 +410,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.2.4)
   rails_layout
+  ratyrate
   rb-fchange
   rb-fsevent
   rb-inotify
@@ -428,4 +430,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

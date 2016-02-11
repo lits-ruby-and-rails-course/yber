@@ -58,9 +58,7 @@ class User < ActiveRecord::Base
   validates_associated :profile
   accepts_nested_attributes_for :profile, allow_destroy: true
 
-  # def set_default_role
-  #   self.role ||= :user
-  # end
+  ratyrate_rater
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

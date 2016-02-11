@@ -28,9 +28,10 @@ $(document).on('ready page:load', function(){
 
   $('#complete_order').on('click', function (e){
     e.preventDefault();
-    if (!confirm("Are you sure?")) return 0;
+    // if (!confirm("Are you sure?")) return 0;
     var id = $('#hidden_order_id').text(),
-        that = this;
+        that = this,
+        form = $(this).closest('form');
     $.ajax({
       url: "/complete_order/"+id,
       type: "GET",
@@ -41,9 +42,15 @@ $(document).on('ready page:load', function(){
         $('.show-order-title').remove();
         $('#sidebar-current-order').replaceWith('<div id="sidebar-empty-current-order"><h4>No one order in progress</h4></div>');
         $('#updated_date span:last-child').text(data.date);
+        $('#reviewModal').modal('hide');
         show_message(data.notice);
+        create_review(form);
       }
     });
+  });
+
+  $('#cmplord_btn').on('click', function (e){
+    $('#reviewModal').modal('show');
   });
 
   $('a.delete-order[data-remote]').on("ajax:success", function(e, data, status, xhr){
@@ -86,6 +93,22 @@ $(document).on('ready page:load', function(){
   //     show_message(error_message, 'alert');
   //   });
   // });
+
+  function create_review(el){
+    var form   = el,
+        action = form.attr('action'), // Please review these attributes using chrome dev-tools.
+        method = form.attr('method'), // Please review these attributes using chrome dev-tools.
+        params = form.serializeArray();
+    $.ajax({
+      method: method,
+      url: action + '.json',
+      data: params
+    }).success( function(data) {
+      alert('success');
+    }).fail( function(data) {
+      alert('error');
+    });
+  }
 
   function change_status(el, new_status){
     el.removeAttr("class");
