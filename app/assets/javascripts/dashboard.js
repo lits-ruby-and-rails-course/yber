@@ -19,8 +19,8 @@ $(document).on('ready page:load', function(){
           '<div class="col-md-3 col-sm-4 col-xs-12 head">STATUS:</div><div class="col-md-9 col-sm-8 col-xs-12">accepted</div></div>'+
           '<div class="row"><div class="col-md-3 col-sm-4 col-xs-12 head">FROM:</div><div class="col-md-9 col-sm-8 col-xs-12">'+$('#order-field-mfrom').text()+'</div></div>'+
           '<div class="row"><div class="col-md-3 col-sm-4 col-xs-12 head">TO:</div><div class="col-md-9 col-sm-8 col-xs-12">'+$('#order-field-mto').text()+'</div></div>'+
-          '<div class="row"><div class="col-md-12 col-sm-12 col-xs-12"><span class="head">ADDITIONAL INFORMATION:</span><span class=little_padding">'+$('#order-field-description').text()+'</span></div>'+
-          '<div class="row"><div class="col-md-3 col-sm-4 col-xs-12 tright"></div><a href="#">more..</a></div>'
+          '<div class="row"><div class="col-md-12 col-sm-12 col-xs-12"><span class="head">ADDITIONAL INFORMATION:</span><span class="little_padding">'+$('#order-field-description').text()+'</span></div>'+
+          '<div class="row"><div class="col-md-12 col-sm-12 col-xs-12 tright"><a href="#">more..</a></div></div>'
           );
       }
     });
