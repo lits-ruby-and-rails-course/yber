@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:destroy, :driver_take_order, :complete_order]
+  before_action :_set_order, only: [:destroy, :driver_take_order, :complete_order]
   before_filter :authenticate_user!
   layout "dashboard.html", only: [:home, :show, :new, :index]
 
@@ -37,12 +37,15 @@ class OrdersController < ApplicationController
 
   def show
     order = Order.find(params[:id])
-    if (current_user.role == 'admin') || ((current_user.role == 'rider') &&
-       (order.rider_id == current_user.id)) || ((current_user.role == 'driver') &&
-       ((order.driver_id == current_user.id) || (order.status == 'pending')))
+    if current_user.rider? && order.accepted?
+      @review = Review.new
+    elsif order.completed?
+      @review = Review.where(order_id: order.id).take || Review.new
+    end
+    if _order_viewable?(order)
       @order = order
     else
-      redirect_to :dashboard, alert: 'Sorry but you have not access!'
+      redirect_to :dashboard, alert: "Sorry, but You don't have access!"
     end
   end
 
@@ -53,11 +56,7 @@ class OrdersController < ApplicationController
     order = Order.where(rider_id: current_user.id).last
     if (order == nil) || (order.status == 'completed')
       @order = Order.new
-      # IP ::Location
-      # ::Location_info = request.::Location
-      # l = ::Location.new(::Location_info.latitude, ::Location_info.longitude)
       l1 = ::Location.new(49.82, 24)
-
       @marker_options = l1.marker_params
       @map_options = l1.map_params
     else
@@ -72,12 +71,10 @@ class OrdersController < ApplicationController
     else
       redirect_to :back, alert: "ERROR: For some reason order wasn't created"
     end
-    # status = @order.save ? 200 : 422
-    # render template: 'orders/show.json', status: status
   end
 
   def destroy
-    if (current_user.role == 'admin') || ((current_user.role == 'rider') && (@order.rider_id == current_user.id) && (@order.status == "pending"))
+    if _order_destroyable?
       @order.destroy
       respond_to do |format|
         format.json { head :no_content }
@@ -91,7 +88,6 @@ class OrdersController < ApplicationController
   def driver_take_order
     @order.accepted!
     if @order.update_attribute(:driver_id, current_user.id)
-      StatusMailer.accepted_status_email(User.find(@order.rider_id)).deliver_later
       render json: { name: current_user.name, email: current_user.email,
                      phone: current_user.profile.phone, license_plate: current_user.profile.car_phone,
                      date: @order.updated_at.strftime('%c') }
@@ -102,8 +98,8 @@ class OrdersController < ApplicationController
 
   def complete_order
     @order.completed!
+    StatusMailer.completed_status_email(current_user).deliver_later
     render json: { notice: "Order was completed successfully", date: @order.updated_at.strftime('%c') }
-    StatusMailer.completed_status_email(current_user, User.find(@order.driver_id), @order).deliver_later
   end
 
   # GOOGLE MAP AJAX
@@ -136,7 +132,18 @@ class OrdersController < ApplicationController
   end
 
   private
-    def set_order
+
+    def _order_viewable?(order)
+      current_user.admin? || (current_user.rider? && order.rider_id == current_user.id) ||
+      (current_user.driver? && (order.driver_id == current_user.id || order.pending?))
+    end
+
+    def _order_destroyable?
+      current_user.admin? ||
+      (current_user.rider? && @order.rider_id == current_user.id && @order.pending?)
+    end
+
+    def _set_order
       @order = Order.find(params[:id])
     end
 

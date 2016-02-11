@@ -38,7 +38,7 @@ $grey:#969696;
 .d-logo{
 	padding: 5px;
 	img {
-		display: inline-block;	
+		display: inline-block;
 	}
 	a{
 		color: #fff;
@@ -158,13 +158,13 @@ $grey:#969696;
 		float: left;
 		margin-right: 10px;
 		height: 70px;
-		width: 66px;		
+		width: 66px;
 		background-size: 100% 100%;
 		background-repeat: no-repeat;
 	}
 	.messages-avatar-male {
 		background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png');
-		
+
 	}
 	.messages-avatar-female {
 		background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-128.png');
@@ -337,7 +337,7 @@ button.list-group-item:focus {
 		padding-right: -15px;
 	}
 	margin-right: -15px;
-	
+
 }
 
 /*---------------------- special -----------------------*/
@@ -421,5 +421,18 @@ button.list-group-item:focus {
 		background: $light_red;
 		color: $red;
 		border: 1px dotted $red;
+	}
+}
+
+.star-box{
+	text-align: center;
+	div{
+		width: 18rem;
+		display: inline-block;
+		margin-bottom: 1rem;
+		img {
+			float: left;
+			width: 2.5rem;
+		}
 	}
 }

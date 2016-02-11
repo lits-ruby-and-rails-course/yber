@@ -7,11 +7,16 @@
 #  driver_id     :integer
 #  location_to   :string
 #  location_from :string
-#  status        :string
-#  price         :integer
+#  status        :integer          default(0)
+#  price         :float
 #  description   :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  pessengers    :integer
+#  mfrom_lat     :decimal(, )
+#  mfrom_lng     :decimal(, )
+#  mto_lat       :decimal(, )
+#  mto_lng       :decimal(, )
 #
 
 require 'rails_helper'

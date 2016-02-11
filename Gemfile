@@ -14,6 +14,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sprockets-rails'
+gem 'ratyrate'
 group :development, :test do
   gem 'byebug'
 end
