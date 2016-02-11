@@ -8,6 +8,7 @@ $(document).on('ready page:load', function(){
       url: "/take_order/"+id,
       type: "GET",
       success: function(data){
+        $('.show-order-title').html('<div><h3>Order in progress</h3></div>');
         $(that).replaceWith('<div class="order-box-driver-info padd-top">'+
           '<span class="order-field-title">Driver:<a class="little_padding" href="#" > '+data.name+'</a></span>'+
           '<ul><li>email:<span class="little_padding">'+data.email+'</span></li>'+
@@ -38,7 +39,7 @@ $(document).on('ready page:load', function(){
         $(that).remove();
         change_status($('div.green-line'), 2);
         $('#updated_date span:first-child').text('complited');
-        $('.show-order-title').remove();
+        $('.show-order-title').empty();
         $('#sidebar-current-order').replaceWith('<div id="sidebar-empty-current-order"><h4>No one order in progress</h4></div>');
         $('#updated_date span:last-child').text(data.date);
         show_message(data.notice);

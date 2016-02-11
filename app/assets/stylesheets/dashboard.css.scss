@@ -74,6 +74,11 @@ $grey:#969696;
 .d-sidebar {
 	margin-left: -10px;
 	margin-top:30px;
+	#sidebar-current-order{
+		padding: 15px;
+		border-right: 1px solid #B5B2B2;
+		border-left: 1px solid #BDBDBD;
+	}
 	.d-sidebar-current-trip, .d-sidebar-nav {
 		text-align:justify;
 		.list-group{
@@ -365,7 +370,7 @@ button.list-group-item:focus {
 		color: #666;
 	}
 }
-.warn-tittle-box, .show-order-title{
+.warn-tittle-box, .show-order-title>div{
 	text-align: center;
 	border-bottom: 1px solid $grey;
 	border-top: 1px solid $grey;
