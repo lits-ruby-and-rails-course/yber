@@ -31,7 +31,8 @@ html
       .col-md-6
       .col-md-3.col-sm-6.col-xs-12
         .d-topright
-          |Messages(10) | 
+          = link_to "#{current_user.name.capitalize} ", profile_path(Profile.find_by(user_id: current_user.id).id)
+          | | 
           = link_to('Logout', destroy_user_session_path, :method => :delete)
     .row
     .col-md-4.col-sm-4.col-xs-12
@@ -47,10 +48,26 @@ html
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   .d-statistic
-                    span Your rating is 5
-                    span 7 riders so fur
-                    span Balance -300$
-                    span Location: Ukraine, Lviv
+                    - if current_user.driver?
+                      p
+                        | Your current rating: 
+                      p#stars-dashboard.starrr data-rating=user_rating
+                      p
+                        | You've accepted 
+                        = Order.where(driver_id: current_user.id).count
+                        |  rides
+                          
+                    - if current_user.rider?
+                      p 
+                        | Your current balance: 357 UAH
+                      p
+                        | You've had 
+                        = Order.where(rider_id: current_user.id).count
+                        |  rides
+                    p 
+                      | Location:  
+                      = current_user.profile.city.capitalize
+                    / Order.where(driver_id: current_user.id, status: 'accepted').count != 0
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   = yield

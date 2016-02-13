@@ -10,6 +10,7 @@
 #  car_phone  :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  rating     :integer
 #
 
 FactoryGirl.define do

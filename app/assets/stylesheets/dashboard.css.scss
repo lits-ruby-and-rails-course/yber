@@ -1,5 +1,8 @@
+
+
 $dark_grey:#3f4a58;
 $orange:#f3795b;
+$intensive_orange:#f75b1e;
 $green:#3c763d;
 $light_green:#d6e9c6;
 $red:#a94442;
@@ -48,6 +51,111 @@ $grey:#969696;
 		text-decoration: none;
 	}
 }
+// profile
+
+.mini-order{
+	border-bottom: 0.5px $grey;
+}
+
+.profile-box {
+	color: #555;
+	border-collapse: collapse;
+	.name {
+		font-size: 3rem;
+		font-weight: bolder;
+		text-align: center;
+		margin-bottom: 1rem;
+		margin-top: 1rem;
+	}
+	.value {
+		// vertical-align: middle;
+		margin-bottom: -1px;
+		border-style: solid;
+    border-width: 0.5px;
+		border-color: rgb(221, 221, 221);
+		height: 5rem;
+		padding-top: 1rem;
+		font-size: 1.75rem;
+		.value-header {
+			font-weight: bold;
+		}
+		.input-data {
+			font-size: 1.75rem;
+		}
+	}
+	#edit-profile{
+		font-size: 2rem;
+		margin-top: -2rem;
+		:hover{
+			color: $orange;
+			cursor: pointer;
+		}
+	}
+}
+
+.profile-box > :nth-child(3) .value {
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+.profile-box > :nth-child(8) .value {
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+
+// stars
+
+.lead{
+	text-align: center;
+	font-size: 2.5rem;
+	font-weight: bold;
+}
+
+.starrr {
+		color: $intensive_orange;
+}
+
+#stars{
+	text-align: right;
+	margin-right: 3rem;
+}
+
+#stars-existing{
+	display: inline-block;
+	text-align: right;
+	margin-left: 5rem;
+}
+
+#stars-profile{
+	margin-right: 0;
+	text-align: center;
+}
+
+#count {
+	display: none;
+}
+
+// reviews
+
+#confirm-edit-review {
+	width: 20rem;
+}
+
+#edit-review:hover {
+	color: $orange;
+	cursor: pointer;
+}
+
+// orders
+
 #crtord_btn {
 	display: block;
 	width: 30%;
@@ -110,11 +218,22 @@ $grey:#969696;
 .d-statistic {
 	margin-top: 40px;
 	margin-bottom: 50px;
-	span {
+	#stars-dashboard {
+		display: inline-block;
+		font-size: 2.3rem;
+		margin-bottom: 0;
+		color: $intensive_orange;
+	}
+	p {
 		font-size: 2rem;
 		color: #555;
+		display: inline-block;
 	}
-	span:not(:last-child)::after{
+	// p:first-child::after{
+	// 	content:"|";
+	// 	padding:0px 5px;
+	// }
+	p:not(:first-child)::before{
 		content:"|";
 		padding:0px 5px;
 	}
@@ -324,7 +443,7 @@ button.list-group-item:focus {
 	}
 }
 
-#hidden_order_id{
+#hidden_order_id, #hidden_review_id, #hidden_review_stars, #hidden_profile_id{
 	display: none;
 }
 #take_order, #complete_order {

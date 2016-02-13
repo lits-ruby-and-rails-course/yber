@@ -13,4 +13,23 @@ module DashboardHelper
       nil
     end
   end
+
+  def rating
+    reviews = Review.where(driver_id: @profile.user.id, owner: 'rider')
+    count_rating(reviews)
+  end
+
+  def user_rating
+    reviews = Review.where(driver_id: current_user.id, owner: 'rider')
+    count_rating(reviews)
+  end
+
+  def count_rating(reviews)
+    if reviews.length != 0
+      rating = 0
+      reviews.each { |rev| rating += rev.stars.to_i }
+      rating /= reviews.length
+    end
+    rating
+  end
 end

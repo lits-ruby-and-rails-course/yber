@@ -10,7 +10,7 @@
       .col-md-4.col-sm-6.col-xs-6.status.grey-line
         = order.status
     .col-md-offset-4.col-sm-offset-2.col-xs-offset-2.col-md-4.col-sm-4.col-xs-4.links-box
-      - if (current_user.role == 'admin') || ((current_user.role == 'rider') && (order.rider_id == current_user.id) && (order.status == "pending"))
+      - if current_user.admin? || (current_user.rider? && order.rider_id == current_user.id && order.pending?)
         i.fa.fa-trash
         = link_to 'Delete', {controller: "orders", action: "destroy", id: order}, data: {:confirm => 'Are you sure?'}, :method => :delete, :remote => true, :class => 'delete-order'
   .order-box-content
@@ -46,9 +46,8 @@
     - if order.driver_id != nil
       .order-box-driver-info
         span.order-field-title Driver:
-        /! make real link!!!
         a.little_padding
-          = order.driver.name
+          = link_to "#{order.driver.name.capitalize}", profile_path(Profile.find_by(user_id: order.driver.id).id)
         ul
           li
             |email:
