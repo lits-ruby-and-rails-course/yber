@@ -43,6 +43,9 @@ class ProfilesController < ApplicationController
     end
   end
 
+  # status = @task.update_attribute(:description, params[:description]) ? 200 : 422
+  # render template: 'tasks/show.json', status: status
+
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update

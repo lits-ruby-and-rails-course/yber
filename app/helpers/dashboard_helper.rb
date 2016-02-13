@@ -13,7 +13,7 @@ module DashboardHelper
       nil
     end
   end
-# Set current user rating for dashbord statistic and rating for drivers profiles
+
   def rating
     reviews = Review.where(driver_id: @profile.user.id, owner: 'rider')
     count_rating(reviews)
@@ -44,5 +44,4 @@ module DashboardHelper
       Order.where(rider_id: current_user.id).count
     end
   end
-
 end

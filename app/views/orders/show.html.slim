@@ -75,11 +75,11 @@
               span.little_padding
                 = @order.driver.email
             li
-              |phone_number: 
+              |phone_number:
               span.little_padding
                 = @order.driver.profile.phone
             li
-              |license_plate: 
+              |license_plate:
               span.little_padding
                 = @order.driver.profile.car_phone
           -if @order.status != "pending"
@@ -109,7 +109,7 @@
           .modal-content
             .modal-header
               button.close aria-hidden="true" data-dismiss="modal" type="button"  ×
-              h3.modal-title Thank You for riding with Us. 
+              h3.modal-title Thank You for riding with Us.
             /! main
             .modal-body
               = render 'reviews/form'
@@ -121,5 +121,5 @@
       .row
         - if @review.text
           = render 'reviews/show'
-        - else 
+        - else
           = render 'reviews/form'

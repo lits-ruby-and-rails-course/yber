@@ -7,7 +7,7 @@
         - if edit_accessible_profile?
           span#edit-profile.pull-right
             i.fa.fa-pencil-square-o
-              | Edit Profile 
+              | Edit Profile
   - if user.driver?
     .row
       .name
@@ -21,20 +21,20 @@
       .col-md-7
         = user.email
   .row
-    .value  
+    .value
       .col-md-3.value-header
         | City
       .col-md-7.value-data
         = @profile.city.capitalize
   .row
-    .value  
+    .value
       .col-md-3.value-header
         | Phone
       .col-md-7.value-data
         = @profile.phone
   - if user.driver?
     .row
-      .value  
+      .value
         .col-md-3.value-header
           | License plate
         .col-md-7.value-data
@@ -50,8 +50,8 @@
       .col-md-3.value-header
         | Last seen
       .col-md-7
-        = user.last_sign_in_at.strftime('%c')  
-      
+        = user.last_sign_in_at.strftime('%c')
+
   - if @orders
     .row
       .col-md-6.col-md-offset-3
@@ -63,6 +63,6 @@
   - else
     .row
       .col-md-5.col-md-offset-2
-        h3 
-          | No Orders available for 
+        h3
+          | No Orders available for
           = name
