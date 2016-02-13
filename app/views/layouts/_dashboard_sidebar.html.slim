@@ -2,8 +2,8 @@
   .list-group
     = link_to "Home", dashboard_path, class: "list-group-item"
     = link_to "Orders(Trips)", trips_path, class: "list-group-item"
-    a.list-group-item Messages
-    a.list-group-item My Profile
+    = link_to "Messages", "#", class: "list-group-item"
+    = link_to "My Profile", profile_path(Profile.find_by(user_id: current_user.id).id), class: "list-group-item"
 .d-sidebar-current-trip
   h3 Current Trip Information:
   - if find_current_order != nil
@@ -37,4 +37,4 @@
           = link_to "more..", find_current_order
   - else
     #sidebar-empty-current-order
-      h4 No one order in progress
+      h4 No order in progress now

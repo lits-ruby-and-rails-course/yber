@@ -26,6 +26,82 @@ $(document).on('ready page:load', function(){
     });
   });
 
+  $('#edit-profile').on('click', function (e){
+    e.preventDefault();
+    var that = this;
+    if ($(that).has('i.fa-pencil-square-o').length) {
+      $(that).find('i').removeClass('fa-pencil-square-o').addClass('fa-floppy-o');
+      $(that).find('i').text('Update profile');
+      $('.value-data').each(function (e){
+        var text = $(this).text().trim();
+        $(this).replaceWith('<div class="col-md-7"><input class="form-control input-data" value="' + text + '"></div>');
+      });
+    } else {
+      var input_array = $('.profile-box').find('.input-data'),
+          city = input_array[0].value,
+          phone = input_array[1].value,
+          // license_plate = input_array[2].value,
+          id = $('#hidden_profile_id').text();
+      $.ajax({
+        url: '/profiles/' + id + '.json',
+        data : {
+          "city": city,
+          // "car_phone": license_plate
+          "phone": phone
+        },
+        method: "PATCH"
+      }).done(function(data){
+        $(that).find('i').addClass('fa-pencil-square-o').removeClass('fa-floppy-o');
+        $(that).find('i').text('Edit Profile');
+        var updated_input_array = $('.profile-box').find('.input-data'),
+            text;
+        $(updated_input_array).each(function(index){
+          text = $(this).val();
+          $(this).replaceWith('<div class="col-md-7 value-data">' + text + '</div>');
+        });
+
+      }).fail(function(errorThrown){
+        console.log(errorThrown);
+      })
+    }
+  });
+
+  $('#edit-review').on('click', function (e){
+    if ($('#edit-review').hasClass("disabled") == false) {
+      var text = $('#review-text').text().trim(),
+          that = $('#review-text'),
+          id = $('#hidden_review_id').text(),
+          form = "<form action='/reviews/" + id + "' method='PATCH'><input type='hidden' value=" + id + "></input><textarea class='form-control' rows=6>" + text + "</textarea><button type='submit' class='btn btn-grey' id='confirm-edit-review'>Save</button></form>";
+      $(that).css("display", "none");
+      $(that).parent().append(form);
+      $('#edit-review').addClass("disabled");
+    }
+  });
+
+  $('#confirm-edit-review').on('click', function (e){
+    e.preventDefault();
+    var form = $(this).closest('form'),
+        action = form.attr('action'),
+        method = form.attr('method'),
+        // params = form.serializeArray(),
+        text = $(form).closest('textarea').text().trim(),
+        id = $('#hidden_review_id').text();
+    $('#edit-review').removeClass("disabled");
+    console.log(method);
+    $.ajax({
+      method: 'PATCH',
+      url: '/reviews/19.json',
+      data: {'text': text,
+            'order_id': 12,
+            },
+    }).done( function(data) {
+      console.log(data);
+    }).fail( function(data) {
+    }).always( function(data) {
+      console.log(data);
+    });
+  });
+
   $('#complete_order').on('click', function (e){
     e.preventDefault();
     // if (!confirm("Are you sure?")) return 0;
@@ -36,14 +112,19 @@ $(document).on('ready page:load', function(){
       url: "/complete_order/"+id,
       type: "GET",
       success: function(data){
-        $(that).remove();
-        change_status($('div.green-line'), 2);
-        $('#updated_date span:first-child').text('complited');
-        $('.show-order-title').remove();
-        $('#sidebar-current-order').replaceWith('<div id="sidebar-empty-current-order"><h4>No one order in progress</h4></div>');
-        $('#updated_date span:last-child').text(data.date);
-        $('#reviewModal').modal('hide');
-        show_message(data.notice);
+        if ( $('#reviewModal').length != 0 ) {
+          change_status($('div.green-line'), 2);
+          $('#updated_date span:first-child').text('complited');
+          $('.show-order-title').remove();
+          $('#sidebar-current-order').replaceWith('<div id="sidebar-empty-current-order"><h4>No order in progress</h4></div>');
+          $('#updated_date span:last-child').text(data.date);
+          $('#reviewModal').modal('hide');
+          show_message(data.notice);
+          $(that).remove();
+        } else {
+          show_message('Thank You for sharing Your oppinion!');
+          window.location.reload();
+        }
         create_review(form);
       }
     });
@@ -96,17 +177,17 @@ $(document).on('ready page:load', function(){
 
   function create_review(el){
     var form   = el,
-        action = form.attr('action'), // Please review these attributes using chrome dev-tools.
-        method = form.attr('method'), // Please review these attributes using chrome dev-tools.
+        action = form.attr('action'),
+        method = form.attr('method'),
         params = form.serializeArray();
+    //     stars_value = $('#count').html();
+    // $('#review_stars').val(stars_value);
     $.ajax({
       method: method,
       url: action + '.json',
       data: params
     }).success( function(data) {
-      alert('success');
     }).fail( function(data) {
-      alert('error');
     });
   }
 

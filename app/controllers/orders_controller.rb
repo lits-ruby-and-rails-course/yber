@@ -39,12 +39,14 @@ class OrdersController < ApplicationController
     order = Order.find(params[:id])
     if current_user.rider? && order.accepted?
       @review = Review.new
-      @profile = Profile.find_by(user_id: order.driver_id)
+      # @profile = Profile.find_by(user_id: order.driver_id)
+    end
+    if order.completed?
+      @review = Review.where(order_id: order.id).take || Review.new
     end
 
-    if (current_user.role == 'admin') || ((current_user.role == 'rider') &&
-       (order.rider_id == current_user.id)) || ((current_user.role == 'driver') &&
-       ((order.driver_id == current_user.id) || (order.status == 'pending')))
+    if current_user.admin? || (current_user.rider? && order.rider_id == current_user.id) ||
+       (current_user.driver? && (order.driver_id == current_user.id || order.pending?))
       @order = order
     else
       redirect_to :dashboard, alert: 'Sorry but you have not access!'

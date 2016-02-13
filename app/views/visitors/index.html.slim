@@ -1,6 +1,7 @@
 = render 'header'
 = render 'about'
-= render 'registration'
+- if !current_user
+  = render 'registration'
 aside.callout
   .text-vertical-center
     h1 Vertically Centered Text Without Any Reason
