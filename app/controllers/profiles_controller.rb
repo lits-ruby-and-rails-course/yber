@@ -1,5 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  # before_action :count_rating, only: :show
+  layout "dashboard.html"
 
   # GET /profiles
   # GET /profiles.json
@@ -10,6 +12,11 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    if @profile.user.driver?
+      @orders = Order.where(driver_id: @profile.user.id)
+    elsif @profile.user.rider?
+      @orders = Order.where(rider_id: @profile.user.id)
+    end
   end
 
   # GET /profiles/new
@@ -37,17 +44,16 @@ class ProfilesController < ApplicationController
     end
   end
 
+  # status = @task.update_attribute(:description, params[:description]) ? 200 : 422
+  # render template: 'tasks/show.json', status: status
+
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
-    respond_to do |format|
-      if @profile.update(profile_params)
-        format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
-        format.json { render :show, status: :ok, location: @profile }
-      else
-        format.html { render :edit }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
-      end
+    if @profile.update_attributes({city: params[:city], phone: params[:phone]})
+      render json: { notice: "Profile was edited successfully"}
+    else
+      render json: { alert: "Please, try again", errors: @profile.errors }
     end
   end
 

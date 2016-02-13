@@ -1,7 +1,7 @@
-- if (@order.status == "accepted") && (@order.driver_id == current_user.id)
+- if @order.accepted? && @order.driver_id == current_user.id
   .show-order-title
     h3 Order in progress
-- if (@order.rider_id == current_user.id) && (@order.status != "completed")
+- if @order.rider_id == current_user.id && !@order.completed?
   .show-order-title
     h3 Your current order
 .order-box
@@ -17,7 +17,7 @@
         = @order.status
     .col-md-4
     .col-md-4.links-box
-      - if (current_user.role == 'admin') || ((current_user.role == 'rider') && (@order.rider_id == current_user.id) && (@order.status == "pending"))
+      - if current_user.admin? || (current_user.rider? && @order.rider_id == current_user.id && @order.pending?)
         i.fa.fa-trash
         = link_to 'Delete', {controller: "orders", action: "destroy", id: @order}, data: {:confirm => 'Are you sure?'}, :method => :delete, :class => 'd-order'
   .order-box-content
@@ -57,7 +57,7 @@
             span
               |by:
             a.little_padding
-              = @order.rider.name
+              = link_to "#{@order.rider.name.capitalize}", profile_path(Profile.find_by(user_id: @order.rider.id).id)
           .col-md-6.tright
             span
               |in:
@@ -68,7 +68,7 @@
           span.order-field-title Driver:
           /! make real link!!!
           a.little_padding
-            = @order.driver.name
+          = link_to "#{@order.driver.name.capitalize}", profile_path(Profile.find_by(user_id: @order.driver.id).id)
           ul
             li
               |email:
@@ -90,25 +90,36 @@
                 |at:
               span.little_padding
                 = @order.updated_at.strftime('%c')
-    -if (current_user.role == "driver") && (@order.status == "pending")
+    -if current_user.driver? && @order.pending?
       .row
         .col-md-12.col-sm-12.col-xs-12
           span#hidden_order_id
             = @order.id
           button#take_order.btn.btn-grey type="button" Take order
-    - elsif (@order.rider_id == current_user.id) && (@order.status == "accepted")
+    - elsif @order.rider_id == current_user.id && @order.accepted?
       .row
         .col-md-12.col-sm-12.col-xs-12
           span#hidden_order_id
             = @order.id
-
-          a#cmplord_btn.btn.btn-orange href="#" role="button" Close order >>
-          #reviewModal.modal.fade
-            .modal-dialog
-              .modal-content
-                .modal-header
-                  button.close aria-hidden="true" data-dismiss="modal" type="button"  ×
-                  h3.modal-title Thank You for riding with Us. 
-                /! main
-                .modal-body
-                  = render 'reviews/form'
+          .row
+            .col-md-4.col-md-offset-4
+              a#cmplord_btn.btn.btn-orange href="#" role="button" Close order >>
+      #reviewModal.modal.fade
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button.close aria-hidden="true" data-dismiss="modal" type="button"  ×
+              h3.modal-title Thank You for riding with Us. 
+            /! main
+            .modal-body
+              = render 'reviews/form'
+    - if @order.completed?
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          span#hidden_order_id
+            = @order.id
+      .row
+        - if @review.text
+          = render 'reviews/show'
+        - else 
+          = render 'reviews/form'

@@ -1,19 +1,19 @@
 - if @orders.empty?
-  - if current_user.role == 'rider'
+  - if current_user.rider?
     .warn-tittle-box
-      h3 Sorry but you have noone order
+      h3 Sorry, but You have no orders yet
       h4 
-        |You can create new order for this link 
+        | You can create new order by this link 
         = link_to " create order >>", dashboard_path
-  - elsif current_user.role == 'driver'
+  - elsif current_user.driver?
     .warn-tittle-box
-      h3 Sorry but all orders already are occupied
-      h4 And you doesn't have any completed orders
-- elsif (current_user.role == 'driver') && ((@orders.find {|o| o.status == 'pending' }) == nil)
+      h3 Sorry, but all orders already are occupied
+      h4 And You don't have any completed orders
+- elsif current_user.driver? && (@orders.find {|o| o.status == 'pending' } == nil)
   .warn-tittle-box
-    h3 Sorry but all orders already are occupied
+    h3 Sorry, but all orders already are occupied
     h4 
-      But You can review your last taked orders under
+      But You can review your last taken orders under
       sub.little_padding
         i.fa.fa-level-down
 - @orders.reverse_each do |ord|

@@ -21,6 +21,7 @@
 
 class Order < ActiveRecord::Base
   enum status: [:pending, :accepted, :completed]
+  has_many :reviews
 
   include DriverRiderble
   validates :rider_id, :location_to, :location_from, presence: true
