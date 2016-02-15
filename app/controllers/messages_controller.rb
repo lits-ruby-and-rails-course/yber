@@ -17,6 +17,11 @@ class MessagesController < ApplicationController
     @message = Message.new
   end
 
+  def new_message
+    @to_id = params[:id]
+    @message = Message.new
+  end
+
   # GET /messages/1/edit
   def edit
   end

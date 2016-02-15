@@ -2,16 +2,16 @@ button.toggle-messages.btn#pollSlider-button
   i.fa.fa-envelope
   Hide
 .d-messages.pollSlider
-  h2 Chat
-  .messages-box
-    .messages-avatar-male
-    h4 Andrew
-    p Hi There...
-  .messages-box
-    .messages-avatar-female
-    h4 Sheyla
-    p Hi There...
-  button.messages-invite-friend.btn.btn-style Invite Friend
+  .related-block
+    h2 Chat
+    - @users.each do |user|
+      .messages-box
+        .messages-avatar-male
+        h4 = user.name
+        = link_to "new message", "messages/new_message/2"
+
+/        button.message-btn Message 
+    button.messages-invite-friend.btn.btn-style Invite Friend
 javascript:
   var slider_width = $('.pollSlider').width(); //get width automaticly
   $('#pollSlider-button').click(function() {

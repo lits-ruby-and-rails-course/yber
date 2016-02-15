@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   get 'take_position', to: 'orders#take_position'
   get 'find_coords', to: 'orders#find_coords'
   get 'find_place', to: 'orders#find_place'
+  
+  get 'messages/new_message/:id', to: 'messages#new_message', as: :new_mes
 
   root to: 'visitors#index'
 end
