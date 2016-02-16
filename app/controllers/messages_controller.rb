@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
+  #layout "dashboard.html", only: [:show, :new, :index]
 
   # GET /messages
   # GET /messages.json
@@ -45,12 +46,13 @@ class MessagesController < ApplicationController
   # PATCH/PUT /messages/1
   # PATCH/PUT /messages/1.json
   def update
+    #@message.update_attribute(:text, params["new_text"])
     respond_to do |format|
-      if @message.update(message_params)
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+      if @message.update_attribute(:text, params["new_text"])
+        #format.html { redirect_to @message, notice: 'Message was successfully updated.' }
         format.json { render :show, status: :ok, location: @message }
       else
-        format.html { render :edit }
+        #format.html { render :edit }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end

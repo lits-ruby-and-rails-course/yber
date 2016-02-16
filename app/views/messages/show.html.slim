@@ -1,15 +1,17 @@
 p#notice = notice
-
+span#message-id
+	= @message.id
 p
   strong From:
-  = @message.from_id
+  = find_user(@message.from_id).name
 p
   strong To:
-  = @message.to_id
+  = find_user(@message.to_id).name
 p
   strong Text:
-  = @message.text
+  span#message-text-field
+  	= @message.text
 
-= link_to 'Edit', edit_message_path(@message)
+button#edit-message Edit
 '|
 = link_to 'Back', messages_path

@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   resources :orders
   resources :reviews
   resources :messages
-  resources :messages
 
   get 'dashboard', to: 'orders#home', as: :dashboard
   get 'dashboard/trips/new', to: 'orders#new', as: :new_trip

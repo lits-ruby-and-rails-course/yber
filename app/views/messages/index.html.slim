@@ -13,11 +13,13 @@ table
   tbody
     - @messages.each do |message|
       tr
-        td = message.from_id
-        td = message.to_id
+        = message.to_id
+        br
+        td = find_user(message.from_id).name
+        td = find_user(message.to_id).name
         td = message.text
         td = link_to 'Show', message
-        td = link_to 'Edit', edit_message_path(message)
+//        td = link_to 'Edit', edit_message_path(message)
         td = link_to 'Destroy', message, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br

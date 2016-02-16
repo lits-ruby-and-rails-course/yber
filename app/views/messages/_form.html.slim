@@ -2,8 +2,14 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :from_id
-    = f.input :to_id
+  	span
+  		| From:
+  		= current_user.name
+    = f.hidden_field :from_id, value: current_user.id
+   	span
+   		| To: 
+  		= find_user(user_to).name
+    = f.hidden_field :to_id, value: find_user(user_to).id
     = f.input :text
 
   .form-actions
