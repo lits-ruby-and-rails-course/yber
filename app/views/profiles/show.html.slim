@@ -2,13 +2,13 @@
   .row
     .name
       .col-md-offset-4.col-md-4
-        = @profile.user.name.capitalize
+        = name
       .col-md-4
-        - if current_user.admin? || (current_user.id == @profile.user.id)
+        - if edit_accessible_profile?
           span#edit-profile.pull-right
             i.fa.fa-pencil-square-o
               | Edit Profile 
-  - if @profile.user.driver?
+  - if user.driver?
     .row
       .name
         #stars-profile.starrr data-rating=rating
@@ -19,7 +19,7 @@
       .col-md-3.value-header
         | E-mail
       .col-md-7
-        = @profile.user.email
+        = user.email
   .row
     .value  
       .col-md-3.value-header
@@ -32,7 +32,7 @@
         | Phone
       .col-md-7.value-data
         = @profile.phone
-  - if @profile.user.driver?
+  - if user.driver?
     .row
       .value  
         .col-md-3.value-header
@@ -44,19 +44,19 @@
       .col-md-3.value-header
         | User since
       .col-md-7
-        = @profile.user.created_at.strftime('%c')
+        = user.created_at.strftime('%c')
   .row
     .value
       .col-md-3.value-header
         | Last seen
       .col-md-7
-        = @profile.user.last_sign_in_at.strftime('%c')  
+        = user.last_sign_in_at.strftime('%c')  
       
   - if @orders
     .row
       .col-md-6.col-md-offset-3
         .name
-          = @profile.user.name.capitalize
+          = name
           | 's Orders
     .row
       = render partial: 'orders/form', collection: @orders, as: :order
@@ -65,4 +65,4 @@
       .col-md-5.col-md-offset-2
         h3 
           | No Orders available for 
-          = @profile.user.name.capitalize
+          = name
