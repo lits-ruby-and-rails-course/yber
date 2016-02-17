@@ -253,7 +253,7 @@ $grey:#969696;
 	right: 5px;
 	height: 68.6%;
 	z-index: 2;
-	top: 34%;
+	bottom: 0;
 	-webkit-box-shadow: inset 1px -1px 29px 0px rgba(199,199,199,0.48);
 	-moz-box-shadow: inset 1px -1px 29px 0px rgba(199,199,199,0.48);
 	box-shadow: inset 1px -1px 29px 0px rgba(199,199,199,0.48);
@@ -268,22 +268,29 @@ $grey:#969696;
 }
 .messages-box{
 	padding: 10px;
-	margin-top:20px;
+	margin-top: 10px;
+    margin-bottom: 5px;
 	.messages-avatar-male, .messages-avatar-female{
-		float: left;
-		margin-right: 10px;
 		height: 70px;
 		width: 66px;
-		background-size: 100% 100%;
-		background-repeat: no-repeat;
+		float: left;
+		margin-right: 10px;
 	}
-	.messages-avatar-male {
-		background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png');
-
-	}
-	.messages-avatar-female {
-		background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-128.png');
-	}
+}
+.messages-avatar-male, .messages-avatar-female{
+	display: inline-block;
+	// float: left;
+	height: 35px;
+	width: 35px;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
+.messages-avatar-male {
+	background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png');
+	
+}
+.messages-avatar-female {
+	background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-128.png');
 }
 .messages-invite-friend {
 	position: absolute;

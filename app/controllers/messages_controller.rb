@@ -1,16 +1,20 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
-  #layout "dashboard.html", only: [:show, :new, :index]
+  before_action :set_users
+  layout "dashboard.html"
 
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
+    @to_id = params[:id]
+    @messages = Message.where(from_id: current_user.id, to_id: @to_id)||Message.where(to_id: current_user.id, from_id: @to_id)
+    @message = Message.new
   end
 
   # GET /messages/1
   # GET /messages/1.json
   def show
+    @messages = Message.where(from_id: current_user.id, to_id: @to_id)
   end
 
   # GET /messages/new
@@ -21,6 +25,10 @@ class MessagesController < ApplicationController
   def new_message
     @to_id = params[:id]
     @message = Message.new
+  end
+
+  def index_all
+    @messages = Message.where(from_id: current_user.id) || Message.where(to_id: current_user.id)
   end
 
   # GET /messages/1/edit
@@ -72,6 +80,10 @@ class MessagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_message
       @message = Message.find(params[:id])
+    end
+
+    def set_users
+      @users = current_user.rider? ? User.where(role: User.roles[:driver]) : User.where(role: User.roles[:rider])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

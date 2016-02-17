@@ -1,16 +1,15 @@
 = simple_form_for(@message) do |f|
   = f.error_notification
-
   .form-inputs
-  	span
-  		| From:
-  		= current_user.name
+  	.form-group
+  		/ | From:
+  		/ = current_user.name.capitalize
     = f.hidden_field :from_id, value: current_user.id
-   	span
-   		| To: 
-  		= find_user(user_to).name
+   	.form-group
+   		/ | To: 
+  		/ = find_user(user_to).name.capitalize
     = f.hidden_field :to_id, value: find_user(user_to).id
-    = f.input :text
+    = f.input :text, placeholder: 'New message'
 
-  .form-actions
+  .form-actions.text-right
     = f.button :submit

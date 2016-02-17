@@ -5,11 +5,10 @@ Rails.application.routes.draw do
     end
   devise_for :users
   resources :cars
-  resources :messages
+  # resources :messages
   resources :profiles
   resources :orders
   resources :reviews
-  resources :messages
 
   get 'dashboard', to: 'orders#home', as: :dashboard
   get 'dashboard/trips/new', to: 'orders#new', as: :new_trip
@@ -25,6 +24,11 @@ Rails.application.routes.draw do
   get 'find_place', to: 'orders#find_place'
   
   get 'messages/new_message/:id', to: 'messages#new_message', as: :new_mes
+  get 'messages', to: 'messages#index_all', as: :messages
+  get 'messages/:id', to: 'messages#index', as: :message
+  post 'messages/', to: 'messages#create'
+
+
 
   root to: 'visitors#index'
 end

@@ -7,9 +7,9 @@ button.toggle-messages.btn#pollSlider-button
     - @users.each do |user|
       .messages-box
         .messages-avatar-male
-        h4 = user.name
+        h4 = user.name.capitalize
         = link_to "new message", "messages/new_message/"+user.id.to_s, class:('btn-style btn message-btn')
-        button.messages-invite-friend.btn.btn-style Invite Friend
+        / button.messages-invite-friend.btn.btn-style Invite Friend
 javascript:
   var slider_width = $('.pollSlider').width(); //get width automaticly
   $('#pollSlider-button').click(function() {
