@@ -1,6 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  # before_action :count_rating, only: :show
+  before_action :_set_profile, only: [:show, :edit, :update, :destroy]
   layout "dashboard.html"
 
   # GET /profiles
@@ -44,9 +43,6 @@ class ProfilesController < ApplicationController
     end
   end
 
-  # status = @task.update_attribute(:description, params[:description]) ? 200 : 422
-  # render template: 'tasks/show.json', status: status
-
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
@@ -69,7 +65,7 @@ class ProfilesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_profile
+    def _set_profile
       @profile = Profile.find(params[:id])
     end
 
