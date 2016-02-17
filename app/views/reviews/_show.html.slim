@@ -1,13 +1,13 @@
-.order-box style="margin-top: 8rem"
+.review-box style="margin-top: 8rem"
   .row.order-box-header
     .col-md-4.col-sm-6.col-xs-6.status.grey-line
       | Review
       #stars-existing.starrr data-rating=@review.stars
     .col-md-offset-4.col-sm-offset-2.col-xs-offset-2.col-md-4.col-sm-4.col-xs-4.links-box
-      - if current_user.admin? || (current_user.rider? && @order.rider_id == current_user.id)
+      - if edit_accessible?
         span#edit-review
           i.fa.fa-pencil-square-o
-          | Edit Review 
+            | Edit Review 
   .order-box-content
     .order-box-order-info
       .col-md-5

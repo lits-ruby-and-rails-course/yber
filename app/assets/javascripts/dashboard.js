@@ -40,13 +40,13 @@ $(document).on('ready page:load', function(){
       var input_array = $('.profile-box').find('.input-data'),
           city = input_array[0].value,
           phone = input_array[1].value,
-          // license_plate = input_array[2].value,
+          license_plate = input_array[2] ? input_array[2].value : undefined,
           id = $('#hidden_profile_id').text();
       $.ajax({
         url: '/profiles/' + id + '.json',
         data : {
           "city": city,
-          // "car_phone": license_plate
+          "car_phone": license_plate,
           "phone": phone
         },
         method: "PATCH"
@@ -67,39 +67,29 @@ $(document).on('ready page:load', function(){
   });
 
   $('#edit-review').on('click', function (e){
-    if ($('#edit-review').hasClass("disabled") == false) {
-      var text = $('#review-text').text().trim(),
-          that = $('#review-text'),
-          id = $('#hidden_review_id').text(),
-          form = "<form action='/reviews/" + id + "' method='PATCH'><input type='hidden' value=" + id + "></input><textarea class='form-control' rows=6>" + text + "</textarea><button type='submit' class='btn btn-grey' id='confirm-edit-review'>Save</button></form>";
-      $(that).css("display", "none");
-      $(that).parent().append(form);
-      $('#edit-review').addClass("disabled");
-    }
-  });
-
-  $('#confirm-edit-review').on('click', function (e){
     e.preventDefault();
-    var form = $(this).closest('form'),
-        action = form.attr('action'),
-        method = form.attr('method'),
-        // params = form.serializeArray(),
-        text = $(form).closest('textarea').text().trim(),
-        id = $('#hidden_review_id').text();
-    $('#edit-review').removeClass("disabled");
-    console.log(method);
-    $.ajax({
-      method: 'PATCH',
-      url: '/reviews/19.json',
-      data: {'text': text,
-            'order_id': 12,
-            },
-    }).done( function(data) {
-      console.log(data);
-    }).fail( function(data) {
-    }).always( function(data) {
-      console.log(data);
-    });
+    var that = this,
+        id = $('#hidden_review_id').text(),
+        text;
+    if ($(that).has('i.fa-pencil-square-o').length) {
+      $(that).find('i').removeClass('fa-pencil-square-o').addClass('fa-floppy-o');
+      $(that).find('i').text('Update review');
+      text = $('#review-text').text().trim(),
+      $('#review-text').replaceWith('<textarea class="form-control input-data">' + text + '</textarea>');
+    } else {
+      $.ajax({
+            url    : '/reviews/' + id + '.json',
+            data   : {"text": text},
+            method : 'PATCH'
+      }).done(function(data){
+        text = $('.review-box').find('.input-data').val();
+        $('.review-box').find('i').addClass('fa-pencil-square-o').removeClass('fa-floppy-o');
+        $('.review-box').find('i').text('Edit Review');
+        $('.review-box').find('.input-data').replaceWith('<p#review-text">' + text + '</p>');
+      }).fail(function(errorThrown){
+        console.log(errorThrown);
+      })
+    }
   });
 
   $('#complete_order').on('click', function (e){

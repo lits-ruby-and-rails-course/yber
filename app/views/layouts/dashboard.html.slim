@@ -31,7 +31,7 @@ html
       .col-md-6
       .col-md-3.col-sm-6.col-xs-12
         .d-topright
-          = link_to "#{current_user.name.capitalize} ", profile_path(Profile.find_by(user_id: current_user.id).id)
+          = link_to "#{current_user.name.capitalize} ", profile_path(current_profile.id)
           | | 
           = link_to('Logout', destroy_user_session_path, :method => :delete)
     .row
@@ -54,7 +54,7 @@ html
                       p#stars-dashboard.starrr data-rating=user_rating
                       p
                         | You've accepted 
-                        = Order.where(driver_id: current_user.id).count
+                        = rides_count
                         |  rides
                           
                     - if current_user.rider?
@@ -62,12 +62,11 @@ html
                         | Your current balance: 357 UAH
                       p
                         | You've had 
-                        = Order.where(rider_id: current_user.id).count
+                        = rides_count
                         |  rides
                     p 
                       | Location:  
-                      = current_user.profile.city.capitalize
-                    / Order.where(driver_id: current_user.id, status: 'accepted').count != 0
+                      = current_profile.city.capitalize
               .row
                 .col-md-12.col-sm-12.col-xs-12
                   = yield
