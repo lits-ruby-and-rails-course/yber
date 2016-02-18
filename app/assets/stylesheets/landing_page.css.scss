@@ -167,12 +167,22 @@ hr.small {
   }
   #lits {
     background: url(lits.jpg) no-repeat left scroll;
-    height: 18rem;
+    height: 25rem;
+    width: auto;
+  }
+  #thanx_to{
+    text-align: right;
+    font-weight: bold;
+    margin-top: 2rem;
+    padding: 2rem 10rem 0 0;
+    font-weight: bold;
+    font-size: 2rem;
+
   }
   #developed_by{
     margin-top: 2rem;
     padding-top: 2rem;
-    font-weight: bolder;
+    font-weight: bold;
     font-size: 2rem;
   }
 }
