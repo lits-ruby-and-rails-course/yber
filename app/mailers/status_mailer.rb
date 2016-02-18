@@ -6,7 +6,8 @@ class StatusMailer < ApplicationMailer
     mail(to: @rider.email, subject: 'Yber Email: Accept order.')
   end
 
-  def completed_status_email(rider, driver)
+  def completed_status_email(rider, driver, order)
+    @order = order
     @user = rider
     mail(to: @user.email, subject: 'Yber Email: Complete order.')
     @user = driver

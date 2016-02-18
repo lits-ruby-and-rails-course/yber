@@ -1,8 +1,8 @@
 .show-order-title
-  - if (@order.status == "accepted") && (@order.driver_id == current_user.id)
+  - if @order.accepted? && @order.driver_id == current_user.id
     div
       h3 Order in progress
-  - if (@order.rider_id == current_user.id) && (@order.status != "completed")
+  - if @order.rider_id == current_user.id && @order.completed?
     div
       h3 Your current order
 .order-box
@@ -18,7 +18,7 @@
         = @order.status
     .col-md-4
     .col-md-4.links-box
-      - if (current_user.role == 'admin') || ((current_user.role == 'rider') && (@order.rider_id == current_user.id) && (@order.status == "pending"))
+      - if current_user.admin? || (current_user.rider? && @order.rider_id == current_user.id && @order.pending?)
         i.fa.fa-trash
         = link_to 'Delete', {controller: "orders", action: "destroy", id: @order}, data: {:confirm => 'Are you sure?'}, :method => :delete, :class => 'd-order'
   .order-box-content

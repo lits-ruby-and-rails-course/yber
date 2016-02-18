@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_filter :authenticate_user!
   layout "dashboard.html", only: [:home, :show, :new, :index]
 
-  def home 
+  def home
     case current_user.role
     when 'rider'
       order = Order.where(rider_id: current_user.id).last
@@ -37,8 +37,8 @@ class OrdersController < ApplicationController
 
   def show
     order = Order.find(params[:id])
-    if (current_user.role == 'admin') || ((current_user.role == 'rider') && 
-       (order.rider_id == current_user.id)) || ((current_user.role == 'driver') && 
+    if (current_user.role == 'admin') || ((current_user.role == 'rider') &&
+       (order.rider_id == current_user.id)) || ((current_user.role == 'driver') &&
        ((order.driver_id == current_user.id) || (order.status == 'pending')))
       @order = order
     else
@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
     if (order == nil) || (order.status == 'completed')
       @order = Order.new
       # IP ::Location
-      # ::Location_info = request.::Location 
+      # ::Location_info = request.::Location
       # l = ::Location.new(::Location_info.latitude, ::Location_info.longitude)
       l1 = ::Location.new(49.82, 24)
 
@@ -102,22 +102,22 @@ class OrdersController < ApplicationController
 
   def complete_order
     @order.completed!
-    StatusMailer.completed_status_email(current_user, User.find(@order.driver_id)).deliver_later
     render json: { notice: "Order was completed successfully", date: @order.updated_at.strftime('%c') }
+    StatusMailer.completed_status_email(current_user, User.find(@order.driver_id), @order).deliver_later
   end
 
   # GOOGLE MAP AJAX
   def take_position
     # IP ::Location
-    # ::Location_info = request.::Location 
+    # ::Location_info = request.::Location
     # l = ::Location.new(::Location_info.latitude, ::Location_info.longitude)
     l = ::Location.new(49.82, 24)
-    
+
     render json: { marker_options: l.marker_params, map_options: l.map_params }
   end
 
   def find_coords
-    place = Geocoder.coordinates("#{params[:place]}")   
+    place = Geocoder.coordinates("#{params[:place]}")
     if place.present?
       l = ::Location.new(place[0],place[1])
       render json: { marker_options: l.marker_params }
@@ -131,7 +131,7 @@ class OrdersController < ApplicationController
     if place.present?
       render json: { place: place.formatted_address }
     else
-      redirect_to :back, alert: "ERROR: This coords are wrong" 
+      redirect_to :back, alert: "ERROR: This coords are wrong"
     end
   end
 
@@ -142,8 +142,8 @@ class OrdersController < ApplicationController
 
     def order_params
       params.require(:order).permit(:rider_id, :location_to, :location_from,
-                                     :status, :description, :pessengers, 
-                                     :mfrom_lat, :mfrom_lng, :mto_lat, 
-                                     :mto_lng, :price) 
+                                     :status, :description, :pessengers,
+                                     :mfrom_lat, :mfrom_lng, :mto_lat,
+                                     :mto_lng, :price)
     end
 end
