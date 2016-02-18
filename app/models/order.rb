@@ -24,5 +24,17 @@ class Order < ActiveRecord::Base
   has_many :reviews
 
   include DriverRiderble
-  validates :rider_id, :location_to, :location_from, presence: true
+  validates :status,
+            :price,
+            :rider_id,
+            :location_to,
+            :location_from, presence: true
+  validates :pessengers,
+            presence: true,
+            inclusion: {in: 1..5, message: "You can have a ride for five passengers maximum"}
+  validates :driver_id, presence: true, if: "status != pending"
+
+
+  # driver_id prsesnce !pending
+
 end
