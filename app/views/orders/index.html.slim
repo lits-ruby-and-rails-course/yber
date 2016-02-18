@@ -7,9 +7,9 @@
         = link_to " create order >>", dashboard_path
   - elsif current_user.driver?
     .warn-tittle-box
-      h3 Sorry, but all orders already are occupied
-      h4 And You don't have any completed orders
-- elsif current_user.driver? && (@orders.find {|o| o.status == 'pending' } == nil)
+      h3 Sorry but all orders already are occupied
+      h4 And you doesn't have any completed orders
+- elsif current_user.driver? && @orders.find {|o| o.pending? } == nil
   .warn-tittle-box
     h3 Sorry, but all orders already are occupied
     h4 

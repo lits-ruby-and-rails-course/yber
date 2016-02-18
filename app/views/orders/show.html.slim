@@ -1,9 +1,10 @@
-- if @order.accepted? && @order.driver_id == current_user.id
-  .show-order-title
-    h3 Order in progress
-- if @order.rider_id == current_user.id && !@order.completed?
-  .show-order-title
-    h3 Your current order
+.show-order-title
+  - if @order.accepted? && @order.driver_id == current_user.id
+    div
+      h3 Order in progress
+  - if @order.rider_id == current_user.id && @order.completed?
+    div
+      h3 Your current order
 .order-box
   .row.order-box-header
     - if @order.pending?

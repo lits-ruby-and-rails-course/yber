@@ -1,11 +1,16 @@
 class StatusMailer < ApplicationMailer
   default from: "yber@example.com"
-  # layout "status_mailer"
 
-  def completed_status_email(user)
-    @user = user
-    mail(to: @user.email, subject: 'Yber Email',
-         template_path: 'status_mailer',
-         template_name: 'completed_status_email')
+  def accepted_status_email(rider)
+    @rider = rider
+    mail(to: @rider.email, subject: 'Yber Email: Accept order.')
+  end
+
+  def completed_status_email(rider, driver, order)
+    @order = order
+    @user = rider
+    mail(to: @user.email, subject: 'Yber Email: Complete order.')
+    @user = driver
+    mail(to: @user.email, subject: 'Yber Email: Complete order.')
   end
 end

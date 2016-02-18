@@ -1,1 +1,48 @@
-= yield
+doctype html
+html
+  head
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    == stylesheet_link_tag 'application', :media => 'all', 'data-turbolinks-track' => true
+
+  body.container-fluid.nopadding
+    .row.d-header.nopadding
+      .col-md-3.col-sm-6.col-xs-12.d-logo
+        .logo
+          = link_to dashboard_path, class: "title-link" do
+            = image_tag("logo_1.png", size: "100x100", title: "Home", alt: "Logo")
+      .col-md-6
+      .col-md-3.col-sm-6.col-xs-12
+        .d-topright
+          | YBER
+          = link_to dashboard_path
+    = yield
+    .footer
+      .container
+        .row
+          .col-lg-10.col-lg-offset-1.text-center
+            h4
+              strong YBER
+            p
+              | 1а Kamyanetska street
+              br
+              | Ukraine Lviv 79034
+            ul.list-unstyled
+              li
+                i.fa.fa-phone.fa-fw
+                | +38 (067) 675-24-50
+              li
+                i.fa.fa-envelope-o.fa-fw
+                a href="mailto:name@example.com" yber@example.com
+            br
+            ul.list-inline
+              li
+                a href="https://www.facebook.com/Lviv.QA.School"
+                  i.fa.fa-facebook.fa-fw.fa-3x
+              li
+                a href="https://github.com/lits-ruby-and-rails-course/yber"
+                  i.fa.fa-github.fa-fw.fa-3x
+              li
+                a href="https://www.linkedin.com/company/lits-lviv-it-schools-"
+                  i.fa.fa-linkedin.fa-fw.fa-3x
+            hr.small
+            p.text-muted Copyright &copy; YBER 2015
