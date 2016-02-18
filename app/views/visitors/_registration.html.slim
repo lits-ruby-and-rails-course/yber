@@ -2,8 +2,8 @@ section#registration.services.bg-primary
   .container
     .row.text-center
       .col-lg-10.col-lg-offset-1
-        h2 Create Your profile
-        /hr.small
+        h1 
+          strong Create Your profile
         .row
           .col-md-4.col-sm-6
             .service-item
@@ -11,33 +11,33 @@ section#registration.services.bg-primary
                 span.fa-stack.fa-4x.fa-inverse
                   i.fa.fa-circle.fa-stack-2x
                   i.fa.fa-car.fa-stack-1x.text-primary
-              h4
-                strong Become a rider
-              p Grab a cab or share a ride with your phone in a second.
-              a.btn.btn-light href="#about" Learn More
-
-
+              p
+                .btn(data-toggle="modal" data-target="#sign_up_rider")
+                  h3.signup
+                    strong Become a rider
+              h4 Grab a cab or share a ride with your phone in a second.
           .col-md-4.col-sm-6
             .service-item
               .btn(data-toggle="modal" data-target="#sign_up_driver")
                 span.fa-stack.fa-4x.fa-inverse
                   i.fa.fa-circle.fa-stack-2x
                   i.fa.fa-cab.fa-stack-1x.text-primary
-              h4
-                strong Become a driver
-              p Look up for clients and keep in touch via your device.
-              a.btn.btn-light href="#about" Learn More
+              p
+                .btn(data-toggle="modal" data-target="#sign_up_driver")
+                  h3.signup
+                    strong Become a driver
+              h4 Look up for clients and keep in touch via your device.
           .col-md-4.col-sm-6
             .service-item
               .btn(data-toggle="modal"  href="#sign_in")
                 span.fa-stack.fa-4x.fa-inverse
                   i.fa.fa-circle.fa-stack-2x
                   i.fa.fa-car.fa-stack-1x.text-primary
-              h4
-                strong Sign In
-              p Already have an account?
-              br
-              a.btn.btn-light href="#contact" ???
+              p 
+                .btn(data-toggle="modal"  href="#sign_in")
+                  h3.signup
+                    strong Sign In
+              h4 Already have an account?
 
 #sign_up_rider.modal.fade(tabindex="-1" role="dialog" aria-labelledby="sign_up_rider_label")
   .modal-dialog role="document"
