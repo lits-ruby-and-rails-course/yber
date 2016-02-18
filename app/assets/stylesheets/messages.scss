@@ -55,6 +55,16 @@ $grey:#969696;
 .message-box{
 	padding: 12px 5px 8px 5px;
 	border: 1px solid #ddd;
+	i{
+		padding: 2.4rem;
+	}
+	i.fa.fa-paper-plane-o{
+		-moz-transform: scale(-1, 1);
+		-webkit-transform: scale(-1, 1);
+		-o-transform: scale(-1, 1);
+		-ms-transform: scale(-1, 1);
+		transform: scale(-1, 1);
+	}
 	.message-head{
 		padding: 5px;
 		.padd-right{
@@ -91,6 +101,10 @@ $grey:#969696;
 		border-top: 1px solid #aaa;
 		padding: 5px;
 	}
+}
+
+.msg-frm{
+	margin: 35px;	
 }
 
 .messages-avatar-male, .messages-avatar-female{

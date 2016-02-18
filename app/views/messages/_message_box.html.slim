@@ -1,4 +1,6 @@
 .row.message-box
+	/ span#message-id
+	/ 	= @message.id
 	- if sender?(message.id)
 		.col-md-10
 			.row.message-head
@@ -10,7 +12,8 @@
 					= link_to 'Destroy', message, data: {:confirm => 'Are you sure?'}, :method => :delete
 			.message-body
 				p.interlocutor
-				  = message.text
+					span#message-text-field
+				  	= message.text
 			.message-footer
 				= message.updated_at
 		.col-md-2.paper-plane
@@ -28,25 +31,7 @@
 					= link_to 'Destroy', message, data: {:confirm => 'Are you sure?'}, :method => :delete 
 			.message-body
 			  p.interlocutor
-			    = message.text
+			  	span#message-text-field
+			    	= message.text
 			.message-footer
 				= message.updated_at
-
-
-/ .row
-/   .col-md-12
-/     .col-xs-2.col-sm-1
-/       .text-center
-/         span.messages-avatar-male
-/       p.text-center
-/        = current_user.name.capitalize
-/     .col-xs-9.col-sm-8
-/       - if current_user
-/         p.mime
-/           = message.text
-/       - else
-/         p.interlocutor
-/           = message.text
-/     .col-xs-1
-/       = link_to 'Destroy', message, data: {:confirm => 'Are you sure?'}, :method => :delete 
-/       i.fa.fa-trash-o
