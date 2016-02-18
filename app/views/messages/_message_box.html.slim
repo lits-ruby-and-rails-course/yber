@@ -1,0 +1,52 @@
+.row.message-box
+	- if sender?(message.id)
+		.col-md-10
+			.row.message-head
+				.col-md-6
+					i.fa.fa-eye
+					= link_to 'Show', {controller: "messages", action: "show", id: message.id}
+				.col-md-6.padd-right
+					i.fa.fa-trash-o
+					= link_to 'Destroy', message, data: {:confirm => 'Are you sure?'}, :method => :delete
+			.message-body
+				p.interlocutor
+				  = message.text
+			.message-footer
+				= message.updated_at
+		.col-md-2.paper-plane
+			i.fa.fa-paper-plane
+	- else
+		.col-md-2.paper-plane
+			i.fa.fa-paper-plane-o
+		.col-md-10
+			.row.message-head
+				.col-md-6
+					i.fa.fa-eye
+					= link_to 'Show', {controller: "messages", action: "show", id: message.id}
+				.col-md-6.padd-right.padd-right
+					i.fa.fa-trash-o
+					= link_to 'Destroy', message, data: {:confirm => 'Are you sure?'}, :method => :delete 
+			.message-body
+			  p.interlocutor
+			    = message.text
+			.message-footer
+				= message.updated_at
+
+
+/ .row
+/   .col-md-12
+/     .col-xs-2.col-sm-1
+/       .text-center
+/         span.messages-avatar-male
+/       p.text-center
+/        = current_user.name.capitalize
+/     .col-xs-9.col-sm-8
+/       - if current_user
+/         p.mime
+/           = message.text
+/       - else
+/         p.interlocutor
+/           = message.text
+/     .col-xs-1
+/       = link_to 'Destroy', message, data: {:confirm => 'Are you sure?'}, :method => :delete 
+/       i.fa.fa-trash-o

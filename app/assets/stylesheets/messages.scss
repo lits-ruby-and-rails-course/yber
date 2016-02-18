@@ -1,5 +1,110 @@
+$dark_grey:#3f4a58;
+$orange:#f3795b;
+$green:#3c763d;
+$light_green:#d6e9c6;
+$red:#a94442;
+$light_red:#ebccd1;
+$yellow:#f0c036;
+$grey:#969696;
+
 .message-field {
 	textarea.form-control {
 		resize:none;
 	}
+}
+
+.messages-user-box{
+	span.hidden-id{
+		display: none;
+	}
+	padding: 12px 5px 8px 5px;
+	border: 1px solid #ddd;
+	h3 a{
+		vertical-align: middle;
+		color: $dark_grey;
+		font-size: 2.6rem;
+	}
+	h3 a:hover{
+		color: $orange;
+	}
+	.messages-send-info{
+		padding: 4px;
+		i.fa.fa-paper-plane-o{
+			-moz-transform: scale(-1, 1);
+			-webkit-transform: scale(-1, 1);
+			-o-transform: scale(-1, 1);
+			-ms-transform: scale(-1, 1);
+			transform: scale(-1, 1);
+		}
+		span {
+			margin-left: 4px;
+		}
+	}
+	.messages-link{
+		text-align: center;
+		a {
+			color: $dark_grey;
+			font-size: 1.6rem;
+		}
+		a:hover {
+			color: $orange;
+		}
+	}
+}
+
+.message-box{
+	padding: 12px 5px 8px 5px;
+	border: 1px solid #ddd;
+	.message-head{
+		padding: 5px;
+		.padd-right{
+			text-align: right;
+		}
+		i{
+			vertical-align: middle;
+			font-size: 2.2rem;
+			padding: 0 1rem;
+		}
+		background: #aaa;
+		a{
+			vertical-align: middle;
+			color: $dark_grey;
+			font-size: 2rem;
+		}
+		a:hover{
+			color: $orange;
+		}
+	}
+	.paper-plane{
+		i{
+			font-size: 5rem;
+		}
+	}
+	.message-body{
+		padding: 5px;
+		p{
+			padding-top: 1rem;
+			font-size: 1.8rem;
+		}
+	}
+	.message-footer{
+		border-top: 1px solid #aaa;
+		padding: 5px;
+	}
+}
+
+.messages-avatar-male, .messages-avatar-female{
+	display: inline-block;
+	// float: left;
+	height: 70px;
+	width: 70px;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
+.messages-avatar-male {
+	background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png');
+	
+}
+.messages-avatar-female {
+	background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-128.png');
 }

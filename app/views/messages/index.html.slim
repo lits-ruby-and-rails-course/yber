@@ -1,42 +1,5 @@
-h1 
-  | Your chat with  
-  = find_user(@messages.first.to_id).name.capitalize
-
-.message-container
-  .scrolling-messages
-    .row
-      - @messages.each do |message|
-        / .row
-        /   .col-md-6
-        /     | User From:  
-        /     = find_user(message.from_id).name.capitalize
-        /   .col-md-6
-        /     | User_to:  
-        /     = find_user(message.to_id).name.capitalize
-        .row
-          .col-md-12
-            .col-xs-2.col-sm-1
-              .text-center
-                span.messages-avatar-male
-              p.text-center
-               = current_user.name.capitalize
-            .col-xs-9.col-sm-8
-              - if current_user
-                p.mime
-                  = message.text
-              - else
-                p.interlocutor
-                  = message.text
-            .col-xs-1
-              = link_to 'Destroy', message, data: {:confirm => 'Are you sure?'}, :method => :delete 
-              i.fa.fa-trash-o
-  /br
-  .message-field
-    .row
-      .col-md-12
-        .hidden
-          = @messages.first.to_id
-        = render partial: "form", locals: { user_to: @messages.first.to_id} 
-
-
-
+/ - @users.each do |user|
+/   = user.id
+/   = link_to user.name.capitalize , {:controller => "messages", :action => "index", :id => user.id}  
+/   hr
+h2 INDEX MESSAGES

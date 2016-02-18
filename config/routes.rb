@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     end
   devise_for :users
   resources :cars
-  # resources :messages
+  resources :messages
   resources :profiles
   resources :orders
   resources :reviews
@@ -24,10 +24,8 @@ Rails.application.routes.draw do
   get 'find_place', to: 'orders#find_place'
   
   get 'messages/new_message/:id', to: 'messages#new_message', as: :new_mes
-  get 'messages', to: 'messages#index_all', as: :messages
-  get 'messages/:id', to: 'messages#index', as: :message
-  post 'messages/', to: 'messages#create'
-
+  get 'messages/users/:id', to: 'messages#my_users', as: :user_messages
+  get 'messages/user/:id', to: 'messages#user_index'
 
 
   root to: 'visitors#index'

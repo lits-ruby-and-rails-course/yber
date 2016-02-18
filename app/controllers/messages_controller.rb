@@ -3,23 +3,23 @@ class MessagesController < ApplicationController
   before_action :set_users
   layout "dashboard.html"
 
-  # GET /messages
-  # GET /messages.json
-  def index
+  # search all message where we know our friend
+  def user_index
     @to_id = params[:id]
-    @messages = Message.where(from_id: current_user.id, to_id: @to_id)||Message.where(to_id: current_user.id, from_id: @to_id)
+    @messages = Message.where(from_id: current_user.id, to_id: @to_id) + Message.where(to_id: current_user.id, from_id: @to_id)
+    @messages.sort_by &:created_at
     @message = Message.new
   end
 
-  # GET /messages/1
-  # GET /messages/1.json
   def show
     @messages = Message.where(from_id: current_user.id, to_id: @to_id)
   end
 
-  # GET /messages/new
   def new
     @message = Message.new
+  end
+
+  def my_users    
   end
 
   def new_message
@@ -27,13 +27,12 @@ class MessagesController < ApplicationController
     @message = Message.new
   end
 
-  def index_all
+  def index
     @messages = Message.where(from_id: current_user.id) || Message.where(to_id: current_user.id)
   end
 
-  # GET /messages/1/edit
-  def edit
-  end
+  # def edit
+  # end
 
   # POST /messages
   # POST /messages.json
