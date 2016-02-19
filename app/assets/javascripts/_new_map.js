@@ -124,8 +124,8 @@ if($('#map').length){
   }
 
   function calcRoute(m_from, m_to) {
-    var origin      = new google.maps.LatLng(m_from.serviceObject.position.G, m_from.serviceObject.position.K);
-    var destination = new google.maps.LatLng(m_to.serviceObject.position.G, m_to.serviceObject.position.K);
+    var origin      = new google.maps.LatLng(m_from.serviceObject.position.lat(), m_from.serviceObject.position.lng());
+    var destination = new google.maps.LatLng(m_to.serviceObject.position.lat(), m_to.serviceObject.position.lng());
     var request = {
       origin:      origin,
       destination: destination,
@@ -200,7 +200,7 @@ if($('#map').length){
   });
 
   google.maps.event.addListener(handler.getMap(), 'click', function(event) {
-    set_new_place(event.latLng.G, event.latLng.K, marker_type)
+    set_new_place(event.latLng.lat(), event.latLng.lng(), marker_type)
     if (!marker_type){
       document.getElementById("plan_route").disabled = false;
     }
