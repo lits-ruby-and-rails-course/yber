@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post '/rate' => 'rater#create', :as => 'rate'
   ActiveAdmin.routes(self)
   devise_for :users
   resources :cars
@@ -9,13 +10,14 @@ Rails.application.routes.draw do
   resources :messages
   resources :messages
 
-  get 'dashboard', to: 'orders#new', as: :dashboard
-  #post 'dashboard', to: 'orders#create'
+  get 'dashboard', to: 'orders#home', as: :dashboard
+  get 'dashboard/trips/new', to: 'orders#new', as: :new_trip
   get 'dashboard/trips', to: 'orders#index', as: :trips
-  #delete 'dashboard/trips/destroy', to: 'orders#destroy'
-  get 'dashboard/trip/:id', to: 'orders#show', as: :trip
+  get 'dashboard/trips/:id', to: 'orders#show', as: :trip
 
   post 'help_request', to: 'application#help_request'
+  get 'take_order/:id', to: 'orders#driver_take_order'
+  get 'complete_order/:id', to: 'orders#complete_order'
 
   get 'take_position', to: 'orders#take_position'
   get 'find_coords', to: 'orders#find_coords'

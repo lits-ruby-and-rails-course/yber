@@ -1,3 +1,9 @@
+- if @order.accepted? && @order.driver_id == current_user.id
+  .show-order-title
+    h3 Order in progress
+- if @order.rider_id == current_user.id && !@order.completed?
+  .show-order-title
+    h3 Your current order
 .order-box
   .row.order-box-header
     - if @order.pending?
@@ -11,19 +17,20 @@
         = @order.status
     .col-md-4
     .col-md-4.links-box
-      - if (current_user.role == 'admin') || ((order.role == 'rider') && (order.rider_id == current_user.id))
-        = link_to 'Delete', {controller: "orders", action: "destroy", id: @order}, data: {:confirm => 'Are you sure?'}, :method => :delete, :class => 'delete-order'
+      - if current_user.admin? || (current_user.rider? && @order.rider_id == current_user.id && @order.pending?)
+        i.fa.fa-trash
+        = link_to 'Delete', {controller: "orders", action: "destroy", id: @order}, data: {:confirm => 'Are you sure?'}, :method => :delete, :class => 'd-order'
   .order-box-content
     .row
       .col-md-5.col-sm-12.col-xs-12
         span.order-field-title FROM:
         br
-        span
+        span#order-field-mfrom
           = @order.location_from
         br
         span.order-field-title TO:
         br
-        span
+        span#order-field-mto
           = @order.location_from
         br
         span.order-field-title PASSENGERS:
@@ -38,20 +45,81 @@
         br
         span.order-field-title ADDITIONAL INFORMATION:
         br
-        - if @order.description.empty?
-          | none
-        - else
-          = @order.description
-
+        span#order-field-description
+          - if @order.description.empty?
+            | none
+          - else
+            = @order.description
       .col-md-7.col-sm-12.col-xs-12
         = render partial: "show_map", locals: { marker_from: { lat: @order.mfrom_lat, lng: @order.mfrom_lng, infowindow: @order.location_from }, marker_to: { lat: @order.mto_lat, lng: @order.mto_lng, infowindow: @order.location_to } }
-    .row
-      .col-md-offset-8.col-md-4.tright
-        span
-          = @order.created_at.strftime('%c')
-          /!= current_user.login
-    hr
-    .row
-      .col-md-4.col-sm-6.col-xs-12
-        = link_to 'Some buttons >>', root_path, class: "btn btn-orange"
-/! = link_to 'Back', orders_path
+        .row
+          .col-md-6
+            span
+              |by:
+            a.little_padding
+              = link_to "#{@order.rider.name.capitalize}", profile_path(Profile.find_by(user_id: @order.rider.id).id)
+          .col-md-6.tright
+            span
+              |in:
+            span.little_padding
+              = @order.created_at.strftime('%c')
+    - if @order.driver_id != nil
+      .order-box-driver-info.padd-top
+          span.order-field-title Driver:
+          /! make real link!!!
+          a.little_padding
+          = link_to "#{@order.driver.name.capitalize}", profile_path(Profile.find_by(user_id: @order.driver.id).id)
+          ul
+            li
+              |email:
+              span.little_padding
+                = @order.driver.email
+            li
+              |phone_number:
+              span.little_padding
+                = @order.driver.profile.phone
+            li
+              |license_plate:
+              span.little_padding
+                = @order.driver.profile.car_phone
+          -if @order.status != "pending"
+            #updated_date.col-md-12.tright
+              span
+                = @order.status
+              span.little_padding
+                |at:
+              span.little_padding
+                = @order.updated_at.strftime('%c')
+    -if current_user.driver? && @order.pending?
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          span#hidden_order_id
+            = @order.id
+          button#take_order.btn.btn-grey type="button" Take order
+    - elsif @order.rider_id == current_user.id && @order.accepted?
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          span#hidden_order_id
+            = @order.id
+          .row
+            .col-md-4.col-md-offset-4
+              a#cmplord_btn.btn.btn-orange href="#" role="button" Close order >>
+      #reviewModal.modal.fade
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button.close aria-hidden="true" data-dismiss="modal" type="button"  ×
+              h3.modal-title Thank You for riding with Us.
+            /! main
+            .modal-body
+              = render 'reviews/form'
+    - if @order.completed?
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          span#hidden_order_id
+            = @order.id
+      .row
+        - if @review.text
+          = render 'reviews/show'
+        - else
+          = render 'reviews/form'

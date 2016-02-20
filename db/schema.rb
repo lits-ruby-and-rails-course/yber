@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208090924) do
+ActiveRecord::Schema.define(version: 20160211161134) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -82,22 +82,25 @@ ActiveRecord::Schema.define(version: 20160208090924) do
     t.text     "car_phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "rating"
   end
 
   add_index "profiles", ["car_id"], name: "index_profiles_on_car_id"
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
 
   create_table "reviews", force: :cascade do |t|
-    t.string   "type"
     t.integer  "rider_id"
     t.integer  "driver_id"
     t.integer  "stars"
     t.text     "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "owner"
+    t.integer  "order_id"
   end
 
   add_index "reviews", ["driver_id"], name: "index_reviews_on_driver_id"
+  add_index "reviews", ["order_id"], name: "index_reviews_on_order_id"
   add_index "reviews", ["rider_id"], name: "index_reviews_on_rider_id"
 
   create_table "users", force: :cascade do |t|

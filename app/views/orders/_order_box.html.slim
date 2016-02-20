@@ -1,27 +1,26 @@
 .order-box
   .row.order-box-header
     - if order.pending?
-      .col-md-4.status.yellow-line
+      .col-md-4.col-sm-6.col-xs-6.status.yellow-line
         = order.status
     - elsif order.accepted?
-      .col-md-4.status.green-line
+      .col-md-4.col-sm-6.col-xs-6.status.green-line
         = order.status
     - else
-      .col-md-4.status.grey-line
+      .col-md-4.col-sm-6.col-xs-6.status.grey-line
         = order.status
-    .col-md-4
-    .col-md-4.links-box
-      - if ((current_user.role == 'rider') && (order.rider_id == current_user.id)  && (order.status == 'pending'))
+    .col-md-offset-4.col-sm-offset-2.col-xs-offset-2.col-md-4.col-sm-4.col-xs-4.links-box
+      - if current_user.admin? || (current_user.rider? && order.rider_id == current_user.id && order.pending?)
+        i.fa.fa-trash
         = link_to 'Delete', {controller: "orders", action: "destroy", id: order}, data: {:confirm => 'Are you sure?'}, :method => :delete, :remote => true, :class => 'delete-order'
   .order-box-content
-    .row
+    .order-box-order-info
       .col-md-5
         span.order-field-title FROM:
       .col-md-5
         span.order-field-title TO:
       .col-md-2
         span.order-field-title PASSENGERS:
-    .row
       .col-md-5
         span
           = order.location_from
@@ -29,21 +28,57 @@
         span
           = order.location_to
       .col-md-2
-        .fpssngr
+        span
           = order.pessengers
-    .row
-      .col-md-12
+      .col-md-10
         span.order-field-title ADDITIONAL INFORMATION:
+      .col-md-2
+        span.order-field-title PRICE($):
+      .col-md-10
         p
           - if order.description.empty?
             | none
           - else
             = order.description
-    .row
-      .col-md-offset-8.col-md-4.tright
+      .col-md-2
         span
+          = order.price
+    - if order.driver_id != nil
+      .order-box-driver-info
+        span.order-field-title Driver:
+        a.little_padding
+          = link_to "#{order.driver.name.capitalize}", profile_path(Profile.find_by(user_id: order.driver.id).id)
+        ul
+          li
+            |email:
+            span.little_padding
+              = order.driver.email
+          li
+            |phone_number: 
+            span.little_padding
+              = order.driver.profile.phone
+          li
+            |license_plate: 
+            span.little_padding
+              = order.driver.profile.car_phone
+        .col-md-12.tright
+          span
+            = order.status
+          span.little_padding
+            |at:
+          span.little_padding
+          = order.updated_at.strftime('%c')
+    - else
+      .col-md-6 style ="margin-left: -15px;"
+        span
+          |by:
+        a.little_padding
+          = order.rider.name
+      .col-md-6.tright
+        span
+          |in:
+        span.little_padding
           = order.created_at.strftime('%c')
-    hr
-    .row
+    .order-box-buttons
       .col-md-offset-8.col-md-4
-        = link_to "Show >>", {controller: "orders", action: "show", id: order}, class: "btn btn-orange"
+        = link_to "Show more", {controller: "orders", action: "show", id: order}, class: "btn btn-grey"

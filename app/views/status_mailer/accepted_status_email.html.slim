@@ -1,0 +1,9 @@
+.row
+  h2
+    | Hello,  
+    = user.name.capitalize
+    |  !
+  h3 
+    | Your current order was accepted!
+.row
+  / = render 'orders/order_box', locals: { order: order }

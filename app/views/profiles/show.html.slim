@@ -1,21 +1,68 @@
-p#notice = notice
+.profile-box
+  .row
+    .name
+      .col-md-offset-4.col-md-4
+        = name
+      .col-md-4
+        - if edit_accessible_profile?
+          span#edit-profile.pull-right
+            i.fa.fa-pencil-square-o
+              | Edit Profile
+  - if user.driver?
+    .row
+      .name
+        #stars-profile.starrr data-rating=rating
+  .row
+    span#hidden_profile_id
+      = @profile.id
+    .value
+      .col-md-3.value-header
+        | E-mail
+      .col-md-7
+        = user.email
+  .row
+    .value
+      .col-md-3.value-header
+        | City
+      .col-md-7.value-data
+        = @profile.city.capitalize
+  .row
+    .value
+      .col-md-3.value-header
+        | Phone
+      .col-md-7.value-data
+        = @profile.phone
+  - if user.driver?
+    .row
+      .value
+        .col-md-3.value-header
+          | License plate
+        .col-md-7.value-data
+          = @profile.car_phone
+  .row
+    .value
+      .col-md-3.value-header
+        | User since
+      .col-md-7
+        = user.created_at.strftime('%c')
+  .row
+    .value
+      .col-md-3.value-header
+        | Last seen
+      .col-md-7
+        = user.last_sign_in_at.strftime('%c')
 
-p
-  strong City:
-  = @profile.city
-p
-  strong Phone:
-  = @profile.phone
-p
-  strong Car:
-  = @profile.car_id
-p
-  strong User:
-  = @profile.user_id
-p
-  strong Car phone:
-  = @profile.car_phone
-
-= link_to 'Edit', edit_profile_path(@profile)
-'|
-= link_to 'Back', profiles_path
+  - if @orders
+    .row
+      .col-md-6.col-md-offset-3
+        .name
+          = name
+          | 's Orders
+    .row
+      = render partial: 'orders/form', collection: @orders, as: :order
+  - else
+    .row
+      .col-md-5.col-md-offset-2
+        h3
+          | No Orders available for
+          = name

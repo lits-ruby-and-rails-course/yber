@@ -1,0 +1,32 @@
+.review-box style="margin-top: 8rem"
+  .row.order-box-header
+    .col-md-4.col-sm-6.col-xs-6.status.grey-line
+      | Review
+      #stars-existing.starrr data-rating=@review.stars
+    .col-md-offset-4.col-sm-offset-2.col-xs-offset-2.col-md-4.col-sm-4.col-xs-4.links-box
+      - if edit_accessible?
+        span#edit-review
+          i.fa.fa-pencil-square-o
+            | Edit Review 
+  .order-box-content
+    .order-box-order-info
+      .col-md-5
+        span.order-field-title FROM:
+      .col-md-5
+        span.order-field-title TO:
+      .col-md-5
+        span
+          = @review.rider.name.capitalize
+      .col-md-5
+        span
+          = @review.driver.name.capitalize
+      .col-md-10
+        span.order-field-title REVIEW:
+        span#hidden_review_id
+          = @review.id
+      .col-md-10
+        p#review-text
+          = @review.text
+      .col-md-6.col-md-offset-6.tright
+        span.little_padding
+          = @review.created_at.strftime('%c')

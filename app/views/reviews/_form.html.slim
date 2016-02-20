@@ -1,12 +1,15 @@
-= simple_form_for(@review) do |f|
-  = f.error_notification
-
-  .form-inputs
-    = f.input :type
-    = f.input :rider_id
-    = f.input :driver_id
-    = f.input :stars
-    = f.input :text
-
-  .form-actions
-    = f.button :submit
+= form_for @review do |f|
+  = f.hidden_field :rider_id, value: @order.rider_id
+  = f.hidden_field :driver_id, value: @order.driver_id
+  = f.hidden_field :order_id, value: @order.id
+  = f.hidden_field :owner, value: current_user.role
+  .form-group
+    .row.lead
+      | You can rate Your driver below
+      span#count
+      a data-toggle="tooltip" title="Click on stars to rate"
+        #stars.starrr
+    = f.hidden_field :stars
+  .form-group
+    = f.text_area :text, class: "form-control", rows: 5, placeholder: "Please, leave a review about the trip here"
+    = f.submit "Create Review", class: "button btn btn-orange submit-btn", id: "complete_order"

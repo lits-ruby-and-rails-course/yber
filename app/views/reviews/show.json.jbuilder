@@ -1,1 +1,1 @@
-json.extract! @review, :id, :type, :rider_id, :driver_id, :stars, :text, :created_at, :updated_at
+json.extract! @review, :id, :owner, :rider_id, :driver_id, :order_id, :stars, :text, :created_at, :updated_at

@@ -3,18 +3,20 @@
 # Table name: reviews
 #
 #  id         :integer          not null, primary key
-#  type       :string
 #  rider_id   :integer
 #  driver_id  :integer
 #  stars      :integer
 #  text       :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  owner      :string
+#  order_id   :integer
 #
 
 class Review < ActiveRecord::Base
   include DriverRiderble
-  validates :rider_id, :driver_id,:stars, presence: true
-  validates :stars, length: { in: 0..10}
-  validates :text, length: {maximum: 250}
+  belongs_to :order
+  validates :rider_id, :driver_id, presence: true
+  validates :text, length: {in: 15..250}
+  validates :stars, inclusion: {in: 0..5}
 end

@@ -7,16 +7,34 @@
 #  driver_id     :integer
 #  location_to   :string
 #  location_from :string
-#  status        :string
-#  price         :integer
+#  status        :integer          default(0)
+#  price         :float
 #  description   :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  pessengers    :integer
+#  mfrom_lat     :decimal(, )
+#  mfrom_lng     :decimal(, )
+#  mto_lat       :decimal(, )
+#  mto_lng       :decimal(, )
 #
 
 class Order < ActiveRecord::Base
   enum status: [:pending, :accepted, :completed]
+  has_many :reviews
 
   include DriverRiderble
-  validates :rider_id, :location_to, :location_from, presence: true
+  validates :status,
+            :price,
+            :rider_id,
+            :location_to,
+            :location_from, presence: true
+  validates :pessengers,
+            presence: true,
+            inclusion: {in: 1..5, message: "You can have a ride for five passengers maximum"}
+  # validates :driver_id, presence: true, if: Proc.new {|o| o.status != 0}
+  validates :driver_id, presence: true, unless: ->(order) {order.pending?}
+
+  # driver_id prsesnce !pending
+
 end
