@@ -29,12 +29,12 @@ if($('#small_map').length){
   }
 
   function sgm_calcRoute(sgm_from, sgm_to) {
-    var origin      = new google.maps.LatLng(sgm_from.serviceObject.position.G, sgm_from.serviceObject.position.K);
-    var destination = new google.maps.LatLng(sgm_to.serviceObject.position.G, sgm_to.serviceObject.position.K);
+    var origin      = new google.maps.LatLng(sgm_from.serviceObject.position.lat(), sgm_from.serviceObject.position.lng());
+    var destination = new google.maps.LatLng(sgm_to.serviceObject.position.lat(), sgm_to.serviceObject.position.lng());
     var request = {
-      origin:      origin,
-      destination: destination,
-      travelMode:  google.maps.TravelMode.DRIVING
+        origin:      origin,
+        destination: destination,
+        travelMode:  google.maps.TravelMode.DRIVING
     };
     sgm_directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
@@ -43,7 +43,7 @@ if($('#small_map').length){
     });
   }
 
-  //init map  
+  //init map
   sgm_handler.buildMap({
       provider: {},
       internal: {id: 'small_map'}
