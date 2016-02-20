@@ -31,13 +31,15 @@ Rails.application.configure do
   # ActionMailer Config
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-  :user_name => ENV['user_name'],
-  :password => ENV['password'],
-  :address => 'mailtrap.io',
-  :domain => 'mailtrap.io',
-  :port => '2525',
-  :authentication => :cram_md5
-}
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => "gmail.com",
+    :user_name            => "yberylits@gmail.com",
+    :password             => "yberylits1234",
+    :authentication       => :plain,
+    :enable_starttls_auto => true
+  }
+
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.raise_delivery_errors = false
   # Send email in development mode?

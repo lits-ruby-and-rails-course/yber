@@ -59,18 +59,15 @@ Rails.application.configure do
 
   #ActionMailer config
   config.action_mailer.smtp_settings = {
-      :address   => "smtp.mandrillapp.com",
-      :port      => 587,
-      :user_name => ENV['mandrill_username'],
-      :password  => ENV['mandrill_api_key'],
-      :domain    => 'heroku.com'
-    }
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => "gmail.com",
+    :user_name            => "yberylits@gmail.com",
+    :password             => "yberylits1234",
+    :authentication       => :plain,
+    :enable_starttls_auto => true
+  }
   ActionMailer::Base.delivery_method = :smtp
-
-  MandrillMailer.configure do |config|
-    config.api_key = ENV['mandrill_api_key']
-  end
-
   config.action_mailer.delivery_method = :smtp
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
