@@ -32,8 +32,8 @@ class Order < ActiveRecord::Base
   validates :pessengers,
             presence: true,
             inclusion: {in: 1..5, message: "You can have a ride for five passengers maximum"}
-  validates :driver_id, presence: true, if: "status != pending"
-
+  # validates :driver_id, presence: true, if: Proc.new {|o| o.status != 0}
+  validates :driver_id, presence: true, unless: ->(order) {order.pending?}
 
   # driver_id prsesnce !pending
 

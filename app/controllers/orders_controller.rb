@@ -86,8 +86,7 @@ class OrdersController < ApplicationController
   end
 
   def driver_take_order
-    @order.accepted!
-    if @order.update_attribute(:driver_id, current_user.id)
+    if @order.update_attributes(driver_id: current_user.id, status: Order.statuses["accepted"])
       render json: { name: current_user.name, email: current_user.email,
                      phone: current_user.profile.phone, license_plate: current_user.profile.car_phone,
                      date: @order.updated_at.strftime('%c') }
@@ -98,7 +97,7 @@ class OrdersController < ApplicationController
 
   def complete_order
     @order.completed!
-    StatusMailer.completed_status_email(current_user).deliver_later
+    StatusMailer.completed_status_email(@order).deliver_later
     render json: { notice: "Order was completed successfully", date: @order.updated_at.strftime('%c') }
   end
 
