@@ -156,34 +156,22 @@ hr.small {
 
 /* About */
 .about {
+  text-align: center;
   h1 {
     font-weight: bolder;
   }
   .link {
-    margin-bottom: 4rem;
+    margin: 1rem 0 1rem 0;
+    font-weight: bold;
+    font-size: 2rem;
     a{
-      color: inherit;;
+      color: inherit;
     }
   }
   #lits {
-    background: url(lits.jpg) no-repeat left scroll;
-    height: 25rem;
+    background: url(lits.jpg) no-repeat center scroll;
+    height: 27rem;
     width: auto;
-  }
-  #thanx_to{
-    text-align: right;
-    font-weight: bold;
-    margin-top: 2rem;
-    padding: 2rem 10rem 0 0;
-    font-weight: bold;
-    font-size: 2rem;
-
-  }
-  #developed_by{
-    margin-top: 2rem;
-    padding-top: 2rem;
-    font-weight: bold;
-    font-size: 2rem;
   }
 }
 
