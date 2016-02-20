@@ -27,7 +27,7 @@ if($('#map').length){
     } else {
       price += (cfkm * fkmp) + ((dist - cfkm) * kmp)
     }
-    
+
     return Math.round(price * 100) / 100;
   }
   //------------------------------
@@ -52,10 +52,10 @@ if($('#map').length){
         $("#myModal").modal('show');
         $("#mw_mfrom").val($("#field_from").val());
         $("#mw_mto").val($("#field_to").val());
-        $("#mw_mfrom_lat").val(m_from.serviceObject.position.G);
-        $("#mw_mfrom_lng").val(m_from.serviceObject.position.K);
-        $("#mw_mto_lat").val(m_to.serviceObject.position.G);
-        $("#mw_mto_lng").val(m_to.serviceObject.position.K);
+        $("#mw_mfrom_lat").val(m_from.serviceObject.position.lat());
+        $("#mw_mto_lat").val(m_to.serviceObject.position.lat());
+        $("#mw_mfrom_lng").val(m_from.serviceObject.position.lng());
+        $("#mw_mto_lng").val(m_to.serviceObject.position.lng());
 
         // PRICE
         var price = calc_price(distance, additional_price, count_of_fkm, first_km_price, km_price);
@@ -98,7 +98,7 @@ if($('#map').length){
     }
     handler.bounds.extendWith(marker);
     google.maps.event.addListener(marker.serviceObject, 'dragend', function(event) {
-      set_new_place(marker.serviceObject.position.G, marker.serviceObject.position.K, type);
+      set_new_place(marker.serviceObject.position.lat(), marker.serviceObject.position.lng(), type);
       // if (directionOn) {
        //  directionsDisplay.setDirections({routes: []});
        //  calcRoute(m_from, m_to);
@@ -187,7 +187,7 @@ if($('#map').length){
     });
   }
 
-  //init map  
+  //init map
   handler.buildMap({
     provider: {},
     internal: {id: 'map'}
@@ -222,7 +222,7 @@ if($('#map').length){
         $('p').fadeIn(1000, function () {
           $(this).fadeOut(500)
         })
-      };   
+      };
     }, 50)
   })
 

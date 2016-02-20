@@ -32,9 +32,9 @@ if($('#small_map').length){
     var origin      = new google.maps.LatLng(sgm_from.serviceObject.position.lat(), sgm_from.serviceObject.position.lng());
     var destination = new google.maps.LatLng(sgm_to.serviceObject.position.lat(), sgm_to.serviceObject.position.lng());
     var request = {
-        origin:      origin,
-        destination: destination,
-        travelMode:  google.maps.TravelMode.DRIVING
+      origin:      origin,
+      destination: destination,
+      travelMode:  google.maps.TravelMode.DRIVING
     };
     sgm_directionsService.route(request, function(response, status) {
       if (status == google.maps.DirectionsStatus.OK) {
