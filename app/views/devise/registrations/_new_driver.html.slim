@@ -28,6 +28,10 @@
           = pro.label :car_phone, 'Car Number'
           = pro.text_field :car_phone, class: 'form-control', placeholder: 'AA 1111 BB'
           p.help-block
+      .row
+        .form-group.col-xs-6.floating-label-form-group.controls
+          = pro.label  :car_id, 'Your car'
+          = pro.select :car_id, Car.where(year: 2013).collect { |p| [p.brand, p.id] }, {},  { class: "form-control" }
 
     / [END] Nested Attributes for user Porfile
 

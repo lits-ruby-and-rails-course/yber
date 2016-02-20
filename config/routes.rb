@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   #delete 'dashboard/trips/destroy', to: 'orders#destroy'
   get 'dashboard/trip/:id', to: 'orders#show', as: :trip
 
+  post 'help_request', to: 'application#help_request'
+
   get 'take_position', to: 'orders#take_position'
   get 'find_coords', to: 'orders#find_coords'
   get 'find_place', to: 'orders#find_place'

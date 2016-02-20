@@ -13,6 +13,17 @@ class ApplicationController < ActionController::Base
     redirect_to root_path unless current_user.admin?
   end
 
+
+  def help_request
+    @help = Help.new(help_params)
+    if @help.save
+      HelpRequestMailer.send_email(@help).deliver
+      render json: {notice: 'Your message successfully.'}
+    else
+      render json: {notice: 'Writte your message.'}
+    end
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|
       u.permit([
@@ -22,7 +33,7 @@ class ApplicationController < ActionController::Base
         :terms,
         :password,
         :password_confirmation,
-        profile_attributes: [:phone, :city, :car_phone, :role]
+        profile_attributes: [:phone, :city, :car_phone, :role, :car_id]
       ])
     end
     devise_parameter_sanitizer.for(:sign_in) do |u|
@@ -36,5 +47,11 @@ class ApplicationController < ActionController::Base
 
   def login
     @login || self.name || self.email
+  end
+
+  private
+
+  def help_params
+    params.require(:help).permit(:name, :email, :message)
   end
 end
