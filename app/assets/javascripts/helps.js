@@ -3,13 +3,12 @@ $(document).ready(function(){
   $('#help_button').click(function() {
     if (toggle == 0) {
       $('#help_request').animate({
-        "margin-right": "0%"
+        right: "0"
       })
       toggle = 1;
-    }
-    else if(toggle == 1) {
+    } else  {
       $('#help_request').animate({
-        "margin-right": "-23.4%"
+        right: "-300px"
       })
       toggle = 0;
     }
