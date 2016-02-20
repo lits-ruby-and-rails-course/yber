@@ -7,23 +7,20 @@ div id="help_request"
     = f.label :name
     br
     br
-    = f.text_field :name, class: 'form-control',
+    = f.text_field :name, class: 'form-control hr-form-control',
                           placeholder: 'your name'
     
     = f.label :email
     br
     br 
-    = f.text_field :email, class: 'form-control',
+    = f.text_field :email, class: 'form-control hr-form-control',
                            placeholder: "#{placeholder_email}"
     
     = f.label :message
     br
     br 
-    = f.text_area :message, class: 'form-control',
+    = f.text_area :message, class: 'form-control hr-form-control',
                              placeholder: 'your message'
     br
     br
     = f.submit 'Send', class: 'btn btn-primary'
-
-  
-  

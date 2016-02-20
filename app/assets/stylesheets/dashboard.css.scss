@@ -110,9 +110,7 @@ $grey:#969696;
 	border-bottom-left-radius: 10px;
 }
 
-
 // stars
-
 .lead{
 	text-align: center;
 	font-size: 2.5rem;
@@ -144,7 +142,6 @@ $grey:#969696;
 }
 
 // reviews
-
 #confirm-edit-review {
 	width: 20rem;
 }
@@ -155,7 +152,6 @@ $grey:#969696;
 }
 
 // orders
-
 #crtord_btn {
 	display: block;
 	width: 30%;
@@ -193,21 +189,26 @@ $grey:#969696;
 	}
 	.d-sidebar-current-trip{
 		color: $dark-grey;
-	  padding: 5px;
-	  div{
-	  	padding-top: 4px;
-	  }
+		div{
+			padding-top: 4px;
+		}
 		.head{
-	  	font-weight: bold;
-	  }
-	  h3{
-	  	font-weight: bold;
-	  }
-	  #sidebar-empty-current-order{
-	  	color: $orange;
-	  	text-align: center;
-	  	padding-top: 1.2rem;
-	  }
+			font-weight: bold;
+		}
+		h3{
+			font-weight: bold;
+		}
+		#sidebar-empty-current-order{
+			color: $orange;
+			text-align: center;
+			padding-top: 1.2rem;
+		}
+		#sidebar-current-order{
+			padding: 15px;
+			margin-top: 1.6rem;
+			border: 1px solid #eee;
+			border-radius: 5px;
+		}
 	}
 }
 .d-statistic {
