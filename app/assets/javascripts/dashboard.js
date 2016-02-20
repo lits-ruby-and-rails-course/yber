@@ -152,6 +152,22 @@ $(document).on('ready page:load', function(){
     });
   }
 
+  function create_review(el){
+    var form   = el,
+        action = form.attr('action'),
+        method = form.attr('method'),
+        params = form.serializeArray();
+    //     stars_value = $('#count').html();
+    // $('#review_stars').val(stars_value);
+    $.ajax({
+      method: method,
+      url: action + '.json',
+      data: params
+    }).success( function(data) {
+    }).fail( function(data) {
+    });
+  }
+
   function change_status(el, new_status){
     el.removeAttr("class");
     switch (new_status) {
