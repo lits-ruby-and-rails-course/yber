@@ -24,7 +24,7 @@ $(document).ready(function(){
       data: form,
       dataType: "JSON"
     }).done(function(data){
-      alert(data.notice);
+      alert(data.notice)
       $("#new_help").find("input[type=text], textarea").val('');
     }).fail(function(data){
       alert(data.notice);

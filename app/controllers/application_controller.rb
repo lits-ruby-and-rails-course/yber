@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
         :terms,
         :password,
         :password_confirmation,
-        profile_attributes: [:phone, :city, :car_phone, :role]
+        profile_attributes: [:phone, :city, :car_phone, :role, :car_id]
       ])
     end
     devise_parameter_sanitizer.for(:sign_in) do |u|
