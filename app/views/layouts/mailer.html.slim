@@ -8,13 +8,12 @@ html
     .row.d-header.nopadding
       .col-md-3.col-sm-6.col-xs-12.d-logo
         .logo
-          / = link_to dashboard_path, class: "title-link" do
-          /   = image_tag("logo_1.png", size: "100x100", title: "Home", alt: "Logo")
+          = image_tag("logo_1.png", size: "100x100", title: "Home", alt: "Logo")
       .col-md-6
       .col-md-3.col-sm-6.col-xs-12
         .d-topright
           | YBER
-          / = link_to dashboard_path
+          = link_to "Dashboard", dashboard_url
     = yield
     .footer
       .container
