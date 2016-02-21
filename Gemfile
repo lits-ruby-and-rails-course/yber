@@ -6,12 +6,12 @@ gem 'geocoder', '~> 1.2', '>= 1.2.12'
 gem 'gmaps4rails', '~> 2.1', '>= 2.1.2'
 
 gem 'rails', '4.2.4'
-gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'sqlite3'
 gem 'jbuilder', '~> 2.0'
 gem 'sprockets-rails'
 
@@ -59,6 +59,7 @@ group :development, :test do
 end
 group :production do
   gem 'unicorn'
+  gem 'pg'
 end
 group :test do
   gem 'capybara'
