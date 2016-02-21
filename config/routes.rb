@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   post '/rate' => 'rater#create', :as => 'rate'
-  ActiveAdmin.routes(self)
+    unless ARGV.grep(/assets:(precompile|clean)|db:(migrate)|c|console/).any?
+      ActiveAdmin.routes(self)
+    end
   devise_for :users
   resources :cars
   resources :messages
