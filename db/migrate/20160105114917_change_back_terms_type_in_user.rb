@@ -1,5 +1,6 @@
 class ChangeBackTermsTypeInUser < ActiveRecord::Migration
   def change
-    change_column :users, :terms, :boolean
+  	remove_column :users, :terms
+    add_column :users, :terms, :boolean
   end
 end
