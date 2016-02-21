@@ -8,10 +8,10 @@ class AddConfirmableToUsers < ActiveRecord::Migration
     	add_column :users, :confirmed_at, :datetime
     end	
 
-    unless column_exists?(:users, :confirmed_sent_at)
+    unless column_exists?(:users, :confirmation_sent_at)
     	add_column :users, :confirmation_sent_at, :datetime
     end
-    
+
     unless column_exists?(:users, :unconfirmed_email)
     	add_column :users, :unconfirmed_email, :string
 	end
