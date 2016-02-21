@@ -1,5 +1,6 @@
 class ChangePriceTypeForOrders < ActiveRecord::Migration
-  change_table :orders do |t|
-    t.change :price, :float
+  def change
+  	remove_column :orders, :price
+    add_column :orders, :price, :float
   end
 end
