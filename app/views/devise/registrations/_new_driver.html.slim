@@ -31,7 +31,7 @@
       .row
         .form-group.col-xs-6.floating-label-form-group.controls
           = pro.label  :car_id, 'Your car'
-          = pro.select :car_id, Car.where(year: 2013).collect { |p| [p.brand, p.id] }, {},  { class: "form-control" }
+          = pro.select :car_id, Car.where(year: 2013).collect { |p| ["#{p.brand} #{p.model} (#{p.year})", p.id] }, {},  { class: "form-control" }
 
     / [END] Nested Attributes for user Porfile
 

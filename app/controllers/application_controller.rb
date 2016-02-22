@@ -18,9 +18,9 @@ class ApplicationController < ActionController::Base
     @help = Help.new(help_params)
     if @help.save
       HelpRequestMailer.send_email(@help).deliver
-      render json: {notice: 'Your message successfully.'}
+      render json: {notice: 'Message sent successfully'}
     else
-      render json: {notice: 'Writte your message.'}
+      render json: {alert: 'Something wrong'}
     end
   end
 
