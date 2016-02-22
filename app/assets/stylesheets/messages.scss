@@ -13,6 +13,10 @@ $grey:#969696;
 	}
 }
 
+.m-box{
+  max-height: 350px;
+  overflow: auto;
+}
 .messages-user-box{
 	span.hidden-id{
 		display: none;
@@ -95,21 +99,23 @@ $grey:#969696;
 		p{
 			padding-top: 1rem;
 			font-size: 1.8rem;
+			word-wrap: break-word;
 		}
 	}
 	.message-footer{
 		border-top: 1px solid #aaa;
 		padding: 5px;
+		text-align: right;
+		font-size: 11px;
 	}
 }
 
 .msg-frm{
-	margin: 35px;	
+	margin: 0 5px 20px;
 }
 
 .messages-avatar-male, .messages-avatar-female{
 	display: inline-block;
-	// float: left;
 	height: 70px;
 	width: 70px;
 	background-size: 100% 100%;
@@ -121,4 +127,11 @@ $grey:#969696;
 }
 .messages-avatar-female {
 	background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-128.png');
+}
+.driver-color{
+	color: #333;
+	&:hover{
+		color: #f3795b;
+		text-decoration: none;
+	}
 }

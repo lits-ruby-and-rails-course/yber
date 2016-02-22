@@ -66,4 +66,8 @@ class User < ActiveRecord::Base
       where(conditions.to_hash).first
     end
   end
+
+  def opposite_roles
+    User.where(role: User.roles[rider? ? :driver : :rider])
+  end
 end

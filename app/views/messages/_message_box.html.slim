@@ -1,15 +1,13 @@
 .row.message-box
-	/ span#message-id
-	/ 	= @message.id
 	- if sender?(message.id)
 		.col-md-10
 			.row.message-head
 				.col-md-6
-					i.fa.fa-eye
-					= link_to 'Show', {controller: "messages", action: "show", id: message.id}
+					/ i.fa.fa-eye
+					/ = link_to 'Show', {controller: "messages", action: "show", id: message.id}
 				.col-md-6.padd-right
-					i.fa.fa-trash-o
-					= link_to 'Destroy', message, data: {:confirm => 'Are you sure?'}, :method => :delete
+					= link_to(message, data: {:confirm => 'Are you sure?'}, :method => :delete) do
+						i.fa.fa-trash-o
 			.message-body
 				p.interlocutor
 					span#message-text-field
@@ -24,11 +22,11 @@
 		.col-md-10
 			.row.message-head
 				.col-md-6
-					i.fa.fa-eye
-					= link_to 'Show', {controller: "messages", action: "show", id: message.id}
+					/ i.fa.fa-eye
+					/ = link_to 'Show', {controller: "messages", action: "show", id: message.id}
 				.col-md-6.padd-right.padd-right
-					i.fa.fa-trash-o
-					= link_to 'Destroy', message, data: {:confirm => 'Are you sure?'}, :method => :delete 
+					= link_to(message, data: {:confirm => 'Are you sure?'}, :method => :delete) do
+						i.fa.fa-trash-o
 			.message-body
 			  p.interlocutor
 			  	span#message-text-field

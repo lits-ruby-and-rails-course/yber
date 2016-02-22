@@ -1,3 +1,3 @@
 h2 Your Interlocutors: 
-- @users.each do |user|
+- current_user.opposite_roles.each do |user|
 	= render partial: "message_user_box", locals: { user: user }

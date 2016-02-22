@@ -4,12 +4,11 @@ button.toggle-messages.btn#pollSlider-button
 .d-messages.pollSlider
   h2 Chat
   .related-block
-    - @users.each do |user|
+    - current_user.opposite_roles.each do |user|
       .messages-box
         .messages-avatar-male
         h4 = user.name.capitalize
         = link_to "conversation", "/messages/user/#{user.id}", class:('btn-style btn message-btn')
-        / button.messages-invite-friend.btn.btn-style Invite Friend
 javascript:
   var slider_width = $('.pollSlider').width(); //get width automaticly
   $('#pollSlider-button').click(function() {

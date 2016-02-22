@@ -212,15 +212,9 @@ $grey:#969696;
 	}
 }
 .d-statistic {
-	margin-top: 40px;
-	margin-bottom: 50px;
-	#stars-dashboard {
-		display: inline-block;
-		font-size: 2.3rem;
-		margin-bottom: 0;
-		color: $intensive_orange;
-	}
-	p {
+    margin-top: 35px;
+    margin-bottom: 15px;
+	span {
 		font-size: 2rem;
 		color: #555;
 		display: inline-block;

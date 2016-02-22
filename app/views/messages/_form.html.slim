@@ -2,12 +2,8 @@
   = f.error_notification
   .form-inputs
   	.form-group
-  		/ | From:
-  		/ = current_user.name.capitalize
     = f.hidden_field :from_id, value: current_user.id
    	.form-group
-   		/ | To: 
-  		/ = find_user(user_to).name.capitalize
     = f.hidden_field :to_id, value: find_user(user_to).id
     = f.input :text, placeholder: 'New message'
 

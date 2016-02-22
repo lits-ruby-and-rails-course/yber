@@ -1,18 +1,2 @@
-/ p#notice = notice
-/ span#message-id
-/ 	= @message.id
-/ p
-/   strong From:
-/   = find_user(@message.from_id).name
-/ p
-/   strong To:
-/   = find_user(@message.to_id).name
-/ p
-/   strong Text:
-/   span#message-text-field
-/   	= @message.text
 h2 Show Message
 = render partial: "message_box", locals: { message: @message} 
-/ button#edit-message Edit
-/ '|
-/ = link_to 'Back', messages_path

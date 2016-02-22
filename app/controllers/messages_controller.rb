@@ -1,13 +1,11 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
-  before_action :set_users
   layout "dashboard.html"
 
   # search all message where we know our friend
   def user_index
     @to_id = params[:id]
-    @messages = Message.where(from_id: current_user.id, to_id: @to_id) + Message.where(to_id: current_user.id, from_id: @to_id)
-    @messages.sort_by &:created_at
+    @messages = Message.where(from_id: [current_user.id, @to_id], to_id: [current_user.id, @to_id]).order("created_at DESC").reverse
     @message = Message.new
   end
 
@@ -41,7 +39,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html { redirect_to :back, notice: 'Message was successfully created.' }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new }
@@ -79,10 +77,6 @@ class MessagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_message
       @message = Message.find(params[:id])
-    end
-
-    def set_users
-      @users = current_user.rider? ? User.where(role: User.roles[:driver]) : User.where(role: User.roles[:rider])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
