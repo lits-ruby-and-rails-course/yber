@@ -27,7 +27,4 @@
 				| incoming messages
 	.col-md-3
 		.messages-link
-			= link_to "View Conversation", {controller: "messages", action: "user_index", id: user.id}
-		hr
-		.messages-link	
-			= link_to "New Message", {controller: "messages", action: "new_message", id: user.id}
+			= link_to "My Conversation", {controller: "messages", action: "user_index", id: user.id}

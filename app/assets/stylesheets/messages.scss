@@ -46,6 +46,7 @@ $grey:#969696;
 	}
 	.messages-link{
 		text-align: center;
+		padding-top: 3rem;
 		a {
 			color: $dark_grey;
 			font-size: 1.6rem;
@@ -134,4 +135,10 @@ $grey:#969696;
 		color: #f3795b;
 		text-decoration: none;
 	}
+}
+.error-message-txta{
+	outline:red groove thin;
+	outline-radius: 5px;
+	-moz-outline-radius: 5px;
+	-webkit-outline-radius: 10px;  
 }

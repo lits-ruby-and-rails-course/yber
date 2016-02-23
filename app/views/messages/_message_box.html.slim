@@ -2,10 +2,7 @@
 	- if sender?(message.id)
 		.col-md-10
 			.row.message-head
-				.col-md-6
-					/ i.fa.fa-eye
-					/ = link_to 'Show', {controller: "messages", action: "show", id: message.id}
-				.col-md-6.padd-right
+				.col-md-offset-6.col-md-6.padd-right
 					= link_to(message, data: {:confirm => 'Are you sure?'}, :method => :delete) do
 						i.fa.fa-trash-o
 			.message-body
@@ -13,7 +10,7 @@
 					span#message-text-field
 				  	= message.text
 			.message-footer
-				= message.updated_at
+				= message.updated_at.strftime('%c')
 		.col-md-2.paper-plane
 			i.fa.fa-paper-plane
 	- else
@@ -21,10 +18,7 @@
 			i.fa.fa-paper-plane-o
 		.col-md-10
 			.row.message-head
-				.col-md-6
-					/ i.fa.fa-eye
-					/ = link_to 'Show', {controller: "messages", action: "show", id: message.id}
-				.col-md-6.padd-right.padd-right
+				.col-md-offset-6.col-md-6.padd-right.padd-right
 					= link_to(message, data: {:confirm => 'Are you sure?'}, :method => :delete) do
 						i.fa.fa-trash-o
 			.message-body
@@ -32,4 +26,4 @@
 			  	span#message-text-field
 			    	= message.text
 			.message-footer
-				= message.updated_at
+				= message.updated_at.strftime('%c')

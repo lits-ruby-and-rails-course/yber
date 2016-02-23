@@ -22,4 +22,18 @@ $(document).on('ready page:load', function (){
 	    });
 		});
 	});
+
+	$("#cr_message").on('click', function(){
+		var textarea = $(this).parent().parent().find('textarea'),
+				text = textarea.val();
+		if (text == ""){
+			show_message('ERROR: empty',"allert");
+			return false;
+		} else if(text.length < 5){
+			show_message('ERROR: too small',"allert");
+			return false;
+		}
+	});
+
+	$(".m-box").animate({ scrollTop: ($(".message-box").height() * $(".message-box").length) });
 });
