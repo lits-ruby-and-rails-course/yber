@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160211161134) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
@@ -24,11 +27,11 @@ ActiveRecord::Schema.define(version: 20160211161134) do
     t.datetime "updated_at"
   end
 
-  add_index "active_admin_comments", ["author_id", "author_type"], name: "index_active_admin_comments_on_author_id_and_author_type"
-  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_id", "resource_type"], name: "index_active_admin_comments_on_resource_id_and_resource_type"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  add_index "active_admin_comments", ["author_id", "author_type"], name: "index_active_admin_comments_on_author_id_and_author_type", using: :btree
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_id", "resource_type"], name: "index_active_admin_comments_on_resource_id_and_resource_type", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "cars", force: :cascade do |t|
     t.integer "year"
@@ -36,7 +39,7 @@ ActiveRecord::Schema.define(version: 20160211161134) do
     t.string  "model"
   end
 
-  add_index "cars", ["year", "brand", "model"], name: "index_cars_on_year_and_brand_and_model", unique: true
+  add_index "cars", ["year", "brand", "model"], name: "index_cars_on_year_and_brand_and_model", unique: true, using: :btree
 
   create_table "helps", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -71,8 +74,8 @@ ActiveRecord::Schema.define(version: 20160211161134) do
     t.decimal  "mto_lng"
   end
 
-  add_index "orders", ["driver_id"], name: "index_orders_on_driver_id"
-  add_index "orders", ["rider_id"], name: "index_orders_on_rider_id"
+  add_index "orders", ["driver_id"], name: "index_orders_on_driver_id", using: :btree
+  add_index "orders", ["rider_id"], name: "index_orders_on_rider_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
     t.string   "city"
@@ -85,8 +88,8 @@ ActiveRecord::Schema.define(version: 20160211161134) do
     t.integer  "rating"
   end
 
-  add_index "profiles", ["car_id"], name: "index_profiles_on_car_id"
-  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
+  add_index "profiles", ["car_id"], name: "index_profiles_on_car_id", using: :btree
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "reviews", force: :cascade do |t|
     t.integer  "rider_id"
@@ -99,9 +102,9 @@ ActiveRecord::Schema.define(version: 20160211161134) do
     t.integer  "order_id"
   end
 
-  add_index "reviews", ["driver_id"], name: "index_reviews_on_driver_id"
-  add_index "reviews", ["order_id"], name: "index_reviews_on_order_id"
-  add_index "reviews", ["rider_id"], name: "index_reviews_on_rider_id"
+  add_index "reviews", ["driver_id"], name: "index_reviews_on_driver_id", using: :btree
+  add_index "reviews", ["order_id"], name: "index_reviews_on_order_id", using: :btree
+  add_index "reviews", ["rider_id"], name: "index_reviews_on_rider_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -133,11 +136,11 @@ ActiveRecord::Schema.define(version: 20160211161134) do
     t.boolean  "terms"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
-  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count"
-  add_index "users", ["invited_by_id", "invited_by_type"], name: "index_users_on_invited_by_id_and_invited_by_type"
-  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id"
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
+  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
+  add_index "users", ["invited_by_id", "invited_by_type"], name: "index_users_on_invited_by_id_and_invited_by_type", using: :btree
+  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
