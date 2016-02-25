@@ -13,9 +13,11 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sprockets-rails'
+gem 'rails_12factor', group: :poduction
 
 group :development, :test do
   gem 'byebug'
+  gem 'sqlite3'
 end
 group :development do
   gem 'quiet_assets'
