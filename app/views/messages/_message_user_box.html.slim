@@ -1,0 +1,30 @@
+.row.messages-user-box.m-box
+	.col-md-2
+		span.hidden-id
+			= user.id
+		span.messages-avatar-male
+	.col-md-3
+		h3
+			= link_to user.name.capitalize , {controller: "profiles", action: "show", id: user.id}
+	.col-md-4
+		.messages-send-info
+			i.fa.fa-envelope
+			span
+				= count_messages(user.id)
+			span
+				| all messages
+		.messages-send-info
+			i.fa.fa-paper-plane
+			span
+				= count_sent_messages(user.id)
+			span
+				| sent messages
+		.messages-send-info
+			i.fa.fa-paper-plane-o
+			span
+				= count_incoming_messages(user.id)
+			span
+				| incoming messages
+	.col-md-3
+		.messages-link
+			= link_to "My Conversation", {controller: "messages", action: "user_index", id: user.id}

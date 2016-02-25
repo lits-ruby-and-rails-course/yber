@@ -1,25 +1,36 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
+  layout "dashboard.html"
 
-  # GET /messages
-  # GET /messages.json
-  def index
-    @messages = Message.all
+  # search all message where we know our friend
+  def user_index
+    @to_id = params[:id]
+    @messages = Message.where(from_id: [current_user.id, @to_id], to_id: [current_user.id, @to_id]).order("created_at DESC").reverse
+    @message = Message.new
   end
 
-  # GET /messages/1
-  # GET /messages/1.json
   def show
+    @messages = Message.where(from_id: current_user.id, to_id: @to_id)
   end
 
-  # GET /messages/new
   def new
     @message = Message.new
   end
 
-  # GET /messages/1/edit
-  def edit
+  def my_users    
   end
+
+  def new_message
+    @to_id = params[:id]
+    @message = Message.new
+  end
+
+  def index
+    @messages = Message.where(from_id: current_user.id) || Message.where(to_id: current_user.id)
+  end
+
+  # def edit
+  # end
 
   # POST /messages
   # POST /messages.json
@@ -28,7 +39,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html { redirect_to :back, notice: 'Message was successfully created.' }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new }
@@ -40,12 +51,13 @@ class MessagesController < ApplicationController
   # PATCH/PUT /messages/1
   # PATCH/PUT /messages/1.json
   def update
+    #@message.update_attribute(:text, params["new_text"])
     respond_to do |format|
-      if @message.update(message_params)
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+      if @message.update_attribute(:text, params["new_text"])
+        #format.html { redirect_to @message, notice: 'Message was successfully updated.' }
         format.json { render :show, status: :ok, location: @message }
       else
-        format.html { render :edit }
+        #format.html { render :edit }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
     end
@@ -56,7 +68,7 @@ class MessagesController < ApplicationController
   def destroy
     @message.destroy
     respond_to do |format|
-      format.html { redirect_to messages_url, notice: 'Message was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Message was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

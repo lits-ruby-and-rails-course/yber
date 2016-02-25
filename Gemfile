@@ -13,6 +13,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sprockets-rails'
+gem 'rails_12factor', group: :production
 
 group :development, :test do
   gem 'byebug'

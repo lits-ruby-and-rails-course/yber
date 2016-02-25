@@ -1,0 +1,17 @@
+h1 
+  | Your chat with 
+  = link_to find_user(@messages.first.to_id).name.capitalize , {controller: "profiles", action: "show", id: find_user(@messages.first.to_id).id}, :class => "driver-color"
+hr
+.scrolling-messages.m-box
+  .col-md-12
+    - @messages.each do |message|
+      = render partial: "message_box", locals: { message: message}  
+.message-container
+  hr
+  .message-field
+    .row
+      .col-md-12
+        .hidden
+          = @messages.first.to_id
+        .msg-frm
+          = render partial: "form", locals: { user_to: @messages.first.to_id}

@@ -26,3 +26,8 @@ $(function() {
     }
   });
 });
+
+// Stop map scrolling
+$('#main-map').click(function () {
+  $('#main-map').css("pointer-events", "auto");
+});
