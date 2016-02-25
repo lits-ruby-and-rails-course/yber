@@ -20,7 +20,6 @@ group :development, :test do
   gem 'sqlite3'
 end
 group :development do
-  gem 'quiet_assets'
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
