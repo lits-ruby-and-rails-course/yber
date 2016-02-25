@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   resources :profiles
   resources :orders
   resources :reviews
-  resources :messages
-  resources :messages
 
   get 'dashboard', to: 'orders#home', as: :dashboard
   get 'dashboard/trips/new', to: 'orders#new', as: :new_trip
@@ -24,6 +22,11 @@ Rails.application.routes.draw do
   get 'take_position', to: 'orders#take_position'
   get 'find_coords', to: 'orders#find_coords'
   get 'find_place', to: 'orders#find_place'
+  
+  get 'messages/new_message/:id', to: 'messages#new_message', as: :new_mes
+  get 'messages/users/:id', to: 'messages#my_users', as: :user_messages
+  get 'messages/user/:id', to: 'messages#user_index'
+
 
   root to: 'visitors#index'
 end

@@ -1,15 +1,2 @@
-p#notice = notice
-
-p
-  strong From:
-  = @message.from_id
-p
-  strong To:
-  = @message.to_id
-p
-  strong Text:
-  = @message.text
-
-= link_to 'Edit', edit_message_path(@message)
-'|
-= link_to 'Back', messages_path
+h2 Show Message
+= render partial: "message_box", locals: { message: @message} 

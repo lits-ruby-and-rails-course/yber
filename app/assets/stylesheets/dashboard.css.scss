@@ -212,15 +212,9 @@ $grey:#969696;
 	}
 }
 .d-statistic {
-	margin-top: 40px;
-	margin-bottom: 50px;
-	#stars-dashboard {
-		display: inline-block;
-		font-size: 2.3rem;
-		margin-bottom: 0;
-		color: $intensive_orange;
-	}
-	p {
+    margin-top: 35px;
+    margin-bottom: 15px;
+	span {
 		font-size: 2rem;
 		color: #555;
 		display: inline-block;
@@ -253,7 +247,7 @@ $grey:#969696;
 	right: 5px;
 	height: 68.6%;
 	z-index: 2;
-	top: 34%;
+	bottom: 0;
 	-webkit-box-shadow: inset 1px -1px 29px 0px rgba(199,199,199,0.48);
 	-moz-box-shadow: inset 1px -1px 29px 0px rgba(199,199,199,0.48);
 	box-shadow: inset 1px -1px 29px 0px rgba(199,199,199,0.48);
@@ -268,23 +262,16 @@ $grey:#969696;
 }
 .messages-box{
 	padding: 10px;
-	margin-top:20px;
+	margin-top: 10px;
+    margin-bottom: 5px;
 	.messages-avatar-male, .messages-avatar-female{
-		float: left;
-		margin-right: 10px;
 		height: 70px;
 		width: 66px;
-		background-size: 100% 100%;
-		background-repeat: no-repeat;
-	}
-	.messages-avatar-male {
-		background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png');
-
-	}
-	.messages-avatar-female {
-		background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-128.png');
+		float: left;
+		margin-right: 10px;
 	}
 }
+
 .messages-invite-friend {
 	position: absolute;
 	bottom: 30px;

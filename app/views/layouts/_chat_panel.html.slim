@@ -3,15 +3,12 @@ button.toggle-messages.btn#pollSlider-button
   Hide
 .d-messages.pollSlider
   h2 Chat
-  .messages-box
-    .messages-avatar-male
-    h4 Andrew
-    p Hi There...
-  .messages-box
-    .messages-avatar-female
-    h4 Sheyla
-    p Hi There...
-  button.messages-invite-friend.btn.btn-style Invite Friend
+  .related-block
+    - current_user.opposite_roles.each do |user|
+      .messages-box
+        .messages-avatar-male
+        h4 = user.name.capitalize
+        = link_to "conversation", "/messages/user/#{user.id}", class:('btn-style btn message-btn')
 javascript:
   var slider_width = $('.pollSlider').width(); //get width automaticly
   $('#pollSlider-button').click(function() {
