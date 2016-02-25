@@ -143,7 +143,7 @@ hr.small {
   position: relative;
   width: 100%;
   height: 100%;
-  background: asset-url('portfolio/kyiv.jpg') no-repeat center center scroll;
+  background: asset-url('../portfolio/kyiv.jpg') no-repeat center center scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -166,7 +166,7 @@ hr.small {
     }
   }
   #lits {
-    background: url(portfolio/lits.jpg) no-repeat left scroll;
+    background: url(../portfolio/lits.jpg) no-repeat left scroll;
     height: 25rem;
     width: auto;
   }
