@@ -2,7 +2,7 @@
   .list-group
     = link_to "Home", dashboard_path, class: "list-group-item"
     = link_to "Orders(Trips)", trips_path, class: "list-group-item"
-    = link_to "Messages", "#", class: "list-group-item"
+    = link_to "Messages", "/messages/users/#{current_user.id}", class: "list-group-item"
     = link_to "My Profile", profile_path(Profile.find_by(user_id: current_user.id).id), class: "list-group-item"
 .d-sidebar-current-trip
   h3 Current Trip Information:
