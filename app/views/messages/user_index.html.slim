@@ -16,12 +16,6 @@
             = @messages.first.to_id
           .msg-frm
             = render partial: "form", locals: { user_to: @messages.first.to_id}
-    hr
-    .scrolling-messages
-      .row
-        .col-md-12
-          - @messages.each do |message|
-            = render partial: "message_box", locals: { message: message}  
 - else
   h1 
     | Your chat with 
