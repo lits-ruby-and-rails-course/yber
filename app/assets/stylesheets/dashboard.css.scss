@@ -110,7 +110,9 @@ $grey:#969696;
 	border-bottom-left-radius: 10px;
 }
 
+
 // stars
+
 .lead{
 	text-align: center;
 	font-size: 2.5rem;
@@ -142,6 +144,7 @@ $grey:#969696;
 }
 
 // reviews
+
 #confirm-edit-review {
 	width: 20rem;
 }
@@ -152,6 +155,7 @@ $grey:#969696;
 }
 
 // orders
+
 #crtord_btn {
 	display: block;
 	width: 30%;
@@ -178,6 +182,11 @@ $grey:#969696;
 .d-sidebar {
 	margin-left: -10px;
 	margin-top:30px;
+	#sidebar-current-order{
+		padding: 15px;
+		border-right: 1px solid #B5B2B2;
+		border-left: 1px solid #BDBDBD;
+	}
 	.d-sidebar-current-trip, .d-sidebar-nav {
 		text-align:justify;
 		.list-group{
@@ -189,32 +198,33 @@ $grey:#969696;
 	}
 	.d-sidebar-current-trip{
 		color: $dark-grey;
-		div{
-			padding-top: 4px;
-		}
+	  padding: 5px;
+	  div{
+	  	padding-top: 4px;
+	  }
 		.head{
-			font-weight: bold;
-		}
-		h3{
-			font-weight: bold;
-		}
-		#sidebar-empty-current-order{
-			color: $orange;
-			text-align: center;
-			padding-top: 1.2rem;
-		}
-		#sidebar-current-order{
-			padding: 15px;
-			margin-top: 1.6rem;
-			border: 1px solid #eee;
-			border-radius: 5px;
-		}
+	  	font-weight: bold;
+	  }
+	  h3{
+	  	font-weight: bold;
+	  }
+	  #sidebar-empty-current-order{
+	  	color: $orange;
+	  	text-align: center;
+	  	padding-top: 1.2rem;
+	  }
 	}
 }
 .d-statistic {
-    margin-top: 35px;
-    margin-bottom: 15px;
-	span {
+	margin-top: 40px;
+	margin-bottom: 50px;
+	#stars-dashboard {
+		display: inline-block;
+		font-size: 2.3rem;
+		margin-bottom: 0;
+		color: $intensive_orange;
+	}
+	p {
 		font-size: 2rem;
 		color: #555;
 		display: inline-block;
@@ -247,7 +257,7 @@ $grey:#969696;
 	right: 5px;
 	height: 68.6%;
 	z-index: 2;
-	bottom: 0;
+	top: 34%;
 	-webkit-box-shadow: inset 1px -1px 29px 0px rgba(199,199,199,0.48);
 	-moz-box-shadow: inset 1px -1px 29px 0px rgba(199,199,199,0.48);
 	box-shadow: inset 1px -1px 29px 0px rgba(199,199,199,0.48);
@@ -262,16 +272,23 @@ $grey:#969696;
 }
 .messages-box{
 	padding: 10px;
-	margin-top: 10px;
-    margin-bottom: 5px;
+	margin-top:20px;
 	.messages-avatar-male, .messages-avatar-female{
-		height: 70px;
-		width: 66px;
 		float: left;
 		margin-right: 10px;
+		height: 70px;
+		width: 66px;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+	}
+	.messages-avatar-male {
+		background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png');
+
+	}
+	.messages-avatar-female {
+		background-image: url('https://cdn1.iconfinder.com/data/icons/user-pictures/100/female1-128.png');
 	}
 }
-
 .messages-invite-friend {
 	position: absolute;
 	bottom: 30px;
@@ -479,7 +496,7 @@ button.list-group-item:focus {
 		color: #666;
 	}
 }
-.warn-tittle-box, .show-order-title{
+.warn-tittle-box, .show-order-title>div{
 	text-align: center;
 	border-bottom: 1px solid $grey;
 	border-top: 1px solid $grey;

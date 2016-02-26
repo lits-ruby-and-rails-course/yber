@@ -5,7 +5,7 @@
 		span.messages-avatar-male
 	.col-md-3
 		h3
-			= link_to user.name.capitalize , {controller: "profiles", action: "show", id: user.id}
+			= link_to user.name.capitalize , {controller: "profiles", action: "show", id: user.profile.id}
 	.col-md-4
 		.messages-send-info
 			i.fa.fa-envelope
